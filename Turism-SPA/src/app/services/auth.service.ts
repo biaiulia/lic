@@ -21,4 +21,11 @@ login(model: any){
   );
 // luam de la server observable ul si il transformam
 }
+
+register(model: any) { // model doar salveaza username ul si parola ca sa le paseze
+  return this.http.post(this.baseUrl + 'register', model); // returneaza un
+  // observable. trebe sa facem subscribe din componenta ca sa o putem folosi
+
+}
+
 }

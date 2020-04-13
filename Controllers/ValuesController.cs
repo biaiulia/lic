@@ -10,7 +10,7 @@ using turism.Data;
 namespace turism.API.Controllers //era in 2.8 .net, luat de acolo
 {
     //localhostL5000/api/values 
-    [Authorize] 
+    
     [Route("api/[controller]")] //unde sa rutam, controller e placeholder pt ValuesController
     [ApiController] // valideaza automat requesturi
     public class ValuesController : ControllerBase // exista alternativa, de ex clasa Controller. Nu are ViewSuport ControllerBase, o sa avem View ul din Angular
@@ -23,6 +23,7 @@ namespace turism.API.Controllers //era in 2.8 .net, luat de acolo
 
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         //public ActionResult<IEnumerable<string>> Get() - aici returna doar stringuri
         public async Task<IActionResult> GetValues() //sa afisam pt requesturi http
@@ -33,7 +34,7 @@ namespace turism.API.Controllers //era in 2.8 .net, luat de acolo
             
         }
 
-        // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id) 
         {
