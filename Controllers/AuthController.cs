@@ -30,6 +30,7 @@ namespace turism.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister) // trebuie sa cream un Dto sau in data transfer object ca sa putem trimite aici datele
         {
+            
             // validam requestul
 
             userForRegister.Username = userForRegister.Username.ToLower(); //consistenta in baza de date sa nu fie scrise mari
@@ -51,6 +52,8 @@ namespace turism.Controllers
         [HttpPostAttribute("Login")]
         public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
+            
+
             var userFromRep = await rep.Login(userForLogin.Username.ToLower(), userForLogin.Password); // verificam daca avem userul si folosim Dto ul si il transformam in tolower
 
             if (userFromRep == null)
