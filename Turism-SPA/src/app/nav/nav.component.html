@@ -4,20 +4,18 @@
   <a class="navbar-brand" href="#">Turism</a>
  
 
-  <div class="container" *ngIf="loggedIn()">
+  <div class="container">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Orașe</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/cities']">Orașe</a>
       </li>
-      <li class="nav-item">
+    <!--  <li class="nav-item">
         <a class="nav-link" href="#">Locuri</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Mesaje</a>
-      </li>
-   <!--  <li class="nav-item">
-        <a class="nav-link" (click)="logout()">Logout</a>
       </li> -->
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active">Mesaje</a>
+      </li>
+
     </ul>
 </div>
 
@@ -37,6 +35,5 @@
       <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password">
       <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
- </div>
-
+</div>
   </nav>
