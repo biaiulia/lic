@@ -1,0 +1,57 @@
+[
+    {
+      "Username": "Selena",
+      "Password": "password",
+      "Joined": "2019-04-18",
+      "BirthDate": "1959-04-01",
+      "LastName": "Selena",
+      "FirstName": "Selena",
+      "Points": 0,
+      "Country": "El Salvador",
+      "City": "Garfield"
+    },
+    {
+      "Username": "Dominique",
+      "Password": "password",
+      "Joined": "2019-02-19",
+      "BirthDate": "1953-04-22",
+      "LastName": "Dominique",
+      "FirstName": "Dominique",
+      "Points": 0,
+      "Country": "Zimbabwe",
+      "City": "Dupuyer"
+    },
+    {
+      "Username": "Gretchen",
+      "Password": "password",
+      "Joined": "2019-07-10",
+      "BirthDate": "1959-11-26",
+      "LastName": "Gretchen",
+      "FirstName": "Gretchen",
+      "Points": 0,
+      "Country": "Tonga",
+      "City": "Independence"
+    },
+    {
+      "Username": "Ora",
+      "Password": "password",
+      "Joined": "2019-03-23",
+      "BirthDate": "1985-11-12",
+      "LastName": "Ora",
+      "FirstName": "Ora",
+      "Points": 0,
+      "Country": "France, Metropolitan",
+      "City": "Wakarusa"
+    },
+    {
+      "Username": "Kaitlin",
+      "Password": "password",
+      "Joined": "2019-03-12",
+      "BirthDate": "1982-10-01",
+      "LastName": "Kaitlin",
+      "FirstName": "Kaitlin",
+      "Points": 0,
+      "Country": "Cocos (Keeling Islands)",
+      "City": "Vale"
+    }
+  ]

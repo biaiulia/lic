@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -34,11 +35,13 @@ namespace turism
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) //container de dependency injection
         {
+            services.AddAutoMapper(typeof(TurismRep).Assembly);
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));//prin injectare conectam
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors(); //adauga serviciul cors ca sa il facem available ca middleware prin injection
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ITurismRep, TurismRep>(); // de ce aducem repository urile????
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options => { options.TokenValidationParameters = new TokenValidationParameters{
                     ValidateIssuerSigningKey = true,
