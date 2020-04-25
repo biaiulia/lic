@@ -1,6 +1,7 @@
 
 
 using System;
+using System.Collections.Generic;
 
 namespace turism.Models
 {
@@ -30,5 +31,8 @@ namespace turism.Models
         public string City { get; set; }
 
         public string ImgUrl { get; set; }
+
+        public ICollection<Post> Posts {get; set;}
+
     }
 }

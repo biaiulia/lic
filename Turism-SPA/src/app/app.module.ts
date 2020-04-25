@@ -15,18 +15,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CitiesComponent } from './cities/cities.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
-import { PostslistComponent } from './postslist/postslist.component';
+import { CityListComponent } from './cityList/cityList.component';
+import { PostListComponent } from './postList/postList.component';
 
 
 @NgModule({
-   declarations: [ // componentele proiectului
+   declarations: [
+      //componenteleproiectului\\n
       AppComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
       CitiesComponent,
       MessagesComponent,
-      PostslistComponent
+      CityListComponent,
+      PostListComponent
    ],
    imports: [
       BrowserModule,
@@ -36,8 +39,8 @@ import { PostslistComponent } from './postslist/postslist.component';
       BrowserAnimationsModule,
       RouterModule.forRoot(appRoutes)
    ],
-   providers: [ // servicii
-    
+   providers: [
+      //servicii\\n\\n
       AuthService,
       ErrorInterceptorProvidor
    ],

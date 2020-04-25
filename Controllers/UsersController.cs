@@ -29,7 +29,7 @@ namespace turism.Controllers
             var userReturn = mapper.Map<IEnumerable<UserForList>>(users); // de ce si enumerable
             return Ok(users);
         }
-        [HttpGet("{id}")] // ?????????
+        [HttpGet("{id}")] // ????????? luam id-ul 
         public async Task<IActionResult> GetUser(int id){
             var user = await rep.GetUser(id);
             var userReturn = mapper.Map<UserForList>(user);

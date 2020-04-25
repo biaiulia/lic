@@ -36,4 +36,8 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  register() {
+    this.authService.registerMode.next(true);
+  }
+
 }

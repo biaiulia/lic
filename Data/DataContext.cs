@@ -13,6 +13,8 @@ namespace turism.Data
         
         public DbSet<User> Users { get; set; }
 
+        public DbSet<City> City {get; set;}
+
         
     }
 }
