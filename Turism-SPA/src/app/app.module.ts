@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,21 +16,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CitiesComponent } from './cities/cities.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
-import { CityListComponent } from './cityList/cityList.component';
 import { PostListComponent } from './postList/postList.component';
+import { SanitizeUrlPipe } from './pipes/sanitizeUrl/sanitizeUrl.pipe';
+import { CityDetailComponent } from './city-detail/city-detail.component';
 
 
+
+export function tokenGetter(){
+   return localStorage.getItem('token');
+}
 @NgModule({
    declarations: [
-      //componenteleproiectului\\n
+      //componenteleproiectului\\\\n\n
       AppComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
       CitiesComponent,
       MessagesComponent,
-      CityListComponent,
-      PostListComponent
+      PostListComponent,
+      SanitizeUrlPipe,
+      CityDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -37,8 +44,14 @@ import { PostListComponent } from './postList/postList.component';
       FormsModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
-      RouterModule.forRoot(appRoutes)
-   ],
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({config:{
+         tokenGetter: tokenGetter,
+         whitelistedDomains: ['localhost:5000'],
+          blacklistedRoutes: ['localhost:5000/api/auth']
+      }
+})]
+   ,
    providers: [
       //servicii\\n\\n
       AuthService,

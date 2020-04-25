@@ -1,7 +1,24 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-2 col-md-3 col-sm-6">
+<!--
       <p *ngFor="let city of cities"> {{city.name}}</p>
     </div>
 
+  </div>
+-->
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let city of cities" class="col-lg-2 col-md-3 col-sm-6">
+
+      <div class="card mb-4" [routerLink]="['/cities/', city.id]" >
+        <div class="card-img-wrapper">
+          <img class="card-img-top" [src]="city.url | sanitizeUrl : 'url'" [alt]="city.name">
+
+        </div>
+        <div class="card-body p-1">
+          <h5 class="card-title text-center mb-1"><i class="fas fa-city"></i>
+            {{city.name}}</h5>
+          <!--<p class="card-text text-muted text-center>{{" -->
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

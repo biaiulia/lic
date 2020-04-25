@@ -11,24 +11,16 @@ import {
 import {
   AlertifyService
 } from '../services/alertify.service';
+
+
 @Component({
   selector: 'app-cities',
   templateUrl: './cities.component.html',
   styleUrls: ['./cities.component.css']
 })
+
 export class CitiesComponent implements OnInit {
-  //   cities: City[];
 
-  //   constructor(private cityService: CityService, private alertify: AlertifyService){}
-
-  //   ngOnInit() {
-  //   }
-
-  //   loadCities(){
-  //     this.cityService.getCities();
-  //   }
-
-  // }
   cities: City[];
 
   constructor(private cityService: CityService, private alertify: AlertifyService) {}

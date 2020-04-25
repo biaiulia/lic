@@ -13,6 +13,11 @@ import {
 import {
   environment
 } from 'src/environments/environment';
+import {
+  map
+} from 'rxjs/operators';
+
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Injectable({
@@ -27,9 +32,22 @@ export class CityService {
 
   getCities(): Observable < City[] > {
     return this.http.get < City[] > (this.baseUrl + 'cities');
+    //.pipe(map(this.mapCities)); // map de aici e diferit de .map la array
   }
-  getCity(id): Observable < City[] > {
-    return this.http.get < City[] > (this.baseUrl + 'cities/' + id);
+  getCity(id): Observable < City > {
+    return this.http.get < City > (this.baseUrl + 'cities/' + id);
+  }
+
+  mapCities = (cities): City[] => {
+    return cities.map((city): City => {
+      return {
+        id: city.id,
+        name: city.name,
+        description: city.description,
+        posts: city.posts,
+        url: city.url
+      }
+    })
   }
 }
 
