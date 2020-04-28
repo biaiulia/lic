@@ -9,6 +9,8 @@ namespace turism.Models
         public Post Post {get;set;} // pt cascade delete
         public int PostId { get; set; }
 
+        public string PublicId {get;set;}
+
 
     }
 }

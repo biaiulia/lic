@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { AlertifyService } from './services/alertify.service';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,9 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CitiesComponent } from './cities/cities.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
-import { PostListComponent } from './postList/postList.component';
 import { SanitizeUrlPipe } from './pipes/sanitizeUrl/sanitizeUrl.pipe';
 import { CityDetailComponent } from './city-detail/city-detail.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 
@@ -27,16 +29,15 @@ export function tokenGetter(){
 }
 @NgModule({
    declarations: [
-      //componenteleproiectului\\\\n\n
       AppComponent,
       NavComponent,
       HomeComponent,
       RegisterComponent,
       CitiesComponent,
       MessagesComponent,
-      PostListComponent,
       SanitizeUrlPipe,
-      CityDetailComponent
+      CityDetailComponent,
+      PostsComponent
    ],
    imports: [
       BrowserModule,
@@ -45,6 +46,7 @@ export function tokenGetter(){
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,
       RouterModule.forRoot(appRoutes),
+      NgxGalleryModule,
       JwtModule.forRoot({config:{
          tokenGetter: tokenGetter,
          whitelistedDomains: ['localhost:5000'],
@@ -53,9 +55,10 @@ export function tokenGetter(){
 })]
    ,
    providers: [
-      //servicii\\n\\n
       AuthService,
-      ErrorInterceptorProvidor
+      ErrorInterceptorProvidor,
+      AlertifyService,
+     // PostDetailResolver
    ],
    bootstrap: [
       AppComponent

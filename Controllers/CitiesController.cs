@@ -22,10 +22,9 @@ namespace turism.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCities()
         {
-            var cities = await context.City.ToListAsync();
+            var cities = await context.City.Include(c=>c.Posts).ToListAsync();
 
-            return Ok(cities);
-        }
+            return Ok(cities);      }
 
         [HttpGet("{id}")]
 

@@ -1,6 +1,6 @@
 <div>
 <img [src]="city?.url" class="img-fluid" alt="Responsive image" style="width:100%; height:300px">
-<div class="bottom-left">{{city.name}}
+<div class="bottom-left">{{city?.name}}
 </div>
 </div>
 
@@ -26,3 +26,6 @@
       <div class="col-sm-8"></div>
     </div>
   </div>
+
+  <app-posts *ngFor="let post of posts" [post]="post">
+  </app-posts>

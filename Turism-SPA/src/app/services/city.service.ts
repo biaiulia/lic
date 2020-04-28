@@ -26,6 +26,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class CityService {
 
   baseUrl = environment.apiUrl;
+  
 
   //cities: City[];
   constructor(private http: HttpClient) {}
@@ -38,17 +39,7 @@ export class CityService {
     return this.http.get < City > (this.baseUrl + 'cities/' + id);
   }
 
-  mapCities = (cities): City[] => {
-    return cities.map((city): City => {
-      return {
-        id: city.id,
-        name: city.name,
-        description: city.description,
-        posts: city.posts,
-        url: city.url
-      }
-    })
-  }
+
 }
 
 

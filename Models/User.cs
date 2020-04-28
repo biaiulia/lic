@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace turism.Models
 {
@@ -32,6 +33,7 @@ namespace turism.Models
 
         public string ImgUrl { get; set; }
 
+        [JsonIgnore]
         public ICollection<Post> Posts {get; set;}
 
     }

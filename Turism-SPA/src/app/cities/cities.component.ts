@@ -22,11 +22,13 @@ import {
 export class CitiesComponent implements OnInit {
 
   cities: City[];
+  // posts: Post[];
 
   constructor(private cityService: CityService, private alertify: AlertifyService) {}
 
   ngOnInit() {
-    this.loadCities();
+  this.loadCities();
+    //this.loadPosts();
   }
   loadCities() {
     this.cityService.getCities().subscribe((cities: City[]) => {
@@ -35,4 +37,13 @@ export class CitiesComponent implements OnInit {
       this.alertify.error(error);
     });
   }
+
+//   loadPosts(){
+//     this.postService.getPosts().subscribe((posts: Post[])=>
+//     {
+//       this.posts = posts;
+//     }, error => {
+//       this.alertify.error(error);
+//     });
+//   }
 }

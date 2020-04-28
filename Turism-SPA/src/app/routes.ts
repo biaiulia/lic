@@ -9,5 +9,5 @@ export const appRoutes: Routes = [
     { path: 'messages', component: MessagesComponent},
     { path: 'cities', component: CitiesComponent },
     { path: 'cities/:id', component: CityDetailComponent},
-    { path: '**', redirectTo: 'home', pathMatch: 'full'},
+    { path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];

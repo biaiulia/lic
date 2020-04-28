@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using turism.Data;
 using turism.Helpers;
 
@@ -28,7 +29,9 @@ namespace turism
         public Startup(IConfiguration configuration) //injectie de configuratie
         {
             Configuration = configuration;
+            
         }
+        
 
         public IConfiguration Configuration { get; }
 
@@ -38,7 +41,12 @@ namespace turism
             services.AddAutoMapper(typeof(TurismRep).Assembly);
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));//prin injectare conectam
             services.AddControllers().AddNewtonsoftJson();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // luam setarile din fisier
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            // services.AddMvc().AddJsonOptions(
+            //     options => options.SerializerSettings.ReferenceLoopHandling =            
+            //     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    
             services.AddCors(); //adauga serviciul cors ca sa il facem available ca middleware prin injection
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITurismRep, TurismRep>(); // de ce aducem repository urile????
@@ -75,8 +83,11 @@ namespace turism
                    });
                    // metoda extensie
                }); // adauga middleware in pipeline si log la exceptii
-
-            //app.UseHttpsRedirection();
+//         JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+//         Formatting = Newtonsoft.Json.Formatting.Indented,
+//          ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+// };
+//             //app.UseHttpsRedirection();
 
             app.UseRouting(); //middleware
 

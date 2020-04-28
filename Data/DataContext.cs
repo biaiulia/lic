@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using turism.Controllers.Models;
 using turism.Models;
@@ -15,6 +17,11 @@ namespace turism.Data
 
         public DbSet<City> City {get; set;}
 
-        
+        public DbSet<Post> Post { get; set;}
+
+        internal Task Where(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

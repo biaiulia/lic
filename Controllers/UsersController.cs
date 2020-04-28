@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -35,5 +36,22 @@ namespace turism.Controllers
             var userReturn = mapper.Map<UserForList>(user);
             return Ok(userReturn);
         }
-    }
+    
+  /*  [HttpPut("{id}")]
+   public async Task<IActionResult> UpdateUser(int id, UserForUpdate userForUpdate)
+    {
+        if ( id!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+        return Unauthorized();
+
+        var userFromRep = await rep.GetUser(id);
+
+        mapper.Map(userForUpdate, userFromRep);
+
+        if(await rep.SaveAll())
+            return NoContent();
+
+
+    throw new System.Exception($"Updatarea userului {id} nu s-a reusit");
+    }*/
+}
 }
