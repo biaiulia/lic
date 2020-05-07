@@ -23,10 +23,10 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(cityId): Observable < Post[] > { // 
+  getPosts(cityId): Observable < Post[] > { 
     return this.http.get < Post[] > (`${this.baseUrl}cities/${cityId}/posts`);
   }
   getPost(id): Observable < Post > {
-    return this.http.get < Post > (this.baseUrl + 'post/' + id);
+    return this.http.get < Post > (`${this.baseUrl}/posts/${id}`);
   }
 }

@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace turism.DataTransferObjects
 {
-    public class UserForRegister
-    {
+        public class UserForRegister
+        {
         [Required]
         public string Username { get; set; }
 

@@ -10,10 +10,11 @@ using System;
 
 namespace turism.Controllers
 {
-    [Route("api/cities/{cityId}/posts")]
+    
     [ApiController]
     public class PostsController: ControllerBase
     {
+
         
         private readonly DataContext context;
         public Post posts {get;set;}
@@ -23,13 +24,13 @@ namespace turism.Controllers
             this.context = context;
         
         }
+        [Route("api/cities/{cityId}/posts")]
         [HttpGet]
         public async Task<IActionResult> GetPosts(int cityId)
         {
         //    var posts = await context.Post.Include(p => p.City).FirstOrDefaultAsync(m=>m.CityId==cityId);
             var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
-            Console.WriteLine("ff");
-         
+
          //var posts = await context.Post.ToListAsync();
         
             return Ok(posts);
@@ -60,12 +61,14 @@ namespace turism.Controllers
            
         
     
-
+        [Route("api/posts/{id}")]
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
-            var post = await context.Post.FirstOrDefaultAsync(x=>x.Id==id);
-            Console.WriteLine("id");
+             var post = await context.Post.FirstOrDefaultAsync(x=>x.Id==id);
+            // var posts = await context.Post.Include(v => v.City).Where(m=>m.Id==cityId).FirstOrDefaultAsync(x=>x.Id=id);
+            // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
+         
             return Ok(post);
         }
 

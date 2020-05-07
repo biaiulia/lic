@@ -6,5 +6,6 @@ export interface City {
     name: string;
     description: string;
     url: string | SafeUrl;
+    nameClean: string;
     posts: Post[];
 }

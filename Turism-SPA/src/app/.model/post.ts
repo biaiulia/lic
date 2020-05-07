@@ -5,5 +5,6 @@ export interface Post {
     postText: string;
     dateAdded: Date;
     photos?: Photo[];
+    cityId: number;
 
 }

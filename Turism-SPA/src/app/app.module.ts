@@ -5,6 +5,7 @@ import { BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule} from '@kolkov/ngx-gallery';
+//import { NgxGalleryModule } from 'ngx-gallery';
 import { AlertifyService } from './services/alertify.service';
 
 import { AppComponent } from './app.component';
@@ -19,8 +20,12 @@ import { CitiesComponent } from './cities/cities.component';
 import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
 import { SanitizeUrlPipe } from './pipes/sanitizeUrl/sanitizeUrl.pipe';
-import { CityDetailComponent } from './city-detail/city-detail.component';
+import { CityDetailComponent } from './cities/city-detail/city-detail.component';
 import { PostsComponent } from './posts/posts.component';
+import { PostDetailComponent } from './posts/post-detail/post-detail.component';
+import { PostDetailResolver } from './.resolver/post-detail.resolver';
+import { CityDetailResolver} from './.resolver/city-detail.resolver';
+import { PostsResolver} from './.resolver/posts.resolver'; // astea nu merg nuj dc
 
 
 
@@ -37,7 +42,8 @@ export function tokenGetter(){
       MessagesComponent,
       SanitizeUrlPipe,
       CityDetailComponent,
-      PostsComponent
+      PostsComponent,
+      PostDetailComponent
    ],
    imports: [
       BrowserModule,
@@ -58,7 +64,9 @@ export function tokenGetter(){
       AuthService,
       ErrorInterceptorProvidor,
       AlertifyService,
-     // PostDetailResolver
+      //PostDetailResolver,
+      CityDetailResolver,
+      PostsResolver
    ],
    bootstrap: [
       AppComponent

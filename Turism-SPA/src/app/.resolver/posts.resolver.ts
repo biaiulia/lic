@@ -8,17 +8,17 @@ import {catchError} from 'rxjs/operators/catchError';
 
 @Injectable()
 
-export class PostDetailResolver implements Resolve<Post>{
-    post: Post;
+export class PostsResolver implements Resolve<Post>{
     constructor(private postService: PostService, private router: Router, private alertify: AlertifyService){}
 
 
     resolve(route: ActivatedRouteSnapshot): Observable<Post>{
-        return this.postService.getPost(route.params['id']) // subscrie automat NU IA ID CI CITY ID
+        debugger;
+        return this.postService.getPosts(route.params['id']) // subscrie automat NU IA ID CI CITY ID
          .pipe(
              catchError(error => {
                 this.alertify.error('Nu se pot lua datele');
-                this.router.navigate(['/cities/', route.params['name']]); 
+                this.router.navigate(['/cities']); 
                 return of(null); // returneaza observable de null
             })
          );

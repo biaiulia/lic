@@ -50,3 +50,4 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token); // daca e expirat arata false si daca nu e arata true
   }
 }
+  

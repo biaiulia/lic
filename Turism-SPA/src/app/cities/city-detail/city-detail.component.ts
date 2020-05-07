@@ -4,18 +4,18 @@ import {
 } from '@angular/core';
 import {
   City
-} from '../.model/city';
+} from '../../.model/city';
 import {
   CityService
-} from '../services/city.service';
+} from '../../services/city.service';
 import {
   AlertifyService
-} from '../services/alertify.service';
+} from '../../services/alertify.service';
 import {
   ActivatedRoute
 } from '@angular/router';
-import {Post} from '../.model/post';
-import {PostService} from '../services/post.service';
+import {Post} from '../../.model/post';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-city-detail',
@@ -34,24 +34,27 @@ export class CityDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.route.data.subscribe(data=>{
+    //   this.city = data['city']
+    // })
     this.loadCity();
   }
 
   loadCity() {
-    this.cityService.getCity(+this.route.snapshot.params['id']).subscribe((city: City) => { // ce plm face asta??????
+    const cityName = this.route.snapshot.params['name'];
+    this.cityService.getCity(cityName).subscribe((city: City) => { // ce plm face asta?????? 
       this.city = city;
-      this.postsService.getPosts(city.id).subscribe((posts: Post[]) => {
-        debugger;
+      this.postsService.getPosts(this.city.id).subscribe((posts: Post[]) => {
         this.posts = posts instanceof Array ? posts : [posts];
       }, (error) => {
         this.alertify.error(error);
       });
     });
 
-
-    // punem + in fata ca sa returnam in loc de string id number id
   }
-}
+
+  }
+
 
 
 

@@ -35,8 +35,8 @@ export class CityService {
     return this.http.get < City[] > (this.baseUrl + 'cities');
     //.pipe(map(this.mapCities)); // map de aici e diferit de .map la array
   }
-  getCity(id): Observable < City > {
-    return this.http.get < City > (this.baseUrl + 'cities/' + id);
+  getCity(name): Observable < City > {
+    return this.http.get < City > (this.baseUrl + name);
   }
 
 

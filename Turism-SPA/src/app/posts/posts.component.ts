@@ -13,6 +13,6 @@ export class PostsComponent implements OnInit {
   constructor(private postService: PostService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-    console.log(this.post);
+   
   }
 }
