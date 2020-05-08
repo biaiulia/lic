@@ -18,7 +18,7 @@ export class PostDetailResolver implements Resolve<Post>{
          .pipe(
              catchError(error => {
                 this.alertify.error('Nu se pot lua datele');
-                this.router.navigate(['/cities/', route.params['name']]); 
+                this.router.navigate([route.params['name']]); 
                 return of(null); // returneaza observable de null
             })
          );

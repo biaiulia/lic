@@ -26,7 +26,7 @@ namespace turism.Controllers
         {
             var cities = await context.City.Include(c=>c.Posts).ToListAsync();
 
-            return Ok(cities);      }
+            return Ok(cities);   }
 
        
       

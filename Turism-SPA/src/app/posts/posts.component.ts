@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Post } from '../.model/post';
 import { PostService } from '../services/post.service';
 import { AlertifyService } from '../services/alertify.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -10,9 +11,14 @@ import { AlertifyService } from '../services/alertify.service';
 })
 export class PostsComponent implements OnInit {
   @Input() post: Post;
-  constructor(private postService: PostService, private alertify: AlertifyService) { }
+  constructor(private postService: PostService, private alertify: AlertifyService , private route: ActivatedRoute) {
+   
+   }
 
   ngOnInit() {
-   
   }
+  // clickMe(){
+    // this.postService.sendClickEvent();
+  
+  
 }

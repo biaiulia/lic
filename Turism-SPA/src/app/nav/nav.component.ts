@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
    }, error => {
      this.alertify.error(error);
    },() => { // trebe stearsa dupa
-     this.router.navigate(['/orase']);
+     this.router.navigate(['/home']);
   }); // ceeee?
   }
    loggedIn(){

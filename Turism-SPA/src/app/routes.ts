@@ -19,6 +19,9 @@ import {
 import {
   PostDetailResolver
 } from './.resolver/post-detail.resolver';
+import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
+import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
+import { UnsavedChanges } from './.guard/unsaved-changes.guard';
 
 export const appRoutes: Routes = [{
     path: 'home',
@@ -33,11 +36,16 @@ export const appRoutes: Routes = [{
     component: CitiesComponent
   },
   {
+    path: 'user/edit',
+    component: ProfileEditComponent, resolve: {user: ProfileEditResolver}, canDeactivate: [UnsavedChanges]
+  },
+  {
     path: ':name',
     component: CityDetailComponent,
-    children: [{
+    children: [
+      {
       path: ':id',
-      component: PostDetailComponent// , resolve: {post: PostDetailResolver}
+      component: PostDetailComponent // , resolve: {post: PostDetailResolver}
     }]
   }, {
     path: '**',

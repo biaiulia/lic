@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 import {Post} from '../../.model/post';
 import {PostService} from '../../services/post.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-city-detail',
@@ -25,12 +26,15 @@ import {PostService} from '../../services/post.service';
 export class CityDetailComponent implements OnInit {
   city: City;
   posts: Post[];
+  detailMode: false;
+  clickEventSubscription: Subscription;
 
   constructor(private cityService: CityService,
               private alertify: AlertifyService, private route: ActivatedRoute, // qctivqted route stie linku pe care esti
               private postsService: PostService) //importam activated
   // route ca sa avem  acces la oras, gen din /cities/3 de ex
   {
+  //  
   }
 
   ngOnInit() {
@@ -38,7 +42,14 @@ export class CityDetailComponent implements OnInit {
     //   this.city = data['city']
     // })
     this.loadCity();
+    this.detailMode = this.detailMode;
   }
+  detailToggle(){
+    debugger;
+    this.detailMode = false;
+  }
+
+  
 
   loadCity() {
     const cityName = this.route.snapshot.params['name'];
@@ -52,6 +63,7 @@ export class CityDetailComponent implements OnInit {
     });
 
   }
+  
 
   }
 

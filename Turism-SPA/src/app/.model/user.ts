@@ -6,7 +6,7 @@ export interface User {
     firstName: string;
     lastName: string;
     age: number;
-    created: Date;
+    joined: Date;
     points: number;
     country?: string;
     city?: string;

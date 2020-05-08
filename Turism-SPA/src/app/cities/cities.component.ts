@@ -28,9 +28,9 @@ export class CitiesComponent implements OnInit {
 
   ngOnInit() {
   this.loadCities();
-    //this.loadPosts();
   }
   loadCities() {
+    debugger;
     this.cityService.getCities().subscribe((cities: City[]) => {
       this.cities = cities;
     }, error => {
@@ -38,12 +38,4 @@ export class CitiesComponent implements OnInit {
     });
   }
 
-//   loadPosts(){
-//     this.postService.getPosts().subscribe((posts: Post[])=>
-//     {
-//       this.posts = posts;
-//     }, error => {
-//       this.alertify.error(error);
-//     });
-//   }
 }

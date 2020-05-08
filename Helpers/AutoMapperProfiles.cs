@@ -13,6 +13,8 @@ namespace turism.Helpers
             opt.MapFrom(src=>src.BirthDate.CalculateAge()))
 ; // specificam sursa si destinatia
          // vede in user si in userfor list ca s la fel, trebe doar la varsta sa schimbam
+         CreateMap<UserForUpdate, User>();
         }
+
     }
 }

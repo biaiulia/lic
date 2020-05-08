@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="row">
+    <h1>
+      Profilul utilizatorului {{user.firstName}}
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img [src]="user.imgUrl" [alt]="user.firstName" class="card-img-top img-thumbnail">
+        <div class="card-body">
+          <div>
+            <strong>Locatie:</strong>
+            <p>{{user.country}}, {{user.city}}</p>
+          </div>
+          <div>
+            <strong>Varsta:</strong>
+            <p>{{user.age}}</p>
+          </div>
+          <div>
+            <strong>Joined:</strong>
+            <p>{{user.joined}}</p>
+          </div>
+          <div>
+            <strong>Puncte:</strong>
+            <p>{{user.points}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

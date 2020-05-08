@@ -37,21 +37,21 @@ namespace turism.Controllers
             return Ok(userReturn);
         }
     
-  /*  [HttpPut("{id}")]
+   [HttpPut("{id}")]
    public async Task<IActionResult> UpdateUser(int id, UserForUpdate userForUpdate)
     {
-        if ( id!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-        return Unauthorized();
+        if (id!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+            return Unauthorized();
 
         var userFromRep = await rep.GetUser(id);
 
-        mapper.Map(userForUpdate, userFromRep);
+        mapper.Map(userForUpdate, userFromRep); // mapam cele 2si le scrie din primu in al doilea
 
         if(await rep.SaveAll())
-            return NoContent();
+            return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
 
 
     throw new System.Exception($"Updatarea userului {id} nu s-a reusit");
-    }*/
+    }
 }
 }

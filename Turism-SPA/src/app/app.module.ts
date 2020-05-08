@@ -26,7 +26,9 @@ import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostDetailResolver } from './.resolver/post-detail.resolver';
 import { CityDetailResolver} from './.resolver/city-detail.resolver';
 import { PostsResolver} from './.resolver/posts.resolver'; // astea nu merg nuj dc
-
+import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
+import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
+import { UnsavedChanges} from './.guard/unsaved-changes.guard';
 
 
 export function tokenGetter(){
@@ -43,7 +45,9 @@ export function tokenGetter(){
       SanitizeUrlPipe,
       CityDetailComponent,
       PostsComponent,
-      PostDetailComponent
+      PostDetailComponent,
+      ProfileEditComponent
+      
    ],
    imports: [
       BrowserModule,
@@ -66,7 +70,9 @@ export function tokenGetter(){
       AlertifyService,
       //PostDetailResolver,
       CityDetailResolver,
-      PostsResolver
+      PostsResolver,
+      ProfileEditResolver,
+      UnsavedChanges
    ],
    bootstrap: [
       AppComponent
