@@ -14,7 +14,7 @@ namespace turism.Models
         public DateTime DateAdded {get; set;}
         [JsonIgnore]
         public ICollection<Photo> Photos {get;set;}
-
+        
         public User User {get; set;}
 
         public int UserId { get; set; }

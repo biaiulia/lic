@@ -12,12 +12,11 @@ namespace turism.DataTransferObjects
 
         public string Password { get; set; }
         public DateTime DateJoined {get; set;}
-
+public UserForRegister()
+{
+        DateJoined=DateTime.Now;
     
-    public UserForRegister()
-    {
-        DateJoined = DateTime.Now;
-        
-    }
+}
+    
 }
 }

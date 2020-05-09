@@ -34,18 +34,17 @@ namespace turism.Controllers
             // validam requestul
 
             userForRegister.Username = userForRegister.Username.ToLower(); //consistenta in baza de date sa nu fie scrise mari
-            userForRegister.DateJoined = DateTime.Now;
 
-            if (await rep.UserExists(userForRegister.Username))
+            if (await rep.UserExists(userForRegister.Username)) // aici de schimbat in user nu userforregister
                 return BadRequest("Utilizatorul exista deja"); // badrequest este din COntrollerBase
 
             var userCreate = new User
             {
-                 Username = userForRegister.Username
-                //   Joined = userForRegister.DateJoined;
+                 Username = userForRegister.Username,
+                   //Joined = userForRegister.DateJoined de ce nu putem adauga aici sa facem
             };
 
-            var CreatedUser = await rep.Register(userCreate, userForRegister.Password); // ???
+            var CreatedUser = await rep.Register(userCreate, userForRegister.Password); 
 
             return StatusCode(201);
         }

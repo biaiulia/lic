@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using turism.Data;
 using turism.Models;
 using System;
-
+using System.Security.Claims;
+using turism.DataTransferObjects;
+using AutoMapper;
 
 namespace turism.Controllers
 {
@@ -17,11 +19,18 @@ namespace turism.Controllers
 
         
         private readonly DataContext context;
-        public Post posts {get;set;}
+         private readonly ITurismRep rep;
+         private readonly IMapper mapper;
         
-        public PostsController(DataContext context)
+       
+        
+        public PostsController(DataContext context, ITurismRep rep, IMapper mapper)
         {
             this.context = context;
+            this.rep = rep;
+            this.mapper = mapper;
+
+            
         
         }
         [Route("api/cities/{cityId}/posts")]
@@ -61,7 +70,7 @@ namespace turism.Controllers
            
         
     
-        [Route("api/posts/{id}")]
+        [Route("api/posts/{id}", Name="GetPost")]
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
@@ -70,6 +79,74 @@ namespace turism.Controllers
             // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
          
             return Ok(post);
+        }
+
+        [Route("api/{userId}/{cityId}/posts")] // nu merge dc?
+        [HttpPost]
+         public async Task<IActionResult> AddPost(int userId, int cityId, PostForCreation postForCreation)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var userFromRep = await rep.GetUser(userId);
+
+            var cityFromRep = await rep.GetCity(cityId);
+
+
+            postForCreation.CityId=cityId;
+            postForCreation.UserId=userId;
+            
+            var post = mapper.Map<Post>(postForCreation);
+            
+            await context.Post.AddAsync(post);
+
+            await context.SaveChangesAsync(); // de facut 
+
+            return Ok();
+
+            // return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, post);
+
+        }
+
+            /*if (await rep.SaveAll())
+            {
+                var postToReturn = mapper.Map<PostForList>(post);
+                return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, postToReturn);
+            } // returnam posttoreturn ca sa nu returnam si userii si city urile
+            return BadRequest("Nu s-a putut adauga postarea");
+*
+
+        }// nu e bine
+
+       /* public async Task<IActionResult> AddPost(int userId, PostForCreation postForCreation)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var userFromRep = await rep.GetUser(userId);
+            postForCreation.UserId = userId;
+            postForCreation.DateAdded = postForCreation.DateAdded;
+            postForCreation.PostText
+            
+
+             
+
+           // if(cityId != ) cum sa fac verificarea la cityId?
+
+                /*var userFromRep = await rep.GetUser(userId); // de ce sa luam userul
+                postForCreation.PostText=postForCreation.PostText;
+
+            var postCreate = new Post
+            {
+                PostText = postForCreation.PostText,
+                DateAdded = DateTime.Now,
+                CityId = cityId,
+                UserId = userId
+                
+            };
+            return StatusCode(201);
+           */
+
         }
 
         
@@ -99,5 +176,5 @@ namespace turism.Controllers
             }
         
         
-    }
+    
 

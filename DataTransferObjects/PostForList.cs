@@ -8,10 +8,5 @@ namespace turism.DataTransferObjects
 
         public DateTime DateAdded {get; set;}
     
-
-    public PostForList()
-    {
-        DateAdded = DateTime.Now;
-    }
 }
 }

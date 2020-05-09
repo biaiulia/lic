@@ -13,7 +13,7 @@ export class CityDetailResolver implements Resolve<City>{
 
 
     resolve(route: ActivatedRouteSnapshot): Observable<City>{
-        debugger;
+        
         return this.cityService.getCity(route.params['name']) // subscrie automat NU IA ID CI CITY ID
          .pipe(
              catchError(error => {

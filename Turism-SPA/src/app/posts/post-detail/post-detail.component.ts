@@ -33,7 +33,7 @@ export class PostDetailComponent implements OnInit {
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-      debugger;
+  
       this.loadPost();
  // this.route.data.subscribe(data=>{
       //   this.post = data['post'];
@@ -42,7 +42,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   loadPost() {
-    debugger;
+    
     this.postService.getPost(+this.route.snapshot.params['id']).subscribe((post: Post) => {
         this.post = post;
     }, error =>

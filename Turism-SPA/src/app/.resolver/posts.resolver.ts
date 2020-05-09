@@ -13,7 +13,7 @@ export class PostsResolver implements Resolve<Post>{
 
 
     resolve(route: ActivatedRouteSnapshot): Observable<Post>{
-        debugger;
+        
         return this.postService.getPosts(route.params['id']) // subscrie automat NU IA ID CI CITY ID
          .pipe(
              catchError(error => {

@@ -14,6 +14,12 @@ namespace turism.Helpers
 ; // specificam sursa si destinatia
          // vede in user si in userfor list ca s la fel, trebe doar la varsta sa schimbam
          CreateMap<UserForUpdate, User>();
+         CreateMap<UserForRegister,User>();
+         CreateMap<PostForCreation,Post>();
+         CreateMap<PhotoForCreation, Photo>();
+         CreateMap<Photo, PhotoForReturn>();
+
+
         }
 
     }

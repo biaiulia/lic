@@ -12,5 +12,14 @@ namespace turism.Data
            Task<bool> SaveAll(); // vedem daca sunt save uri mai multe
            Task<IEnumerable<User>> GetUsers();
            Task<User> GetUser(int id);
+
+           Task<City> GetCity(int id);
+
+           Task<Post> GetPost(int id);
+           Task<Photo> GetPhoto(int id);
+
+           Task<IEnumerable<City>> GetCities();
+
+           
     }
 }

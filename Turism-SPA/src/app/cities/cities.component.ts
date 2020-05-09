@@ -30,7 +30,7 @@ export class CitiesComponent implements OnInit {
   this.loadCities();
   }
   loadCities() {
-    debugger;
+    
     this.cityService.getCities().subscribe((cities: City[]) => {
       this.cities = cities;
     }, error => {

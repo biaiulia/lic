@@ -45,7 +45,7 @@ export class CityDetailComponent implements OnInit {
     this.detailMode = this.detailMode;
   }
   detailToggle(){
-    debugger;
+    
     this.detailMode = false;
   }
 

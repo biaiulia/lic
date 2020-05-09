@@ -19,6 +19,8 @@ namespace turism.Data
 
         public DbSet<Post> Post { get; set;}
 
+        public DbSet<Photo> Photo { get; set;}
+
         internal Task Where(Func<object, object> p)
         {
             throw new NotImplementedException();

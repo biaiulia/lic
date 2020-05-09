@@ -24,6 +24,18 @@ namespace turism.Data
             context.Remove(entity);
         }
 
+        public async Task<IEnumerable<City>> GetCities()
+        {
+            var cities = await context.City.ToListAsync();
+            return cities;
+        }
+
+        public async Task<City> GetCity(int id)
+        {
+            var city = await context.City.FirstOrDefaultAsync(c=>c.Id==id);
+            return city;
+        }
+
         public async Task<User> GetUser(int id)
         {
             var user = await context.Users.FirstOrDefaultAsync(u=>u.Id==id); // ceeee? el avea si .Include(p=>Photos)
@@ -36,9 +48,23 @@ namespace turism.Data
             return users;
                 }
 
+        public async Task<Post> GetPost(int id)
+        {
+            var post = await context.Post.FirstOrDefaultAsync(p=>p.Id==id);
+            return post;
+        }
+        
+
+
         public async Task<bool> SaveAll()
         {
             return await context.SaveChangesAsync() > 0 ; // daca e mai mult ca 0 inseamna true si daca e egal cu 0 nu s-a salvat nik
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await context.Photo.FirstOrDefaultAsync(p=>p.Id==id);
+            return photo;
         }
     }
 }
