@@ -13,7 +13,7 @@ using turism.Models;
 
 namespace turism.Controllers
 {
-    [   Authorize] // autorizam sa nu poata puna oricine poze
+        [Authorize] // autorizam sa nu poata puna oricine poze
         [Route("api/posts/{postId}/photos")]
         [ApiController]
     public class PhotosController : ControllerBase
@@ -26,7 +26,7 @@ namespace turism.Controllers
             private readonly IMapper mapper;
             private readonly IOptions<CloudinarySettings> cloudinaryConfig;
             private Cloudinary cloudinary;
-            private DataContext context;
+            private readonly DataContext context;
 
 
             public PhotosController(ITurismRep rep, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig, DataContext context)
@@ -39,11 +39,45 @@ namespace turism.Controllers
                 Account acc = new Account(
                     cloudinaryConfig.Value.CloudName,
                     cloudinaryConfig.Value.ApiKey,
-                    cloudinaryConfig.Value.CloudName);
+                    cloudinaryConfig.Value.ApiSecret
+                    );
                                        
-
+        
                     cloudinary = new Cloudinary(acc);
                                            
+                }
+
+
+                [HttpPost]
+                public async Task<IActionResult> AddPhoto(int postId, [FromForm] PhotoForCreation photoForCreation){
+                        
+                        //var postFromRep = await rep.GetPost(postId);
+                        var file = photoForCreation.File;
+                        var uploadResult = new ImageUploadResult();
+                        if(file.Length>0)
+                        {
+                            using(var stream = file.OpenReadStream())
+                            {
+                                var uploadParams = new ImageUploadParams()
+                                {
+                                    File=new FileDescription(file.Name, stream)
+                                };
+                                uploadResult = cloudinary.Upload(uploadParams);
+                            }
+                        }
+                        photoForCreation.postId = postId;
+                        photoForCreation.Url = uploadResult.Uri.ToString();
+                        photoForCreation.PublicId = uploadResult.PublicId;
+
+                        var photo = mapper.Map<Photo>(photoForCreation);
+                        context.Photo.Add(photo);
+                        context.SaveChanges();
+                        return Ok();
+
+
+
+
+
                 }
 
             [HttpGet("{id}", Name="GetPhoto")] // tre sa i dam nume pt functia created AtRoute
@@ -56,7 +90,109 @@ namespace turism.Controllers
         
                 return Ok(photo);
             }
-                   [HttpPost]
+
+    
+
+    }
+}
+
+              //  [HttpPost]
+
+    /*    public async Task<IActionResult> AddPhotoForPost(int postId, [FromForm]PhotoForCreation photoForCreation)
+        {
+
+
+            var postFromRep = await rep.GetPost(postId);
+            var file = photoForCreation.File;
+            var uploadResult = new ImageUploadResult();
+
+            if (file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation()
+                            .Width(500).Height(500).Crop("fill").Gravity("face")
+                    };
+
+                    uploadResult = cloudinary.Upload(uploadParams);
+                }
+            }
+            else return BadRequest();
+
+            photoForCreation.Url = uploadResult.Uri.ToString();
+            photoForCreation.PublicId = uploadResult.PublicId;
+            photoForCreation.postId = postId;
+
+            var photo = mapper.Map<Photo>(photoForCreation);
+
+            context.Add(photo);
+            context.SaveChanges();
+            return Ok();
+        }
+    }
+}
+        
+            /*postFromRep.Photos.Add(photo);
+
+            if (await rep.SaveAll())
+            {
+                var photoToReturn = mapper.Map<PhotoForReturn>(photo);
+                return CreatedAtRoute("GetPhoto", new {postId=postId, id = photo.Id}, photoToReturn);
+            }
+            
+            return BadRequest("Nu s-a putut adauga poza");
+*/
+        
+
+    
+
+       /*    [HttpPost]  // nu este suportat tipul de poza eroare 415 din cauza ca n-are from form[]
+
+                   public async Task<IActionResult> AddPhotoForPost(int postId, [FromForm]PhotoForCreation photoForCreation){ // autorizam requestul 
+                       
+                    
+                    var postFromRep = await rep.GetPost(postId);
+                    var file = photoForCreation.File;
+                    var uploadResult = new ImageUploadResult();
+
+                    if(file.Length > 0)
+                    {
+                        using(var stream = file.OpenReadStream())
+                        {
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                File = new FileDescription(file.Name, stream),
+                                Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face") // aici cropam imaginea
+                            };
+                            uploadResult = cloudinary.Upload(uploadParams);
+                        }
+                    }
+                    photoForCreation.Url = uploadResult.Uri.ToString();
+                    photoForCreation.PublicId = uploadResult.PublicId;
+                    photoForCreation.postId = postId;
+                    
+
+
+                    var photo = mapper.Map<Photo>(photoForCreation);
+                    context.Photo.Add(photo);
+                    context.SaveChanges();
+
+
+                    
+                        return Ok();
+                   
+                    
+                }
+
+            
+
+    }}
+
+
+[HttpPost]
         public async Task<IActionResult> AddPhotoForUser(int postId,
             [FromForm]PhotoForCreation photoForCreation)
         {
@@ -95,99 +231,10 @@ namespace turism.Controllers
             }
 
             return BadRequest("Could not add the photo");
-        }
+        }}}
 
-            
-
-
-
-             /*   [HttpPost]
-
-        public async Task<IActionResult> AddPhotoForPost(int postId, [FromForm]PhotoForCreation photoForCreation)
-        {
+        */
 
 
-            var postFromRep = await rep.GetPost(postId);
-            var file = photoForCreation.File;
-            var uploadResult = new ImageUploadResult();
-
-            if (file.Length > 0)
-            {
-                using (var stream = file.OpenReadStream())
-                {
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
-                            .Width(500).Height(500).Crop("fill").Gravity("face")
-                    };
-
-                    uploadResult = cloudinary.Upload(uploadParams);
-                }
-            }
-
-            photoForCreation.Url = uploadResult.Uri.ToString();
-            photoForCreation.PublicId = uploadResult.PublicId;
-
-
-
-
-            var photo = mapper.Map<Photo>(photoForCreation);
-            await context.AddAsync(photo);
-            return Ok();
-            /*postFromRep.Photos.Add(photo);
-
-            if (await rep.SaveAll())
-            {
-                var photoToReturn = mapper.Map<PhotoForReturn>(photo);
-                return CreatedAtRoute("GetPhoto", new {postId=postId, id = photo.Id}, photoToReturn);
-            }
-            
-            return BadRequest("Nu s-a putut adauga poza");
-*/
-        
-
-    }
-
-               /* [HttpPost] CA IN VIDEO
-
-                   public async Task<IActionResult> AddPhotoForPost(int userId, PhotoForCreation photoForCreation){ // autorizam requestul 
-                       
-                       if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                            return Unauthorized();
-                    
-                    var userFromRep = await rep.GetUser(userId);
-                    var file = photoForCreation.File;
-                    var uploadResult = new ImageUploadResult();
-
-                    if(file.Length > 0)
-                    {
-                        using(var stream = file.OpenReadStream())
-                        {
-                            var uploadParams = new ImageUploadParams()
-                            {
-                                File = new FileDescription(file.Name, stream),
-                                Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face") // aici cropam imaginea
-                            };
-                            uploadResult = cloudinary.Upload(uploadParams);
-                        }
-                    }
-                    photoForCreation.Url = uploadResult.Uri.ToString();
-                    photoForCreation.PublicId = uploadResult.PublicId;
-
-                    var photo = mapper.Map<Photo>(photoForCreation);
-                    userFromRep.Photos.Add(photo);
-
-                    if(await rep.SaveAll)
-                    {
-                        return Ok();
-                    }
-                    return BadRequest("Nu s-a putut adauga");
-                    
-                }*/
-
-            
 
         
-}
-

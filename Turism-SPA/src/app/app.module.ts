@@ -29,6 +29,8 @@ import { PostsResolver} from './.resolver/posts.resolver'; // astea nu merg nuj 
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
 import { UnsavedChanges} from './.guard/unsaved-changes.guard';
+import { PostAddComponent } from './posts/post-add/post-add.component';
+import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 
 
 export function tokenGetter(){
@@ -46,7 +48,9 @@ export function tokenGetter(){
       CityDetailComponent,
       PostsComponent,
       PostDetailComponent,
-      ProfileEditComponent
+      ProfileEditComponent,
+      PostAddComponent,
+      PhotoAddComponent
       
    ],
    imports: [

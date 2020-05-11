@@ -30,6 +30,8 @@ export class PostService {
   getPost(id): Observable < Post > {
     return this.http.get < Post > (`${this.baseUrl}posts/${id}`);
   }
+
+  
   // sendClickEvent(){
   //   this.subject.next();
   // }

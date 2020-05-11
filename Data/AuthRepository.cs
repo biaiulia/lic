@@ -71,7 +71,7 @@ namespace turism.Data
 
         public async Task<bool> UserExists(string username)
         {
-            if (await context.Users.AnyAsync( x => x.Username == username)) // comparam cu orice alt utilizator din bd cu AnyAsync
+            if (await context.Users.AnyAsync(x => x.Username == username)) // comparam cu orice alt utilizator din bd cu AnyAsync
                 return true;
 
             return false;
