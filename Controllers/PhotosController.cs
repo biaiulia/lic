@@ -53,6 +53,7 @@ namespace turism.Controllers
                         
                         //var postFromRep = await rep.GetPost(postId);
                         var file = photoForCreation.File;
+                        var postFromRep = await rep.GetPost(postId);
                         var uploadResult = new ImageUploadResult();
                         if(file.Length>0)
                         {
@@ -71,6 +72,7 @@ namespace turism.Controllers
 
                         var photo = mapper.Map<Photo>(photoForCreation);
                         context.Photo.Add(photo);
+                        postFromRep.Photos.Add(photo);
                         context.SaveChanges();
                         return Ok();
 

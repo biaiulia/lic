@@ -1,6 +1,7 @@
 
    <h1> Detalii postare: </h1>
     <p>{{post?.postText}}</p>
+    <button class="btn btn-primary" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
     <h1>Aici vin pozele postarii</h1>
-    <app-photo-add [photos]="post.photos"></app-photo-add>
+    <app-photo-add [photos]="post?.photos"></app-photo-add>
 

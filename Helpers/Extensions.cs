@@ -23,6 +23,8 @@ namespace turism.Helpers
             return age;
          }
 
+        // public static int CalculateLikes()
+
 
 
          

@@ -22,6 +22,7 @@ import {
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
 import { UnsavedChanges } from './.guard/unsaved-changes.guard';
+import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 
 export const appRoutes: Routes = [{
     path: 'home',
@@ -45,8 +46,14 @@ export const appRoutes: Routes = [{
     children: [
       {
       path: ':id',
-      component: PostDetailComponent // , resolve: {post: PostDetailResolver}
-    }]
+      component: PostDetailComponent // , resolve: {post: PostDetailResolver} ???? nu merge
+    },
+    {
+      path: 'addPost', // dc nu merge???
+      component: PhotoAddComponent
+    }
+  
+  ]
   }, {
     path: '**',
     redirectTo: 'home',

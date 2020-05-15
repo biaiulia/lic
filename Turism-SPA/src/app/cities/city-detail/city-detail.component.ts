@@ -31,7 +31,7 @@ export class CityDetailComponent implements OnInit {
 
   constructor(private cityService: CityService,
               private alertify: AlertifyService, private route: ActivatedRoute, // qctivqted route stie linku pe care esti
-              private postsService: PostService) //importam activated
+              private postsService: PostService) // importam activated
   // route ca sa avem  acces la oras, gen din /cities/3 de ex
   {
   //  
@@ -63,7 +63,6 @@ export class CityDetailComponent implements OnInit {
     });
 
   }
-  
 
   }
 

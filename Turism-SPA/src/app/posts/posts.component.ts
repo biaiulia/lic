@@ -17,8 +17,11 @@ export class PostsComponent implements OnInit {
 
   ngOnInit() {
   }
-  // clickMe(){
-    // this.postService.sendClickEvent();
-  
+
+  //postXp(){
+   // this.postService.addPost(this.post, )
+
+ // }
+
   
 }

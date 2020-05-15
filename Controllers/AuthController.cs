@@ -41,16 +41,17 @@ namespace turism.Controllers
             var userCreate = new User
             {
                  Username = userForRegister.Username,
-                   //Joined = userForRegister.DateJoined de ce nu putem adauga aici sa facem
+                   Joined = DateTime.Now
             };
 
             var CreatedUser = await rep.Register(userCreate, userForRegister.Password); 
 
             return StatusCode(201);
+            //return CreatedAtRoute("GetUser", new {controller = "Users", IDesignTimeMvcBuilderConfiguration= CreatedUser.Id});
         }
 
 
-        [HttpPostAttribute("Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
             

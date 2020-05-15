@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace turism.Models
@@ -12,8 +13,9 @@ namespace turism.Models
 
         public string Username { get; set; }
 
-
+        [IgnoreDataMember]
         public byte[] PasswordHash { get; set; }
+        [IgnoreDataMember]
 
         public byte[] PasswordSalt { get; set; }
 
@@ -33,7 +35,7 @@ namespace turism.Models
 
         public string ImgUrl { get; set; }
 
-        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<Post> Posts {get; set;}
 
     }

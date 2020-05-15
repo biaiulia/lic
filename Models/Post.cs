@@ -12,7 +12,7 @@ namespace turism.Models
         public string PostText {get; set;} 
 
         public DateTime DateAdded {get; set;}
-        [JsonIgnore]
+        // [JsonIgnore]
         public ICollection<Photo> Photos {get;set;}
         
         public User User {get; set;}
@@ -22,6 +22,10 @@ namespace turism.Models
         public City City {get; set;}
 
         public int CityId {get; set;}
+
+        public ICollection<PostLike> PostLikes {get;set;}
+
+        public ICollection<Reply> Replies {get; set;}
 
         public static implicit operator List<object>(Post v)
         {

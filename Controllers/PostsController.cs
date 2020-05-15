@@ -74,14 +74,34 @@ namespace turism.Controllers
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
-             var post = await context.Post.FirstOrDefaultAsync(x=>x.Id==id);
+             var post = await context.Post.Include(ph=>ph.Photos).Include(u=>u.User).FirstOrDefaultAsync(x=>x.Id==id);
             // var posts = await context.Post.Include(v => v.City).Where(m=>m.Id==cityId).FirstOrDefaultAsync(x=>x.Id=id);
             // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
          
             return Ok(post);
         }
+        [Route("api/posts/likes/{postId}")]
+        [HttpGet("{id}")]
+        public async Task<IEnumerable<int>> GetPostLikersIds(int postId){
+            if(await rep.GetPost(postId) == null)
+                return null;
+            var likerIds = await rep.GetPostLikersId(postId);
+            return likerIds;
+        }
 
-        [Route("api/{userId}/{cityId}/posts")] // nu merge dc?
+        [Route("api/posts/likesnr/{postId}")]
+        [HttpGet("{id}")]
+        public async Task<int> GetPostLikeNr(int postId){ // mai trebe puse conditiile daca nr postarii nu exista
+
+             if(await rep.GetPost(postId) == null)
+                 return 0;
+        
+            var likerIds = await rep.GetPostLikersId(postId);
+                return likerIds.Count();
+        }
+
+
+        [Route("api/{userId}/{cityId}/posts")] // merge cu debugger, daca-l scot mai da internal error
         [HttpPost]
          public async Task<IActionResult> AddPost(int userId, int cityId, PostForCreation postForCreation)
         {
@@ -104,9 +124,47 @@ namespace turism.Controllers
 
             return Ok();
 
+           
+
+
             // return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, post);
 
         }
+
+
+
+        [Route("api/{userId}/like/{postId}")]
+
+         [HttpPost]
+         
+
+         public async Task<IActionResult> LikePost(int userId, int postId)
+         {
+             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var like = await rep.GetLike(userId, postId);
+            if(like!=null) 
+                return BadRequest("Deja ai apreciat aceasta postare");
+
+            if(await rep.GetPost(postId) == null)
+                return NotFound();
+            
+            like = new PostLike{
+                UserId = userId,
+                PostId = postId
+            };
+            rep.Add<PostLike>(like); // nu e async,nu salveaza in bd aici
+
+            if(await rep.SaveAll())
+                return Ok();
+
+            return BadRequest("Nu s-a putut adauga like-ul");
+         }
+
+
+
+
 
             /*if (await rep.SaveAll())
             {

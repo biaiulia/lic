@@ -21,9 +21,20 @@ namespace turism.Data
 
         public DbSet<Photo> Photo { get; set;}
 
+        public DbSet<PostLike> Likes {get; set;}
+
+        public DbSet<Reply> Replies {get; set;}
+
         internal Task Where(Func<object, object> p)
         {
             throw new NotImplementedException();
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<PostLike>().HasKey(l => new {l.PostId, l.UserId});
+        
+           
         }
     }
 }
