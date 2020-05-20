@@ -4,11 +4,17 @@
 </div>
 </div>
 
+<!--<form [formGroup]="postAddGroup" (submit)="addPost()">-->
 
+<form #registerForm="ngForm" (ngSubmit)="addPost()">
+  <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText">
+
+  <button type="submit" [disabled]="registerForm.invalid">adauga postare</button>
+</form>
 
 
 <div class="row">
- 
+
   <div class="col-md-3">
 
       <h3>Select files</h3>
@@ -95,7 +101,7 @@
               <span class="glyphicon glyphicon-trash"></span> Remove all
           </button>
       </div>
-    
+
   </div>
 
 </div>

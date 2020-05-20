@@ -34,7 +34,6 @@ export class CityDetailComponent implements OnInit {
               private postsService: PostService) // importam activated
   // route ca sa avem  acces la oras, gen din /cities/3 de ex
   {
-  //  
   }
 
   ngOnInit() {
@@ -42,18 +41,18 @@ export class CityDetailComponent implements OnInit {
     //   this.city = data['city']
     // })
     this.loadCity();
-    this.detailMode = this.detailMode;
+    // this.detailMode = this.detailMode;
   }
-  detailToggle(){
-    
-    this.detailMode = false;
-  }
+  // detailToggle(post: Post){
+  //   this.detailMode = false;
+  //   debugger;
+  // }
 
-  
+
 
   loadCity() {
     const cityName = this.route.snapshot.params['name'];
-    this.cityService.getCity(cityName).subscribe((city: City) => { // ce plm face asta?????? 
+    this.cityService.getCity(cityName).subscribe((city: City) => { // ce plm face asta??????
       this.city = city;
       this.postsService.getPosts(this.city.id).subscribe((posts: Post[]) => {
         this.posts = posts instanceof Array ? posts : [posts];

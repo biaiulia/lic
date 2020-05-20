@@ -41,7 +41,7 @@ export class PostService {
   
 
   addPost(model: any, cityId, userId){
-    return this.http.post(`${this.baseUrl}${userId}${cityId}/posts`, model).pipe(
+    return this.http.post(`${this.baseUrl}${userId}/${cityId}/posts`, model).pipe(
       map((response: any) => {
         const post = response;
         if(post){

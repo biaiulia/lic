@@ -19,15 +19,15 @@ import {
 import {
   PostDetailResolver
 } from './.resolver/post-detail.resolver';
-import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
-import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
-import { UnsavedChanges } from './.guard/unsaved-changes.guard';
-import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
+import {ProfileEditComponent} from './user/profile-edit/profile-edit.component';
+import {ProfileEditResolver} from './.resolver/profile-edit.resolver';
+import {UnsavedChanges} from './.guard/unsaved-changes.guard';
+import {PhotoAddComponent} from './posts/photo-add/photo-add.component';
 
 export const appRoutes: Routes = [{
-    path: 'home',
-    component: HomeComponent
-  },
+  path: 'home',
+  component: HomeComponent
+},
   {
     path: 'messages',
     component: MessagesComponent
@@ -45,16 +45,16 @@ export const appRoutes: Routes = [{
     component: CityDetailComponent,
     children: [
       {
-      path: ':id',
-      component: PostDetailComponent // , resolve: {post: PostDetailResolver} ???? nu merge
-    },
-    {
-      path: 'addPost', // dc nu merge???
-      component: PhotoAddComponent
-    }
-  
-  ]
-  }, {
+        path: 'addPost', // dc nu merge???
+        component: PhotoAddComponent
+      }
+    ]
+  },
+  {
+    path: ':name/:id',
+    component: PostDetailComponent // , resolve: {post: PostDetailResolver} ???? nu merge
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'

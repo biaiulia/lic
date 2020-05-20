@@ -32,14 +32,14 @@ export class RegisterComponent implements OnInit {
 
   passwordMatch(p: FormGroup){
     debugger;
-    return p.get('password').value === p.get('confirmPassword').value ? null : {mismactch: true};
+    return p.get('password').value === p.get('confirmPassword').value ? null : {mismatch: true};
   }
 
 
   register(){
     debugger;
 
-   
+
 
     console.log(this.registerForm.value);
     // this.authService.register(this.model).subscribe(() => {  // in subscribe se pune raspunsu, return e functie

@@ -39,7 +39,7 @@ export class PostDetailComponent implements OnInit {
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit() {
-  
+  debugger;
       this.loadPost();
  // this.route.data.subscribe(data=>{
       //   this.post = data['post'];

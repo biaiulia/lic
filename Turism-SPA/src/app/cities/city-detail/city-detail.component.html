@@ -3,7 +3,7 @@
           <div class="bottom-left">{{city?.name}}
           </div>
         </div>
-      
+
 
 
         <div class="container mt-5">
@@ -31,6 +31,5 @@
 
         <button class="btn btn-primary" [routerLink]="[city?.name+'/addPost']">Adauga postare</button> <!--nu merge sa trimit la routes.ts-->
 
-<app-posts *ngFor="let post of posts" [post]="post" (click)="detailToggle()">
+<app-posts *ngFor="let post of posts" [post]="post">
 </app-posts>
-<router-outlet></router-outlet>
