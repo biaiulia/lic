@@ -1,4 +1,6 @@
 import { Photo } from './photo';
+import { Reply } from './reply';
+import { Like } from './like';
 
 export interface Post {
     id: number;
@@ -6,5 +8,7 @@ export interface Post {
     dateAdded: Date;
     photos?: Photo[];
     cityId: number;
+    postLikes?: Like[];
+    replies?: Reply[];
 
 }

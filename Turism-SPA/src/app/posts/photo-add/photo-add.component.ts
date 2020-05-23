@@ -34,9 +34,9 @@ export class PhotoAddComponent implements OnInit {
               private location: Location) {
   }
 
-  ngOnInit() {
-    this.initializeUploader();
+  ngOnInit() { // de ce pot pune doar aici debugger
     this.getCity();
+    this.initializeUploader(4);
     // this.postAddGroup = this.formBuilder.group({
     //   postText: ['']
     //  // image: []
@@ -47,9 +47,10 @@ export class PhotoAddComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
-  initializeUploader() {
+  initializeUploader(postId: number) {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'posts/', //+ this.photos.postId + '/photos',
+      url: this.baseUrl + 'posts/' + postId + '/photos',
+       //+ this.photos.postId + '/photos',
       //'users/' + this.authService.decodedToken.nameId + '/photos', TREBE ADAUGAT AICI URL U PT BACKEND
       authToken: 'Bearer' + localStorage.getItem('token'),
       isHTML5: true,
@@ -59,12 +60,18 @@ export class PhotoAddComponent implements OnInit {
       maxFileSize: 10 * 1024 * 1024 // ca sa fie de 10 mb fisieru
 
     });
+    debugger;
+    this.uploader.onAfterAddingFile = (file) => {file.withCredentials = false; };
   }
 
-  addPost(): void { // nu vrea sa insereze textu, dc?
+  addPost(): void {
     debugger;
-    this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid).subscribe(next => {
-        this.alertify.success('postarea a fost adaugata');
+    this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid)
+    .subscribe(res => { 
+
+       // Hermes- cum iau id u postarii ca sa adaug poza pt id u asta
+        this.initializeUploader(res.id);
+        this.alertify.success('postarea ta a fost adaugata');
         this.location.back();
       },
         error => {

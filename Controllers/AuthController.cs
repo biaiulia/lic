@@ -20,7 +20,7 @@ namespace turism.Controllers
     public class AuthController : ControllerBase// trebe sa injectam repository ul creat
     {
         private readonly IAuthRepository rep;               // dc readonly
-        private readonly IConfiguration config;
+        private readonly IConfiguration config; // de ce folosim asta???
         public AuthController(IAuthRepository rep, IConfiguration config)
         {
             this.config = config;

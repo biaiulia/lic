@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-sm-2" *ngFor="let photo of photos">
+    <img src="{{photo?.url}}" alt="" class="img-thumbnail p-1">
+  </div>
+  </div> 
+<div class="container">
+  <h1>aici vine</h1>
+  <ngx-gallery *ngIf="photosExist" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+</div>

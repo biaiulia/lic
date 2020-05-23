@@ -45,36 +45,13 @@ namespace turism.Controllers
             return Ok(posts);
         }
 
-
-          // var posts = await context.Post.Include(m => m.City).ForEachAsync(m=>m.cityId==cityId);
-           //FirstOrDefaultAsync(m=>m.CityId==cityId);
-
-           // var posts = await context.Post.Include(v => v.City).FirstOrDefaultAsync(m=>m.Id==cityId);
-
-            //var posts = await context.Post.I
-            
-            //Attach(m => m.CityId == cityId);
-
-
-            //AnyAsync(m => m.CityId == cityId).ToListAsync();
-            //await context.Post.ToListAsync();
-            
-            // foreach(var post in allPosts){
-            //     if(cityId == post.CityId)
-            //          posts = new Post(post).ToListAsync();                    
-
-               
-
-            // var posts = (from p in context.Post join c in context.City on p.cityId=c.Id select *).ToListAsync();
-    
-           
         
     
         [Route("api/posts/{id}", Name="GetPost")]
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
-             var post = await context.Post.Include(ph=>ph.Photos).Include(u=>u.User).FirstOrDefaultAsync(x=>x.Id==id);
+             var post = await context.Post.Include(ph=>ph.Photos).Include(u=>u.User).Include(l=>l.PostLikes).Include(r=>r.Replies).FirstOrDefaultAsync(x=>x.Id==id);
             // var posts = await context.Post.Include(v => v.City).Where(m=>m.Id==cityId).FirstOrDefaultAsync(x=>x.Id=id);
             // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
          
@@ -103,27 +80,24 @@ namespace turism.Controllers
 
         [Route("api/{userId}/{cityId}/posts")] // merge cu debugger, daca-l scot mai da internal error
         [HttpPost]
-         public async Task<IActionResult> AddPost(int userId, int cityId, PostForCreation postForCreation)
+         public async Task<IActionResult> AddPost(int userId, int cityId, Post post)
         {
             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
-            var userFromRep = await rep.GetUser(userId);
-
-            var cityFromRep = await rep.GetCity(cityId);
-
-
-            postForCreation.CityId=cityId;
-            postForCreation.UserId=userId;
-            
-            var post = mapper.Map<Post>(postForCreation);
-            
-            await context.Post.AddAsync(post);
+            if(post.PostText!=null){
+            var postCreate = new Post{
+                UserId = userId,
+                CityId = cityId,
+                PostText = post.PostText,
+                DateAdded = DateTime.Now
+            };
+            await context.Post.AddAsync(postCreate);
 
             await context.SaveChangesAsync(); // de facut 
 
-            return Ok();
-
+            return Ok(postCreate);
+            }
+            return BadRequest("Trebuie sa introduceti text");
            
 
 
@@ -140,6 +114,7 @@ namespace turism.Controllers
 
          public async Task<IActionResult> LikePost(int userId, int postId)
          {
+
              if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
@@ -150,17 +125,57 @@ namespace turism.Controllers
             if(await rep.GetPost(postId) == null)
                 return NotFound();
             
-            like = new PostLike{
+            var likeCreate = new PostLike{
                 UserId = userId,
                 PostId = postId
             };
-            rep.Add<PostLike>(like); // nu e async,nu salveaza in bd aici
+            if(likeCreate!=null)
+            {
+            context.Likes.Add(likeCreate);
+            context.SaveChanges();
+            return Ok();
+            }
+            return BadRequest("Nu s-a putut adauga like-ul");
+           /* rep.Add<PostLike>(like); // nu e async,nu salveaza in bd aici
 
             if(await rep.SaveAll())
                 return Ok();
 
-            return BadRequest("Nu s-a putut adauga like-ul");
+            return BadRequest("Nu s-a putut adauga like-ul");*/
+
          }
+
+         [Route("api/{userId}/like/{postId}")]
+         [HttpDelete]
+         public async Task<IActionResult> DislikePost(int userId,int postId)
+         {
+             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var like = await rep.GetLike(userId, postId);
+            if(like==null)
+                return BadRequest("Nu exista like la aceasta postare");
+            
+            context.Likes.Remove(await context.Likes.FirstOrDefaultAsync(l =>l.UserId==userId && l.PostId==postId));
+            context.SaveChanges();
+            return Ok();
+
+         }
+         [Route("api/{userId}/likes/{postId}")]
+         [HttpGet]
+         public async Task<Boolean> IsLiked(int userId, int postId)
+         {
+            var like = await rep.GetLike(userId, postId);
+            if(like!=null)
+                return true;
+            
+            return false;
+
+         }
+    }
+}
+
+
 
 
 
@@ -205,7 +220,7 @@ namespace turism.Controllers
             return StatusCode(201);
            */
 
-        }
+        
 
         
 
@@ -231,7 +246,7 @@ namespace turism.Controllers
                     
                     return (IQueryable<Post>)Ok(posts);*/
                    
-            }
+            
         
         
     

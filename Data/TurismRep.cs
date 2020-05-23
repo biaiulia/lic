@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -84,7 +85,7 @@ namespace turism.Data
         // }
 
         public async Task<IEnumerable<int>> GetPostLikersId(int postId){ // metoda care returneaza id urile persoanelor care au dat like la posturi
-            var posts = await context.Post.Include(p=>p.PostLikes).FirstOrDefaultAsync(p=>p.Id==postId);
+            var posts = await context.Post.Include(p=>p.PostLikes).FirstOrDefaultAsync(p=>p.Id==postId); // nu cred ca mi trebe???
             var likes = posts.PostLikes.Select(l=>l.UserId);
             return likes; // ar trebui sa punem si un else pt erori dar nuj cum
 
@@ -112,6 +113,14 @@ namespace turism.Data
         public async Task<PostLike> GetLike(int userId, int postId)
         {
             return await context.Likes.FirstOrDefaultAsync(l => l.UserId == userId && l.PostId == postId);
+        }
+
+        public async Task<IEnumerable<Reply>> GetReplies(int postId)
+        {
+            return await context.Replies.Include(r=>r.User).Where(r => r.PostId==postId).ToListAsync();
+
+           
+
         }
     }
 }

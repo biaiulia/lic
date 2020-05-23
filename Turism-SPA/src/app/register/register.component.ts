@@ -31,13 +31,13 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordMatch(p: FormGroup){
-    debugger;
+    
     return p.get('password').value === p.get('confirmPassword').value ? null : {mismatch: true};
   }
 
 
   register(){
-    debugger;
+    
 
 
 

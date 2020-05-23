@@ -42,13 +42,11 @@ export const appRoutes: Routes = [{
   },
   {
     path: ':name',
-    component: CityDetailComponent,
-    children: [
-      {
-        path: 'addPost', // dc nu merge???
+    component: CityDetailComponent
+  },{
+        path: ':name/addPost', // dc nu merge???
         component: PhotoAddComponent
-      }
-    ]
+    
   },
   {
     path: ':name/:id',

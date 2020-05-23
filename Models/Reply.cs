@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace turism.Models
 {
@@ -14,7 +15,15 @@ namespace turism.Models
 
         public int UserId { get; set; }
 
+        [IgnoreDataMember]
         public Post Post {get; set;}
         public int PostId { get; set; }
+    
+    public Reply()
+    {
+        DateAdded = DateTime.Now;
+        
     }
+
+}
 }

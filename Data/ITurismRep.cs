@@ -21,7 +21,11 @@ namespace turism.Data
            Task<PostLike> GetLike(int postId, int userId);
            Task<IEnumerable<City>> GetCities();
 
+           Task<IEnumerable<Reply>> GetReplies(int postId);
+
            Task<IEnumerable<int>> GetPostLikersId(int postId);
+
+           
 
            
     }
