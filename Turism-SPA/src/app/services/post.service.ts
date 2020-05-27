@@ -53,11 +53,19 @@ export class PostService {
           return post;
         }
       })
-      // de ce nu merge???
-      //"api/{userId}/{cityId}/posts"
 
     );
   }
+
+  addPhoto(postId, model) {
+    return this.http.post(`${this.baseUrl}posts/${postId}/photos`, {file: model}).pipe(
+      map((response: any) => {
+        return response;
+        })
+
+    );
+  }
+
 
   sendLike(userId: number, postId: number) {
     return this.http.post(this.baseUrl + userId + '/like/' + postId, {});

@@ -1,14 +1,15 @@
 
 <!--<form [formGroup]="postAddGroup" (submit)="addPost()">-->
 
-<form #registerForm="ngForm" (submit)="addPost()">
-  <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText">
+    <form #registerForm="ngForm" (ngSubmit)="addPost()">
+        <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText">
+        <input type="file" multiple class="form-control" required name="images" [(ngModel)]="images">
+      
+        <button type="submit" [disabled]="registerForm.invalid">adauga postare</button>
+      </form>
 
-  <button type="submit" [disabled]="registerForm.invalid">adauga postare</button>
-</form>
 
-
-<div class="row">
+<!-- <div class="row">
 
   <div class="col-md-3">
 
@@ -101,7 +102,7 @@
 
 </div>
 
-<br><br>
+<br><br> -->
 
 <!--<div class="row">
   <div class="col-md-12">

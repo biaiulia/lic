@@ -82,8 +82,8 @@ namespace turism.Controllers
         [HttpPost]
          public async Task<IActionResult> AddPost(int userId, int cityId, Post post)
         {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            // if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
             if(post.PostText!=null){
             var postCreate = new Post{
                 UserId = userId,
