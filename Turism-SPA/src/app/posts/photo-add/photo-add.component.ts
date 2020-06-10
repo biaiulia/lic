@@ -25,6 +25,7 @@ export class PhotoAddComponent implements OnInit {
   images: File[];
   city: City;
   model: any = {};
+  url: string;
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -43,6 +44,18 @@ export class PhotoAddComponent implements OnInit {
     //  // image: []
     // });
   }
+
+  onSelectFile(event) { // called each time file input changes
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        //this.images = event.target.result;
+      }
+    }
+}
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
@@ -70,6 +83,7 @@ export class PhotoAddComponent implements OnInit {
     debugger;
     this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid).subscribe(next => {
       debugger;
+      if(!this.images) return;
       this.postService.addPhoto(next.id, this.images).subscribe((res) =>
       {
         debugger;

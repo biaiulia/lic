@@ -19,7 +19,7 @@ export class PostsComponent implements OnInit {
   }
 
   //postXp(){
-   // this.postService.addPost(this.post, )
+   // this.postService.addPost(this.post, )`
 
  // }
 

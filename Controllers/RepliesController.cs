@@ -28,22 +28,40 @@ namespace turism.Controllers
         }
         [Route("api/{userId}/reply/{postId}")]
         [HttpPost]
-        public async Task<IActionResult> AddReply(int postId, int userId, Reply reply){
-            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+        public IActionResult AddReply(int postId, int userId, Reply reply)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
                 return Unauthorized();
-            if(reply.Comment!=null){
-            var replyCreate = new Reply{
-                Comment = reply.Comment,
-                UserId = userId,
-                PostId = postId
+            if (reply.Comment != null)
+            {
+                var replyCreate = new Reply
+                {
+                    Comment = reply.Comment,
+                    UserId = userId,
+                    PostId = postId
 
-            };
-            context.Replies.Add(replyCreate);
-            context.SaveChanges();
-            return StatusCode(201); // aici nu am pus await???????
+                };
+                context.Replies.Add(replyCreate);
+                context.SaveChanges();
+                return StatusCode(201); // aici nu am pus await???????
             }
             return BadRequest("Nu ati introdus niciun text");
-            }
+        }
+        [Route("api/{userId}/deleteReply/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteReply(int userId, int id){
+            
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            var reply = await rep.GetReply(userId, id);
+            if(reply==null)
+                return BadRequest("Acest comentariu nu este al utilizatorului acesta");
+            
+            context.Replies.Remove(reply);
+            context.SaveChanges();
+            return Ok();
 
         }
+
+    }
     }

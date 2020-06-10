@@ -19,14 +19,13 @@ namespace turism.Data
            Task<Photo> GetPhoto(int id);
 
            Task<PostLike> GetLike(int postId, int userId);
+
+           Task<Post> PostExists(int userId, int postId);
            Task<IEnumerable<City>> GetCities();
 
            Task<IEnumerable<Reply>> GetReplies(int postId);
 
            Task<IEnumerable<int>> GetPostLikersId(int postId);
-
-           
-
-           
+           Task<Reply> GetReply(int userId, int id);
     }
 }

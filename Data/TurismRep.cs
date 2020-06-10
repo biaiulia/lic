@@ -54,8 +54,6 @@ namespace turism.Data
         {
              var posts = await context.Post.Include(p => p.PostLikes).Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
 
-            
-
             return posts;
         }
 
@@ -121,6 +119,20 @@ namespace turism.Data
 
            
 
+        }
+
+        public Task<Post> PostExists(int userId, int postId)
+        {
+            var post = context.Post.FirstOrDefaultAsync(p=>(p.Id==postId && p.UserId==userId));
+            if(post!=null)
+                return post;
+            return null;
+                 
+        }
+
+        public Task<Reply> GetReply(int userId, int id)
+        {
+            return context.Replies.FirstOrDefaultAsync(r=>(r.UserId==userId && r.Id==id));
         }
     }
 }

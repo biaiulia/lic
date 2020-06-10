@@ -66,6 +66,7 @@ namespace turism.Controllers
                                 uploadResult = cloudinary.Upload(uploadParams);
                             }
                         }
+                        else return BadRequest("Fisierul este gol");
                         photoForCreation.postId = postId;
                         photoForCreation.Url = uploadResult.Uri.ToString();
                         photoForCreation.PublicId = uploadResult.PublicId;

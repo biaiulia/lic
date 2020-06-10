@@ -4,5 +4,4 @@ export interface Reply {
     dateAdded: Date;
     userId: number;
     postId: number;
-
 }

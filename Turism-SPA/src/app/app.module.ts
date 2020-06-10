@@ -34,6 +34,7 @@ import { UnsavedChanges} from './.guard/unsaved-changes.guard';
 import { PostAddComponent } from './posts/post-add/post-add.component';
 import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
+import { RepliesComponent } from './replies/replies.component';
 
 
 
@@ -55,8 +56,8 @@ export function tokenGetter(){
       ProfileEditComponent,
       PostAddComponent,
       PhotoAddComponent,
-      PhotoViewComponent
-      
+      PhotoViewComponent,
+      RepliesComponent
    ],
    imports: [
       BrowserModule,

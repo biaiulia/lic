@@ -55,7 +55,7 @@ export class CityDetailComponent implements OnInit {
     this.cityService.getCity(cityName).subscribe((city: City) => { // ce plm face asta??????
       this.city = city;
       this.postsService.getPosts(this.city.id).subscribe((posts: Post[]) => {
-        this.posts = posts instanceof Array ? posts : [posts];
+        this.posts = posts instanceof Array ? posts : [posts]; // ceeeee?
       }, (error) => {
         this.alertify.error(error);
       });

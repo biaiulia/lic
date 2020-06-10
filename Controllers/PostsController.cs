@@ -82,11 +82,11 @@ namespace turism.Controllers
         [HttpPost]
          public async Task<IActionResult> AddPost(int userId, int cityId, Post post)
         {
-            // if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            //     return Unauthorized();
+            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+                    return Unauthorized();
             if(post.PostText!=null){
             var postCreate = new Post{
-                UserId = userId,
+                UserId = userId,    
                 CityId = cityId,
                 PostText = post.PostText,
                 DateAdded = DateTime.Now
@@ -104,8 +104,22 @@ namespace turism.Controllers
             // return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, post);
 
         }
+        [Route("api/{userId}/deletePost/{postId}")] // merge cu debugger, daca-l scot mai da internal error
+        [HttpDelete]
+         public async Task<IActionResult> DeletePost(int userId, int postId)
+        {
+            var post = await rep.PostExists(userId, postId);
+            if(post==null)
+                return BadRequest("Postarea nu exista, nu poate fi stearsa");
 
+            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+                    return Unauthorized();
+        
+            context.Post.Remove(post);
+            return Ok();
+                
 
+        }
 
         [Route("api/{userId}/like/{postId}")]
 
@@ -156,7 +170,7 @@ namespace turism.Controllers
             if(like==null)
                 return BadRequest("Nu exista like la aceasta postare");
             
-            context.Likes.Remove(await context.Likes.FirstOrDefaultAsync(l =>l.UserId==userId && l.PostId==postId));
+            context.Likes.Remove(like);
             context.SaveChanges();
             return Ok();
 
@@ -172,82 +186,8 @@ namespace turism.Controllers
             return false;
 
          }
+         
     }
 }
 
-
-
-
-
-
-
-            /*if (await rep.SaveAll())
-            {
-                var postToReturn = mapper.Map<PostForList>(post);
-                return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, postToReturn);
-            } // returnam posttoreturn ca sa nu returnam si userii si city urile
-            return BadRequest("Nu s-a putut adauga postarea");
-*
-
-        }// nu e bine
-
-       /* public async Task<IActionResult> AddPost(int userId, PostForCreation postForCreation)
-        {
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-
-            var userFromRep = await rep.GetUser(userId);
-            postForCreation.UserId = userId;
-            postForCreation.DateAdded = postForCreation.DateAdded;
-            postForCreation.PostText
-            
-
-             
-
-           // if(cityId != ) cum sa fac verificarea la cityId?
-
-                /*var userFromRep = await rep.GetUser(userId); // de ce sa luam userul
-                postForCreation.PostText=postForCreation.PostText;
-
-            var postCreate = new Post
-            {
-                PostText = postForCreation.PostText,
-                DateAdded = DateTime.Now,
-                CityId = cityId,
-                UserId = userId
-                
-            };
-            return StatusCode(201);
-           */
-
-        
-
-        
-
-    //    [HttpGet]
-
-        // public async Task<IActionResult> GetCityPosts(int cityid){
-        //     var posts = await context.Post.Include(m => m.City).FirstOrDefaultAsync(m=>m.CityId==cityid);
-        //     return Ok(posts);
-        // }
-    //    public IQueryable<Post> GetCityPosts(int cityId){
-            // var posts = from p in context.Post.Where(p => p.CityId == cityId)
-            // join cts in context.City on p.CityId equals cts.Id
-            // select new Post{
-              /* var posts = from p in context.Post
-                            from c in context.City
-                            where p.CityId==cityId
-                   
-                    select new{
-                        p.DateAdded,
-                        p.PostText,
-                        p.UserId
-                    };
-                    
-                    return (IQueryable<Post>)Ok(posts);*/
-                   
-            
-        
-        
-    
 

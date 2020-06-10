@@ -3,7 +3,7 @@
 
     <form #registerForm="ngForm" (ngSubmit)="addPost()">
         <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText">
-        <input type="file" multiple class="form-control" required name="images" [(ngModel)]="images">
+        <input type="file" multiple class="form-control" name="images" (change)="onSelectFile($event)">
       
         <button type="submit" [disabled]="registerForm.invalid">adauga postare</button>
       </form>

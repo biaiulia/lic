@@ -1,0 +1,10 @@
+
+<p *ngFor="let reply of replies; let replyIndex = index;">
+  {{reply.comment}}
+  <button class="btn btn-primary" *ngIf="loggedIn() && yourPost(reply.userId)" (click)="deleteReply(reply.id, replyIndex)"><i class="fa fa-trash"></i></button>
+</p>
+
+<form *ngIf="loggedIn()" #replyForm="ngForm"  class="form-inline" (ngSubmit)="AddReply()">
+  <input class="form-control mr-sm-2" type="text" name="reply" placeholder="comentariu" required [(ngModel)]="model.comment"> <!--a-ng ca sa primim sugestie de la ngmodel-->
+  <button [disabled]="!replyForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Adăuga Comentariu</button>
+  </form>
