@@ -8,8 +8,9 @@ namespace turism.Models
     {
       
         public int Id { get; set; }
-
+        public string Type { get; set; }
         public string PostText {get; set;} 
+        public string GetThere { get; set; }
 
         public DateTime DateAdded {get; set;}
         // [JsonIgnore]

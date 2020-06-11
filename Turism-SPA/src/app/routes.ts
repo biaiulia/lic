@@ -23,15 +23,17 @@ import {ProfileEditComponent} from './user/profile-edit/profile-edit.component';
 import {ProfileEditResolver} from './.resolver/profile-edit.resolver';
 import {UnsavedChanges} from './.guard/unsaved-changes.guard';
 import {PhotoAddComponent} from './posts/photo-add/photo-add.component';
+import { AdminComponent } from './admin/admin.component';
 
 export const appRoutes: Routes = [{
   path: 'home',
   component: HomeComponent
 },
-  {
-    path: 'messages',
-    component: MessagesComponent
-  },
+{
+  path: 'admin',
+  component: AdminComponent
+
+},
   {
     path: 'cities',
     component: CitiesComponent
@@ -52,6 +54,7 @@ export const appRoutes: Routes = [{
     path: ':name/:id',
     component: PostDetailComponent // , resolve: {post: PostDetailResolver} ???? nu merge
   },
+  
   {
     path: '**',
     redirectTo: 'home',

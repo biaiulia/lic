@@ -1,5 +1,7 @@
+
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using turism.Models;
 
@@ -7,20 +9,37 @@ namespace turism.Data
 {
     public class Seed
     {
-        public static void SeedUsers(DataContext context){
-            if (!context.Users.Any()) // sa pun !
+        public static void SeedUsers(UserManager<User> userManager, RoleManager<Role> roleManager){
+            if (!userManager.Users.Any()) // sa pun !
             {
                 var userData = System.IO.File.ReadAllText("Data/UserData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
-                foreach(var user in users){
-                    byte[] passwordhash, passwordSalt;
-                    CreatePasswordHash("password", out passwordhash, out passwordSalt);
-                    user.PasswordHash = passwordhash;
-                    user.PasswordSalt = passwordSalt;
-                    user.Username = user.Username.ToLower();
-                    context.Users.Add(user);
+               
+                var roles = new List<Role>
+                {
+                    new Role{Name= "Member"},
+                    new Role{Name= "Admin"},
+                };
+
+                foreach(var role in roles)
+                {
+                    roleManager.CreateAsync(role).Wait();
                 }
-                context.SaveChanges();
+                foreach(var user in users){
+                    userManager.CreateAsync(user, "password").Wait();
+                    userManager.AddToRoleAsync(user, "Member");
+                }
+                var admin = new User{
+                    UserName= "Admin"
+                };
+                var res = userManager.CreateAsync(admin,"password").Result;
+
+                if(res.Succeeded)
+                {
+                    var adm = userManager.FindByNameAsync("Admin").Result;
+                    userManager.AddToRolesAsync(adm, new[] {"Admin"});
+                }
+               
             }
         }
          private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
@@ -34,3 +53,5 @@ namespace turism.Data
         }
     }
 }
+
+    

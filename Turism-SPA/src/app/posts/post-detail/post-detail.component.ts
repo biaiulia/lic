@@ -45,7 +45,7 @@ export class PostDetailComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
 
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute,
-    private authService: AuthService) {}
+              private authService: AuthService) {}
 
   ngOnInit() {
 
@@ -54,6 +54,9 @@ export class PostDetailComponent implements OnInit {
     //   this.post = data['post'];
 
     // });
+  }
+  loggedIn(){
+    return this.authService.loggedIn();
   }
 
   loadPost() {

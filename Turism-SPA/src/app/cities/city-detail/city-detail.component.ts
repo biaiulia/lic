@@ -17,6 +17,7 @@ import {
 import {Post} from '../../.model/post';
 import {PostService} from '../../services/post.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-city-detail',
@@ -31,7 +32,7 @@ export class CityDetailComponent implements OnInit {
 
   constructor(private cityService: CityService,
               private alertify: AlertifyService, private route: ActivatedRoute, // qctivqted route stie linku pe care esti
-              private postsService: PostService) // importam activated
+              private postsService: PostService, private authService: AuthService) // importam activated
   // route ca sa avem  acces la oras, gen din /cities/3 de ex
   {
   }
@@ -49,6 +50,9 @@ export class CityDetailComponent implements OnInit {
   // }
 
 
+  loggedIn(){
+    return this.authService.loggedIn();
+  }
 
   loadCity() {
     const cityName = this.route.snapshot.params['name'];

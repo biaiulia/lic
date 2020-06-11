@@ -49,7 +49,8 @@ namespace turism.Controllers
 
 
                 [HttpPost]
-                public async Task<IActionResult> AddPhoto(int postId, [FromForm] PhotoForCreation photoForCreation){
+                public async Task<IActionResult> AddPhoto(int postId, [FromForm] PhotoForCreation photoForCreation)
+                {
                         
                         //var postFromRep = await rep.GetPost(postId);
                         var file = photoForCreation.File;

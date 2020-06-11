@@ -35,6 +35,7 @@ import { PostAddComponent } from './posts/post-add/post-add.component';
 import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
 import { RepliesComponent } from './replies/replies.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 
@@ -57,7 +58,8 @@ export function tokenGetter(){
       PostAddComponent,
       PhotoAddComponent,
       PhotoViewComponent,
-      RepliesComponent
+      RepliesComponent,
+      AdminComponent
    ],
    imports: [
       BrowserModule,
@@ -73,7 +75,7 @@ export function tokenGetter(){
          tokenGetter: tokenGetter,
          whitelistedDomains: ['localhost:5000'],
           blacklistedRoutes: ['localhost:5000/api/auth']
-      }
+         }
 })]
    ,
    providers: [

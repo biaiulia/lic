@@ -3,7 +3,7 @@
           <div class="bottom-left">{{city?.name}}
           </div>
         </div>
-        <button type="button" class="btn btn-light" [routerLink]="['./addPost']">Adauga experienta ta!</button>
+        <button type="button" *ngIf="loggedIn()" class="btn btn-light" [routerLink]="['./addPost']">Adauga experienta ta!</button>
 
 
         <div class="container mt-5">

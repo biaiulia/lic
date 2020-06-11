@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -13,63 +15,82 @@ using turism.Models;
 
 namespace turism.Controllers
 {
-    
-     // totul din acest controller trebuie sa fie un request authorized
+
+    // totul din acest controller trebuie sa fie un request authorized
     [Route("api/[controller]")] //unde sa rutam, controller e placeholder pt ValuesController
     [ApiController]
     public class AuthController : ControllerBase// trebe sa injectam repository ul creat
-    {
-        private readonly IAuthRepository rep;               // dc readonly
+    {           // dc readonly
         private readonly IConfiguration config; // de ce folosim asta???
-        public AuthController(IAuthRepository rep, IConfiguration config)
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
+        public AuthController( IConfiguration config, UserManager<User> userManager, SignInManager<User> signInManager)
         {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
             this.config = config;
-            this.rep = rep;
+          
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister) // trebuie sa cream un Dto sau in data transfer object ca sa putem trimite aici datele
         {
-            
-            // validam requestul
-
-            userForRegister.Username = userForRegister.Username.ToLower(); //consistenta in baza de date sa nu fie scrise mari
-
-            if (await rep.UserExists(userForRegister.Username)) // aici de schimbat in user nu userforregister
-                return BadRequest("Utilizatorul exista deja"); // badrequest este din COntrollerBase
-
             var userCreate = new User
             {
-                 Username = userForRegister.Username,
-                   Joined = DateTime.Now
+                UserName = userForRegister.Username,
+                Joined = DateTime.Now
             };
-
-            var CreatedUser = await rep.Register(userCreate, userForRegister.Password); 
-
-            return StatusCode(201);
+            var result = await userManager.CreateAsync(userCreate, userForRegister.Password);
+            if(result.Succeeded)
+                return StatusCode(201);
             //return CreatedAtRoute("GetUser", new {controller = "Users", IDesignTimeMvcBuilderConfiguration= CreatedUser.Id});
+            return BadRequest(result.Errors);
         }
 
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
-            
 
-            var userFromRep = await rep.Login(userForLogin.Username.ToLower(), userForLogin.Password); // verificam daca avem userul si folosim Dto ul si il transformam in tolower
 
-            if (userFromRep == null)
-                return Unauthorized(); // nu dam detalii daca e de parola sau utilizator
+            var user = await userManager.FindByNameAsync(userForLogin.Username);
 
-            var claims = new[]
+            if(user==null)
+                return Unauthorized();
+            var results = await signInManager.CheckPasswordSignInAsync(user, userForLogin.Password, false); // pentru lockoutul userului
+            //await rep.Login(userForLogin.Username.ToLower(), userForLogin.Password); // verificam daca avem userul si folosim Dto ul si il transformam in tolower
+
+        if(results.Succeeded){
+            return Ok(new
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRep.Id.ToString()),  // primul claim este id ul
-                new Claim(ClaimTypes.Name, userFromRep.Username)  // al doilea claim este username ul
+                token = GenerateJwtToken(user).Result
+                //user
+            });
+        }
+        return Unauthorized();
+            
+        
+        }
+
+        private async Task<String> GenerateJwtToken(User user)
+        {
+
+            var claims = new List<Claim> // ca sa putem adauga
+           {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),  // primul claim este id ul
+                new Claim(ClaimTypes.Name, user.UserName)  // al doilea claim este username ul
             };
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            foreach(var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));  // ceeee? asta e cheie cu care putem face signingcredentials
 
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature); 
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -77,14 +98,12 @@ namespace turism.Controllers
                 Expires = DateTime.Now.AddDays(2), // expira in 2 zile
                 SigningCredentials = cred
             };
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDescriptor); // tokenu pt credentiale
 
-            return Ok(new {
-                token = tokenHandler.WriteToken(token)
-            });
+            return tokenHandler.WriteToken(token);
         }
     }
 }

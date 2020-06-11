@@ -57,11 +57,13 @@ export class PostService {
     );
   }
 
-  addPhoto(postId, model) {
-    return this.http.post(`${this.baseUrl}posts/${postId}/photos`, {file: model}).pipe(
-      map((response: any) => {
-        return response;
-        })
+  addPhoto(postId, files) {
+    const formData: FormData = new FormData();
+    for (const file of files) {
+      formData.append('File', file);
+    }
+    return this.http.post(`${this.baseUrl}posts/${postId}/photos`, formData).pipe(
+      map((response: any) => response)
 
     );
   }

@@ -145,7 +145,7 @@ namespace turism.Controllers
             };
             if(likeCreate!=null)
             {
-            context.Likes.Add(likeCreate);
+            context.Like.Add(likeCreate);
             context.SaveChanges();
             return Ok();
             }
@@ -170,7 +170,7 @@ namespace turism.Controllers
             if(like==null)
                 return BadRequest("Nu exista like la aceasta postare");
             
-            context.Likes.Remove(like);
+            context.Like.Remove(like);
             context.SaveChanges();
             return Ok();
 

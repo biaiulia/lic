@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using turism.Data;
 using turism.Helpers;
+using turism.Models;
 
 namespace turism
 {
@@ -41,17 +43,30 @@ namespace turism
         }
         public void ConfigureServices(IServiceCollection services) //container de dependency injection
         {
+            IdentityBuilder build = services.AddIdentityCore<User>(o =>{
+                o.Password.RequireDigit = false;
+                o.Password.RequiredLength = 4;
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequireUppercase = false;
+            });
+            build = new IdentityBuilder(build.UserType, typeof(Role), build.Services);
+            build.AddEntityFrameworkStores<DataContext>();
+            build.AddRoleValidator<RoleValidator<Role>>();
+            build.AddRoleManager<RoleManager<Role>>();
+            build.AddSignInManager<SignInManager<User>>();
+
+
             services.AddAutoMapper(typeof(TurismRep).Assembly);
             
             services.AddControllers().AddNewtonsoftJson();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // luam setarile din fisier
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            // services.AddMvc().AddJsonOptions(
+            
+            //.AddJsonOptions(
             //     options => options.SerializerSettings.ReferenceLoopHandling =            
             //     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     
             services.AddCors(); //adauga serviciul cors ca sa il facem available ca middleware prin injection
-            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITurismRep, TurismRep>(); // de ce aducem repository urile????
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options => { options.TokenValidationParameters = new TokenValidationParameters{

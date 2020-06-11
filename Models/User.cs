@@ -4,20 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 namespace turism.Models
 {
-    public class User
+    public class User : IdentityUser<int> // id ca si int
     {
-        public int Id { get; set; }
-
-        public string Username { get; set; }
-
-        [IgnoreDataMember]
-        public byte[] PasswordHash { get; set; }
-        [IgnoreDataMember]
-
-        public byte[] PasswordSalt { get; set; }
 
         public DateTime Joined { get; set; }   
 
@@ -33,10 +25,13 @@ namespace turism.Models
 
         public string City { get; set; }
 
-        public string ImgUrl { get; set; }
+        public string Url { get; set; }
+        public string PublicId { get; set; }
 
         [IgnoreDataMember]
         public ICollection<Post> Posts {get; set;}
+
+        public ICollection<UserRole> UserRoles {get; set;}
 
     }
 }

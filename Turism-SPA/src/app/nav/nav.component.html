@@ -10,8 +10,8 @@
     <!--  <li class="nav-item">
         <a class="nav-link" href="#">Locuri</a>
       </li> -->
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/messages']" routerLinkActive="router-link-active">Mesaje</a>
+      <li class="nav-item" *ngIf="loggedIn()">
+        <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>
 
     </ul>

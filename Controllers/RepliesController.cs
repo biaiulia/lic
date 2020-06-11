@@ -41,7 +41,7 @@ namespace turism.Controllers
                     PostId = postId
 
                 };
-                context.Replies.Add(replyCreate);
+                context.Reply.Add(replyCreate);
                 context.SaveChanges();
                 return StatusCode(201); // aici nu am pus await???????
             }
@@ -57,7 +57,7 @@ namespace turism.Controllers
             if(reply==null)
                 return BadRequest("Acest comentariu nu este al utilizatorului acesta");
             
-            context.Replies.Remove(reply);
+            context.Reply.Remove(reply);
             context.SaveChanges();
             return Ok();
 

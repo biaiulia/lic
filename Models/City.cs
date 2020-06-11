@@ -27,11 +27,8 @@ namespace turism.Models {
             get;
             set;
         }
-        [NotMapped]
-        public static string NameClean {
-            get;
-            set;
-        }
+
+        public string PublicId { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

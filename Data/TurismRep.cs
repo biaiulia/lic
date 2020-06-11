@@ -110,12 +110,12 @@ namespace turism.Data
 
         public async Task<PostLike> GetLike(int userId, int postId)
         {
-            return await context.Likes.FirstOrDefaultAsync(l => l.UserId == userId && l.PostId == postId);
+            return await context.Like.FirstOrDefaultAsync(l => l.UserId == userId && l.PostId == postId);
         }
 
         public async Task<IEnumerable<Reply>> GetReplies(int postId)
         {
-            return await context.Replies.Include(r=>r.User).Where(r => r.PostId==postId).ToListAsync();
+            return await context.Reply.Include(r=>r.User).Where(r => r.PostId==postId).ToListAsync();
 
            
 
@@ -132,7 +132,7 @@ namespace turism.Data
 
         public Task<Reply> GetReply(int userId, int id)
         {
-            return context.Replies.FirstOrDefaultAsync(r=>(r.UserId==userId && r.Id==id));
+            return context.Reply.FirstOrDefaultAsync(r=>(r.UserId==userId && r.Id==id));
         }
     }
 }
