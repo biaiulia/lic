@@ -27,5 +27,7 @@ namespace turism.Data
 
            Task<IEnumerable<int>> GetPostLikersId(int postId);
            Task<Reply> GetReply(int userId, int id);
+            Task<Post> PostExists(int postId);
+            Task<User> UserExists(int userId);
     }
 }

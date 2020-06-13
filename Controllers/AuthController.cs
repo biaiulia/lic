@@ -35,6 +35,12 @@ namespace turism.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister) // trebuie sa cream un Dto sau in data transfer object ca sa putem trimite aici datele
         {
+            var user = await userManager.FindByNameAsync(userForRegister.Username);
+            if(user!=null)
+            {
+                return BadRequest("Exista deja un utilizator cu acest nume pe platformă");
+
+            }
             var userCreate = new User
             {
                 UserName = userForRegister.Username,
@@ -44,7 +50,7 @@ namespace turism.Controllers
             if(result.Succeeded)
                 return StatusCode(201);
             //return CreatedAtRoute("GetUser", new {controller = "Users", IDesignTimeMvcBuilderConfiguration= CreatedUser.Id});
-            return BadRequest(result.Errors);
+             return BadRequest(result.Errors);
         }
 
 

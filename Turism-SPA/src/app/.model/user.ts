@@ -10,6 +10,7 @@ export interface User {
     points: number;
     country?: string;
     city?: string;
-    imgUrl?: string;
+    url?: string;
+    publicId?: string;
     posts?: Post[];
 }

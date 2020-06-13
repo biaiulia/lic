@@ -36,6 +36,7 @@ import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
 import { RepliesComponent } from './replies/replies.component';
 import { AdminComponent } from './admin/admin.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 
@@ -59,7 +60,8 @@ export function tokenGetter(){
       PhotoAddComponent,
       PhotoViewComponent,
       RepliesComponent,
-      AdminComponent
+      AdminComponent,
+      ContactComponent
    ],
    imports: [
       BrowserModule,

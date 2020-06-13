@@ -52,12 +52,14 @@ export class RepliesComponent implements OnInit {
     }
     return false;
   }
+  
 
   loggedIn(){
     return this.authService.loggedIn();
   }
 
   deleteReply(id: number, replyIndex: number){
+    debugger;
    this.replyService.deleteReply(this.authService.decodedToken.nameid, id).subscribe( next => {
      this.alertify.success('ati sters comentariul');
      this.replies.splice(replyIndex, 1);

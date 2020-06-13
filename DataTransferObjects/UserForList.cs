@@ -23,6 +23,6 @@ namespace turism.DataTransferObjects
 
         public string City { get; set; }
 
-        public string ImgUrl { get; set; }
+        public string Url { get; set; }
     }
     }

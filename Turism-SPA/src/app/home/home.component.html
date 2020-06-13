@@ -1,45 +1,18 @@
 <section class="page-container d-flex justify-content-center align-items-center">
-  <div class="center">
-    <div *ngIf="!registerMode" style="text-align: center">
-      <h1>Gaseste orasul LU MORȚII TĂI</h1>
-      <div>
-        <input type="text" class="form-control" placeholder="Cauta orasul">
-                <div class="input-group-append">
-              <button type="submit" class="input-group-text btn">Cauta</button>
-      </div>
-    </div>
-      </div>
-    
-    
-    <!--<section class="page-container d-flex justify-content-center align-items-center">
-        <div class="center">
-          <div *ngIf="!registerMode" style="text-align: center">
-            <h1>Gaseste orasul pe care il cauti</h1>
-                 <input type="text" class="form-control" placeholder="Cauta orasul">
-                <div class="input-group-append">
-              <button type="submit" class="input-group-text btn">Cauta</button>
-          </div>
-      </div>
-    </div>
- 
-  <section class="features">
-      <h1>Orasele</h1>
-      <div class="container">
-          <div class="row">
-         
-          <div class="col-md-4">
-              <div class="card" style="width: 18rem;">
-                  <img class="card-img-top" src="http://localhost:8080/brasov.jpg" alt="Card image cap">
-                  <div class="card-body">
-                      <h5 class="card-title">Brasov</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Viziteaza</a>
-                  </div>
-              </div>
+  <div class="home-inner">
+    <div class="center">
+      <div *ngIf="!registerMode" style="text-align: center">
+        <h1>Gaseste orasul LU MORȚII TĂI</h1>
 
-              </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder=" Cauta un oras">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">Caută</button>
           </div>
-        -->
+        </div>
+      </div>
+    </div>
+
 
     <div *ngIf="registerMode" class="d-flex h-100">
       <div class="row justify-content-center">
@@ -49,7 +22,98 @@
         </div>
       </div>
     </div>
-  
+
   </div>
 </section>
 
+<section class="city-container d-flex">
+  <app-cities></app-cities>
+
+</section>
+
+<section class="register-container d-flex">
+  
+</section>
+
+
+
+
+
+<section class="fixed-background d-flex">
+  <div class="center">
+    <div class="col-12 narrow text-center">
+      <h1>Nu ești deja un membru?</h1>
+      <p class="lead">Alătură-te comunității noastre pentru a afla mai multe despre comorile Transilvaniei!</p>
+      <button type="button" class="btn btn-outline-info">Înregistrează-te</button>
+  
+    </div>
+  </div>
+
+</section>
+
+
+<div class="jumbotron">
+  <div class="narrow">
+    <div class="col-12">
+      <br><br>
+      <h3 class="heading text-center">Orașe</h3>
+      <div class="heading-underline">
+      </div>
+
+      <div class="row text-center">
+
+        <div class="col-md-4">
+          <div class="feature">
+            <i class="fas fa-comments fa-4x"></i>
+            <h3>Postează</h3>
+            <p>Povestește-ti experiențele din călătoriile tale blablablabla</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature">
+            <i class="fas fa-plane fa-4x"></i>
+            <h3>Explorează</h3>
+            <p>Vezi experiențele celorlalți utilizatori</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature">
+            <i class="fas fa-heart fa-4x"></i>
+            <h3>Apreciază conținutul</h3>
+            <p>Apreciază postările care îți plac și câștigă puncte</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-contact></app-contact>
+
+
+<!-- <section class="features">
+  <div class="container">
+    <h1>Orasele</h1>
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="http://localhost:8080/brasov.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Brasov</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Viziteaza</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section> -->

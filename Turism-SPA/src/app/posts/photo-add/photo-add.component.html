@@ -2,10 +2,10 @@
 <!--<form [formGroup]="postAddGroup" (submit)="addPost()">-->
 
     <form (ngSubmit)="addPost()">
-        <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText" [ngModelOptions]="{standalone: true}">
+        <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText" [ngModelOptions]="{standalone: true}"> 
         <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)">
       
-        <button type="submit" [disabled]="!model.postText">adauga postare</button>
+        <button type="btn btn-success my-2 my-sm-0" [disabled]="!model.postText">adauga postare</button>
       </form>
 
 

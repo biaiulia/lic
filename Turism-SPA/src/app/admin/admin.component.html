@@ -1,3 +1,15 @@
-<p>
-  admin works!
-</p>
+<div class="edit-profile">
+  <div class="container">
+  <h1><strong>
+    Adauga oras:
+  </strong></h1>
+  <form #editCity="ngForm" (ngSubmit)="addCity()">
+    <label for="country">Nume</label>
+    <input class="form-control" type="text" name="nume" [(ngModel)]="city.name">
+    <label for="lastName">Descriere</label>
+    <input class="form-control" type="text" name="descriere" [(ngModel)]="city.description">
+    <label for="photo">Poza orasului</label>
+    <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])"> <br>
+    <button [disabled]="!editCity.dirty" class="btn btn-success btn-block" >Adauga oras</button>
+  </form>
+  </div>

@@ -55,6 +55,8 @@ namespace turism.Controllers
                         //var postFromRep = await rep.GetPost(postId);
                         var file = photoForCreation.File;
                         var postFromRep = await rep.GetPost(postId);
+                        if(postFromRep==null)
+                            return BadRequest("Nu exista o postare cu id-ul asta postare");
                         var uploadResult = new ImageUploadResult();
                         if(file.Length>0)
                         {

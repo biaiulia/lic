@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img [src]="user.imgUrl" [alt]="user.firstName" class="card-img-top img-thumbnail">
+        <img [src]="user.url" [alt]="user.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Locatie:</strong>
@@ -19,7 +19,7 @@
           </div>
           <div>
             <strong>Joined:</strong>
-            <p>{{user.joined}}</p>
+            <p>{{user.joined | date : 'dd/MM/yyyy'}}</p> 
           </div>
           <div>
             <strong>Puncte:</strong>

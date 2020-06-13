@@ -38,6 +38,15 @@ export class CityService {
   getCity(name): Observable < City > {
     return this.http.get < City > (this.baseUrl + name);
   }
+  addCity(city: City): Observable<City>{
+    debugger;
+    const formData: FormData = new FormData();
+    formData.append('File', city.imageSend);
+    formData.append('Name', city.name);
+    formData.append('Description', city.description);
+    return this.http.post<City>(this.baseUrl + 'admin/addCity', formData);
+    
+  }
 
 
 }

@@ -129,10 +129,23 @@ namespace turism.Data
             return null;
                  
         }
+        public Task<Post> PostExists(int postId)
+        {
+            var post = context.Post.FirstOrDefaultAsync(p=>p.Id==postId);
+            if(post!=null)
+                return post;
+            return null;
+                 
+        }
 
         public Task<Reply> GetReply(int userId, int id)
         {
             return context.Reply.FirstOrDefaultAsync(r=>(r.UserId==userId && r.Id==id));
+        }
+
+        public Task<User> UserExists(int userId)
+        {
+            return context.Users.FirstOrDefaultAsync(u=>u.Id==userId);
         }
     }
 }

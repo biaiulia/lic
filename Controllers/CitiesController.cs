@@ -39,11 +39,11 @@ namespace turism.Controllers
         //          return Ok(city);
         //  }
          [Route("api/{name}")]
-         [HttpGet("{name}")]
+         [HttpGet]
 
         public async Task<IActionResult> GetCityByName(string name){
 
-            var city = await context.City.FirstOrDefaultAsync( x => x.Name.ToLower() == name);
+            var city = await context.City.Include(c=>c.Posts).FirstOrDefaultAsync( x => x.Name.ToLower() == name);
 
             return Ok(city);
         }

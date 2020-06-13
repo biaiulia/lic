@@ -6,6 +6,10 @@
 }
 
 :host {
-    height: 60px;
+    height: 57px;
     display: block;
+}
+
+.navbar-brand img {
+    height: 2rem;
 }

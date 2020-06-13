@@ -13,7 +13,9 @@ import {
 import {
   environment
 } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject
+} from 'rxjs';
 
 
 
@@ -42,6 +44,7 @@ export class AuthService {
     // luam de la server observable ul si il transformam
   }
 
+
   register(model: any) { // model doar salveaza username ul si parola ca sa le paseze
     return this.http.post(this.baseUrl + 'register', model); // returneaza un
     // observable. trebe sa facem subscribe din componenta ca sa o putem folosi
@@ -50,5 +53,18 @@ export class AuthService {
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token); // daca e expirat arata false si daca nu e arata true
+  }
+
+  roleCheck(allowRole): boolean {
+    let isAllowed = false;
+    const userRoles = this.decodedToken.role as Array < string > ; // ceee??? asa luam rolurile
+    allowRole.array.forEach(element => {
+      if (userRoles.includes(element)) {
+        isAllowed = true;
+        return isAllowed;
+      }
+      
+    });
+    return isAllowed;
   }
 }

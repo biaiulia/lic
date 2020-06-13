@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  ViewChild,
   Input
 } from '@angular/core';
 import {
@@ -20,9 +19,6 @@ import {
 import {
   ActivatedRoute
 } from '@angular/router';
-import {
-  PhotoAddComponent
-} from '../photo-add/photo-add.component';
 import {
   Photo
 } from 'src/app/.model/photo';

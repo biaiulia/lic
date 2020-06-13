@@ -4,3 +4,8 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '../node_modules/bootswatch/dist/spacelab/bootstrap.min.css';
+
+body {
+    overflow-x: hidden;
+    font-family: 'Lato', sans-serif; 
+}

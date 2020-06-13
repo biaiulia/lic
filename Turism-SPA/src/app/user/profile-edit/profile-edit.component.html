@@ -11,7 +11,7 @@
     
     <div class="col-sm-4">
       <div class="card">
-        <img [src]="user.imgUrl" [alt]="user.firstName" class="card-img-top img-thumbnail">
+        <img [src]="user.url" [alt]="user.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Prenume:</strong>
@@ -53,21 +53,21 @@
             <h1><strong>
               Edit profile:
             </strong></h1>
+            <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
+              <label for="photo">Poza de profil</label>
+              <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])">
+              <button class="btn btn-success btn-block">Salveaza Modificari</button>
+            </form>
+
+
             <form #editForm="ngForm" (ngSubmit)="updateProfile()">
-              <!--<h4>Prenume</h4>
-              <textarea name="firstName" rows="1" class="form-control" [(ngModel)]="user.firstName"></textarea>
-              <h4>Prenume</h4>
-              <textarea name="lastName" rows="1" class="form-control" [(ngModel)]="user.lastName"></textarea>
-              <h4>Tara</h4>
-              <textarea name="country" rows="1" class="form-control" [(ngModel)]="user.country"></textarea>
-              <h4>Oras</h4>
-              <textarea name="name" rows="1" class="form-control" [(ngModel)]="user.city"></textarea>-->
+
           <br class="form-inline">
-            <label for="city">Prenume</label>
+            <label for="firstName">Prenume</label>
               <input class="form-control" type="text" name="firstname" [(ngModel)]="user.firstName">
-              <label for="city">Nume</label>
+              <label for="lastName">Nume</label>
               <input class="form-control" type="text" name="lastmame" [(ngModel)]="user.lastName">
-              <label for="city">Tara</label>
+              <label for="country">Tara</label>
               <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
               <label for="city">Oras</label>
               <input class="form-control" type="text" name="city" [(ngModel)]="user.city"><br>

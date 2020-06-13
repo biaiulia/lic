@@ -1,12 +1,17 @@
-using System;
+
 using System.Linq;
 using System.Threading.Tasks;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using turism.Data;
 using turism.DataTransferObjects;
+using turism.Helpers;
 using turism.Models;
 
 namespace turism.Controllers
@@ -17,11 +22,25 @@ namespace turism.Controllers
     public class AdminController : ControllerBase
     {
         private readonly DataContext context;
+        private readonly ITurismRep rep;
         private readonly UserManager<User> userManager;
-        public AdminController(DataContext context, UserManager<User> userManager)
+        private readonly IOptions<CloudinarySettings> cloudinaryConfig;
+        private Cloudinary cloudinary;
+        public AdminController(DataContext context, UserManager<User> userManager, IOptions<CloudinarySettings> cloudinaryConfig, ITurismRep rep)
         {
+            this.cloudinaryConfig = cloudinaryConfig;
             this.userManager = userManager;
             this.context = context;
+            this.rep = rep;
+
+            Account acc = new Account(
+                    cloudinaryConfig.Value.CloudName,
+                    cloudinaryConfig.Value.ApiKey,
+                    cloudinaryConfig.Value.ApiSecret
+                    );
+                                       
+        
+                    cloudinary = new Cloudinary(acc);
 
         }
 
@@ -70,7 +89,82 @@ namespace turism.Controllers
             return Ok(await userManager.GetRolesAsync(user));
         }
         //Video 209 min 5
+
+
+        [HttpPost("addCity")]
+        public IActionResult AddCity([FromForm] CityForCreation cityForCreation)
+        { 
+
+            // 
+            if (cityForCreation.Name == null || cityForCreation.Description == null)
+                return BadRequest("nu ati introdus datele orasului!");
+            var file = cityForCreation.File;
+            var uploadResult = new ImageUploadResult();
+
+
+            if (file.Length > 0)
+            {
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(file.Name, stream)
+                    };
+                    uploadResult = cloudinary.Upload(uploadParams);
+                }
+                var cityCreate = new City
+                {
+                    Name = cityForCreation.Name,
+                    Description = cityForCreation.Description,
+                    Url = uploadResult.Uri.ToString(),
+                    PublicId = uploadResult.PublicId
+
+                };
+                context.City.Add(cityCreate);
+                context.SaveChanges();
+                 return Ok("Ati introdus un oras");
+
+            }
+            else return BadRequest("Nu ati introdus o poza");
+        }
+
+        [HttpDelete("deletePost/{postId}")]
+         public async Task<IActionResult> DeletePost(int postId)
+        {
+            var post = await rep.PostExists(postId);
+            if(post==null)
+                return BadRequest("Postarea nu exista, nu poate fi stearsa");
         
+            context.Post.Remove(post);
+            context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete("deleteUser/{UserName}")]
+         public async Task<IActionResult> DeleteUser(string UserName)
+        {
+            var user = await userManager.FindByNameAsync(UserName);
+            if(user==null)
+                return BadRequest("Utilizatorul nu exista, nu poate fi sters");
+        
+            context.Users.Remove(user);
+            context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpDelete("deleteCity/{id}")]
+         public async Task<IActionResult> DeleteCity(int cityId)
+        {
+            var city = await rep.GetCity(cityId);
+            if(city==null)
+                return BadRequest("Orasul nu exista, nu poate fi sters");
+        
+            context.City.Remove(city);
+            context.SaveChanges();
+            return Ok();
+        }
+
+
 
 
 

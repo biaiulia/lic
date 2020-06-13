@@ -56,12 +56,12 @@ export class PhotoAddComponent implements OnInit {
   imagePostIndex = 0;
 
   constructor(private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private cityService: CityService,
-    private route: ActivatedRoute,
-    private postService: PostService,
-    private alertify: AlertifyService,
-    private location: Location) {}
+              private formBuilder: FormBuilder,
+              private cityService: CityService,
+              private route: ActivatedRoute,
+              private postService: PostService,
+              private alertify: AlertifyService,
+              private location: Location) {}
 
   ngOnInit() { // de ce pot pune doar aici debugger
     this.getCity();
@@ -76,38 +76,40 @@ export class PhotoAddComponent implements OnInit {
     this.images = files;
   }
 
-  fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
+  /* fileOverBase(e: any): void {
+     this.hasBaseDropZoneOver = e;
+   }
 
-  initializeUploader(postId: number) {
-    this.uploader = new FileUploader({
-      url: this.baseUrl + 'posts/' + postId + '/photos',
-      //+ this.photos.postId + '/photos',
-      //'users/' + this.authService.decodedToken.nameid + '/photos', TREBE ADAUGAT AICI URL U PT BACKEND
-      authToken: 'Bearer' + localStorage.getItem('token'),
-      isHTML5: true,
-      allowedFileType: ['image'],
-      removeAfterUpload: true,
-      autoUpload: false,
-      maxFileSize: 10 * 1024 * 1024 // ca sa fie de 10 mb fisieru
+   initializeUploader(postId: number) {
+     this.uploader = new FileUploader({
+       url: this.baseUrl + 'posts/' + postId + '/photos',
+       //+ this.photos.postId + '/photos',
+       //'users/' + this.authService.decodedToken.nameid + '/photos', TREBE ADAUGAT AICI URL U PT BACKEND
+       authToken: 'Bearer' + localStorage.getItem('token'),
+       isHTML5: true,
+       allowedFileType: ['image'],
+       removeAfterUpload: true,
+       autoUpload: false,
+       maxFileSize: 10 * 1024 * 1024 // ca sa fie de 10 mb fisieru
 
-    });
-    debugger;
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    };
-  }
+     });
+     debugger;
+     this.uploader.onAfterAddingFile = (file) => {
+       file.withCredentials = false;
+     };
+   }*/
 
 
   addPost(): void { // nu vrea sa insereze textu, dc?
     this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid).subscribe(next => {
+        this.alertify.success('postarea a fost adaugata');
+        this.location.back();
         debugger;
         if (!this.images) {
           return;
         }
         this.addPhoto(next);
-        this.alertify.success('postarea a fost adaugata');
+
       },
       error => {
         this.alertify.error('nu s-a reusit');
@@ -128,22 +130,6 @@ export class PhotoAddComponent implements OnInit {
       this.alertify.error('nu mere');
     });
   }
-
-
-  // addPost(): void {
-  //   debugger;
-  //   this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid)
-  //   .subscribe(res => {
-
-  //      // Hermes- cum iau id u postarii ca sa adaug poza pt id u asta
-  //       // this.initializeUploader(res.id);
-  //       this.alertify.success('postarea ta a fost adaugata');
-  //       this.location.back();
-  //     },
-  //       error => {
-  //         this.alertify.error('nu s-a reusit');
-  //       });
-  // }
 
   private getCity(): void {
     this.cityService.getCities().subscribe((cities: City[]) => {

@@ -22,9 +22,10 @@ export class NavComponent implements OnInit {
      this.alertify.success('logged in succesfully');
    }, error => {
      this.alertify.error(error);
-   },() => { // trebe stearsa dupa
-     this.router.navigate(['/home']);
-  }); // ceeee?
+  //  },() => { // trebe stearsa dupa
+  //    this.router.navigate(['/home']);
+   }
+  );
   }
    loggedIn(){
     return this.authService.loggedIn();
