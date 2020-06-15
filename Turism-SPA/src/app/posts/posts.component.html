@@ -46,6 +46,7 @@
 
 <div *ngFor="let post of posts" class="row" >
   <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
+    <hr>
     <div class="row">
       <div class="col-md-4">
         <a [routerLink]="['/user/', post.user.userName]">

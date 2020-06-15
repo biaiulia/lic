@@ -27,8 +27,8 @@ getUsers(): Observable<User[]>{
 getUser(id): Observable<User[]>{ // de ce facem asa
   return this.http.get<User[]>(this.baseUrl + 'users/' + id);
 }
-getUserByName(userName: string): Observable<User[]>{ // de ce facem asa
-return this.http.get<User[]>(this.baseUrl + 'users/username/' + userName);
+getUserByName(userName: string): Observable<User>{ // de ce facem asa
+return this.http.get<User>(this.baseUrl + 'users/username/' + userName);
 }
 
 
@@ -38,7 +38,7 @@ updateUser(id: number, user: User){
 updatePhoto(id: number, file: File){
   const formData: FormData = new FormData();
   formData.append('File', file);
-  return this.http.put<User[]>(this.baseUrl + 'users/photo/' + id, formData);
+  return this.http.put<User>(this.baseUrl + 'users/photo/' + id, formData);
 }
 
 

@@ -52,6 +52,16 @@ export class CityService {
     return this.http.delete(`${this.baseUrl}admin/deleteCity/${cityId}`);
   }
 
+  updateCity(id: number, city: City){
+    return this.http.put<City>(this.baseUrl + 'admin/cityUpdate/' + id, city);
+  }
+
+  updatePhoto(id: number, file: File){
+    const formData: FormData = new FormData();
+    formData.append('File', file);
+    return this.http.put<City>(this.baseUrl + 'admin/cityPhoto/' + id, formData);
+  }
+
 
 }
 

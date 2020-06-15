@@ -113,7 +113,7 @@ namespace turism.Controllers
                             userFromRep.PublicId = uploadResult.PublicId;
                         }
                         if(await rep.SaveAll())
-                             return Ok();
+                             return Ok(userFromRep);
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
 
 

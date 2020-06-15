@@ -31,11 +31,20 @@ export class AdminComponent implements OnInit {
   }) editCity: NgForm
   baseUrl: string;
   city: City = {
-    name: '',
-    description: '',
-    imageSend: undefined
+    name: null,
+    description: null,
   };
   cities: City[];
+  image: File;
+  cityId: number;
+  model: City = {
+    name: '',
+    description: '',
+  };
+  editMode: boolean;
+  addMode: boolean;
+  cityModeIndex: number;
+  citiesIndex: number;
 
   constructor(private alertify: AlertifyService, private postService: PostService, private cityService: CityService) {}
   @HostListener('window:beforeunload', ['$event'])
@@ -44,11 +53,58 @@ export class AdminComponent implements OnInit {
       $event.returnValue = true;
     }
   }
+
   ngOnInit() {
     this.getCities();
+    this.editMode = false;
+    this.addMode = false;
+    this.cityModeIndex = 0;
   }
   onSelectFile(file: File) { // called each time file input changes
-    this.city.imageSend = file;
+    debugger;
+    this.image = file;
+  }
+  selectCity(cityId: number, citiesIndex: number){
+    this.editMode = true;
+    this.cityId = cityId;
+    this.citiesIndex = citiesIndex;
+  }
+  cancelEdit(){
+    this.editMode = false;
+
+  }
+  // addCityMode(){
+  //   this.cityModeIndex++;
+  //   debugger;
+  //   if (this.cityModeIndex % 2 === 0){
+  //   this.addMode = false;
+  // }
+  //   else{
+  //     this.addMode = true;
+  //   }
+  // }
+  updateCity(citiesIndex: number) {
+    debugger;
+    this.cityService.updateCity(this.cityId, this.city).subscribe((city: City) => {
+      this.alertify.success('Orasul s-a updatat cu succes');
+      this.cities[citiesIndex] = city;
+      debugger;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  updatePhoto() {
+    debugger;
+    if (!this.image){
+      this.alertify.error('Trebuie sa selectati o poza!');
+      return;
+    }
+    this.cityService.updatePhoto(this.cityId, this.image).subscribe(next => {
+      this.alertify.success('Poza orasului s-a updatat cu succes');
+    }, error => {
+      this.alertify.error('Nu s-a reusit updatarea pozei');
+    });
   }
 
   // addCity(): void {
@@ -72,8 +128,9 @@ export class AdminComponent implements OnInit {
         this.alertify.success('Ati adaugat orasul');
         debugger;
         this.cities.push({...this.city}); // adauga o copie, nu referinta la this model
-        this.city.name = '';
-        this.city.description = '';
+        this.city.name = null;
+        this.city.description = null;
+        this.addMode = false;
       },error=>{
         this.alertify.error('nu merge');
       });
@@ -96,10 +153,6 @@ export class AdminComponent implements OnInit {
     });
 
     }
+
+    
   }
-
-
-// getPosts(): void
-// {
-//   this.postService.getPosts
-// }

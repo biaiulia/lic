@@ -89,8 +89,13 @@ namespace turism.Controllers
                 UserId = userId,    
                 CityId = cityId,
                 PostText = post.PostText,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                Type= post.Type
             };
+            if(post.GetThere!=null){
+                postCreate.GetThere=post.GetThere;
+            }
+
             await context.Post.AddAsync(postCreate);
             await rep.AddUserPoints(userId, 10);
             await context.SaveChangesAsync(); // de facut 

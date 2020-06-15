@@ -70,8 +70,9 @@ export class ProfileEditComponent implements OnInit {
         this.alertify.error('Trebuie sa selectati o poza!');
         return;
       }
-      this.userService.updatePhoto(this.authService.decodedToken.nameid, this.image).subscribe(next => {
+      this.userService.updatePhoto(this.authService.decodedToken.nameid, this.image).subscribe((user: User) => {
         this.alertify.success('Poza profilului s-a updatat cu succes');
+        this.user.url = user.url;
       }, error => {
         this.alertify.error('Nu s-a reusit updatarea pozei');
       });

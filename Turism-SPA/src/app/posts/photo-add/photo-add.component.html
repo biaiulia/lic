@@ -1,12 +1,25 @@
-
 <!--<form [formGroup]="postAddGroup" (submit)="addPost()">-->
 
-    <form (ngSubmit)="addPost()">
-        <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText" [ngModelOptions]="{standalone: true}"> 
-        <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)">
-      
-        <button type="btn btn-success my-2 my-sm-0" [disabled]="!model.postText">adauga postare</button>
-      </form>
+
+<div class="col-md-4">
+  <br><br>
+  <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
+  <button type="button" class="btn btn-outline-secondary" (click)="pressButton('oras')">Oras</button>
+  <h1>Adauga o postare</h1>
+  <form (ngSubmit)="addPost()">
+    <label for="postText">Povesteste mai multe despre experienta ta</label>
+    <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText"
+      [ngModelOptions]="{standalone: true}"> <br>
+    <div *ngIf="this.buttonState==='natura'" class="nature">
+      <label for="getThere">Cum poti ajunge acolo?</label>
+      <input type="textbox" class="form-control" required name="getThere" [(ngModel)]="model.getThere"
+        [ngModelOptions]="{standalone: true}"> <br>
+    </div>
+    <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)"><br>
+
+    <button type="submit" class="btn btn-outline-success mr-3" [disabled]="!model.postText">adauga postare</button>
+  </form>
+</div>
 
 
 <!-- <div class="row">

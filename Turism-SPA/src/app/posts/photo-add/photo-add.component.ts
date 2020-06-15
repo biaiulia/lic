@@ -54,6 +54,7 @@ export class PhotoAddComponent implements OnInit {
   model: any = {};
   url: string;
   imagePostIndex = 0;
+  buttonState = 'oras';
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
@@ -63,48 +64,26 @@ export class PhotoAddComponent implements OnInit {
               private alertify: AlertifyService,
               private location: Location) {}
 
-  ngOnInit() { // de ce pot pune doar aici debugger
+  ngOnInit() { // 
     this.getCity();
-    // this.initializeUploader(4);
-    // this.postAddGroup = this.formBuilder.group({
-    //   postText: ['']
-    //  // image: []
-    // });
+ 
   }
-
   onSelectFile(files: FileList) { // called each time file input changes
     this.images = files;
   }
+  pressButton(filter: string){
+    this.buttonState = filter;
 
-  /* fileOverBase(e: any): void {
-     this.hasBaseDropZoneOver = e;
-   }
+  }
 
-   initializeUploader(postId: number) {
-     this.uploader = new FileUploader({
-       url: this.baseUrl + 'posts/' + postId + '/photos',
-       //+ this.photos.postId + '/photos',
-       //'users/' + this.authService.decodedToken.nameid + '/photos', TREBE ADAUGAT AICI URL U PT BACKEND
-       authToken: 'Bearer' + localStorage.getItem('token'),
-       isHTML5: true,
-       allowedFileType: ['image'],
-       removeAfterUpload: true,
-       autoUpload: false,
-       maxFileSize: 10 * 1024 * 1024 // ca sa fie de 10 mb fisieru
-
-     });
-     debugger;
-     this.uploader.onAfterAddingFile = (file) => {
-       file.withCredentials = false;
-     };
-   }*/
 
 
   addPost(): void { // nu vrea sa insereze textu, dc?
+    this.model.type = this.buttonState;
+    this.model.getThere = this.model.getThere;
     this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid).subscribe(next => {
         this.alertify.success('postarea a fost adaugata');
         this.location.back();
-        debugger;
         if (!this.images) {
           return;
         }

@@ -14,11 +14,37 @@ export class UserDetailComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.user = data['user'];
-    });
-    console.log(this.user);
+    debugger;
+    this.loadUser();
   }
+
+   loadUser() : void {
+    this.userService.getUserByName(this.route.snapshot.params['name']).subscribe((user: User) => {
+      this.user = user;
+      console.log(this.user);
+    });
+  }
+   }
+
+  
+  
+  //   getUser(){
+  //     const userName = this.route.snapshot.params['name'].ToLower();
+  //     this.userService.getUserByName(userName).subscribe(userr: User=> {
+
+  //     }
+  //   }
+  // }
+
+    
+    
+
+    
+    // this.route.data.subscribe(data => {
+    //   this.user = data['user'].ToLower();
+    // });
+    // console.log(this.user);
+  
   // getUser()
   // {
   //   this.userService.getUserByName(this.route.snapshot.params['name']).subscribe((user: User)=>{
@@ -27,4 +53,4 @@ export class UserDetailComponent implements OnInit {
   // }
   
 
-}
+

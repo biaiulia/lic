@@ -1,4 +1,9 @@
-<div class="edit-profile">
+<h1>Editare orase</h1>
+<button type="button" class="btn btn-outline-success"
+            (click)="addMode=true">Adauga un oras</button> 
+
+
+<div class="add-city" *ngIf="addMode===true">
   <div class="container">
     <h1><strong>
         Adauga oras:
@@ -10,42 +15,74 @@
       <input class="form-control" type="text" name="descriere" [(ngModel)]="city.description">
       <label for="photo">Poza orasului</label>
       <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])"> <br>
-      <button [disabled]="!city.name && !city.description" class="btn btn-outline-success mr-4">Adauga oras</button>
-      <button type="button" class="btn btn-outline-secondary">Cancel</button>
+      <button [disabled]="!city.name || !city.description" class="btn btn-outline-success mr-4">Adauga oras</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="addMode=false">Cancel</button>
     </form>
+  </div>
   </div>
 
 
+  <!-- <button class="btn btn-outline-success mr-4" *ngIf="addMode==false" (click)="addCityMode()">Adauga oras</button> -->
 
-
- <!-- <form class="form-control">
+  <!-- <form class="form-control">
    <select>
      <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
    </select>
   <button type="button" class="btn btn-outline-danger" (click)="deleteCity(city.id)">Sterge orasul</button>
  </form> -->
 
-
-<table class="table">
-  <thead>
+<div class="col-sm-4 ml-5">
+  <table class="table">
+    <thead>
       <tr>
-          <th>
-              Nume oras
-          </th>
-          <th></th>
+        <th>
+          Nume oras
+        </th>
       </tr>
-  </thead>
-  <tbody *ngFor="let city of cities; let citiesIndex = index;">
+      
+    </thead>
+    <tbody *ngFor="let city of cities; let citiesIndex = index;">
       <tr>
-          <td>
-              {{city.name}}
-          </td>
-          <td>
-              <a [routerLink]="['/edit/', city.name.toLowerCase()]">Edit</a> |
-              <a [routerLink]="['/', city.name.toLowerCase()]">Details</a> |
-              <button type="button" class="btn btn-outline-danger" (click)="deleteCity(city.id, citiesIndex)">Delete</button>
-          </td>
+        <td>
+          {{city.name}}
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-secondary"
+            (click)="selectCity(city.id, citiesIndex)">Edit</button> |
+          <!-- <a [routerLink]="['/edit/', city.name.toLowerCase()]">Edit</a>  -->
+          <a [routerLink]="['/', city.name.toLowerCase()]">Details</a> |
+          <button type="button" class="btn btn-outline-danger"
+            (click)="deleteCity(city.id, citiesIndex)">Delete</button>
+        </td>
       </tr>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  
+  </div>
+
+<div class="col-sm-10">
+  
+  <div class="col-sm-4" *ngIf="editMode===true">
+    <form (ngSubmit)="updateCity(citiesIndex)">
+      <h1>Modificare detalii oras {{cities[citiesIndex].name}}</h1>
+      <label for="name">Nume oras</label>
+      <input type="text" class="form-control" required name="name" [(ngModel)]="city.name"
+        [ngModelOptions]="{standalone: true}"> <br>
+      <label for="description">Descrierea orasului</label>
+      <textarea type="textarea" class="form-control" required name="description" [(ngModel)]="city.description"
+        [ngModelOptions]="{standalone: true}"></textarea> <br>
+  
+  <button type="submit" class="btn btn-outline-success mr-3" [disabled]="!city.name">Modifica
+    orasul</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="editMode=false">Cancel</button>
+  </form>
+
+  <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
+    <label for="photo">Poza orasului</label>
+    <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])">
+    <button type="submit" class="btn btn-success btn-block">Schimba poza</button>
+  </form>
+  
+</div>
+</div>

@@ -176,7 +176,7 @@ namespace turism.Controllers
 
         }
 
-        [HttpPut("city/{id}")]
+        [HttpPut("cityUpdate/{id}")]
    public async Task<IActionResult> UpdateCity(int id, City city)
     {
         var cityFromRep = await rep.GetCity(id);
@@ -184,9 +184,9 @@ namespace turism.Controllers
          cityFromRep.Name=city.Name;
         if(city.Description!=null)
          cityFromRep.Description=city.Description;
-        if(await rep.SaveAll())
-            return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
-        return Ok();
+        context.City.Update(cityFromRep);
+        context.SaveChanges();
+        return Ok(cityFromRep);
 
     }
     [HttpPut("cityPhoto/{id}")]
@@ -213,7 +213,7 @@ namespace turism.Controllers
                             cityFromRep.PublicId = uploadResult.PublicId;
                         }
                         if(await rep.SaveAll())
-                             return Ok();
+                             return Ok(cityFromRep);
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
 
 
