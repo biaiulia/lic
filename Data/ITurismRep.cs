@@ -22,6 +22,7 @@ namespace turism.Data
 
            Task<Post> PostExists(int userId, int postId);
            Task<IEnumerable<City>> GetCities();
+           Task<IEnumerable<City>> SearchCity(string search);
 
            Task<IEnumerable<Reply>> GetReplies(int postId);
 
@@ -29,5 +30,6 @@ namespace turism.Data
            Task<Reply> GetReply(int userId, int id);
             Task<Post> PostExists(int postId);
             Task<User> UserExists(int userId);
+            Task<User> AddUserPoints(int userId, int points);
     }
 }

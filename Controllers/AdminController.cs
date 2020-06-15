@@ -152,7 +152,7 @@ namespace turism.Controllers
             return Ok();
         }
 
-        [HttpDelete("deleteCity/{id}")]
+        [HttpDelete("deleteCity/{cityId}")]
          public async Task<IActionResult> DeleteCity(int cityId)
         {
             var city = await rep.GetCity(cityId);
@@ -164,9 +164,61 @@ namespace turism.Controllers
             return Ok();
         }
 
+        [HttpDelete("{userId}/deleteReply/{id}")]
+        public async Task<IActionResult> DeleteReply(int userId, int id){
+            var reply = await rep.GetReply(userId, id);
+            if(reply==null)
+                return BadRequest("Acest comentariu nu este al utilizatorului acesta");
+            
+            context.Reply.Remove(reply);
+            context.SaveChanges();
+            return Ok();
+
+        }
+
+        [HttpPut("city/{id}")]
+   public async Task<IActionResult> UpdateCity(int id, City city)
+    {
+        var cityFromRep = await rep.GetCity(id);
+        if(city.Name!=null)
+         cityFromRep.Name=city.Name;
+        if(city.Description!=null)
+         cityFromRep.Description=city.Description;
+        if(await rep.SaveAll())
+            return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
+        return Ok();
+
+    }
+    [HttpPut("cityPhoto/{id}")]
+   public async Task<IActionResult> UpdateCityPhoto(int id, [FromForm] IFormFile File)
+   {
+        var cityFromRep = await rep.GetCity(id);
+        if(cityFromRep==null)
+            return BadRequest("Nu exista acest oras asta");
+
+        var file = File;
+        var uploadResult = new ImageUploadResult();
+
+        if(file.Length>0)
+                        {
+                            using(var stream = file.OpenReadStream())
+                            {
+                                var uploadParams = new ImageUploadParams()
+                                {
+                                    File=new FileDescription(file.Name, stream)
+                                };
+                                uploadResult = cloudinary.Upload(uploadParams);
+                            }
+                            cityFromRep.Url = uploadResult.Uri.ToString();
+                            cityFromRep.PublicId = uploadResult.PublicId;
+                        }
+                        if(await rep.SaveAll())
+                             return Ok();
+            return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
 
 
 
+   }
 
 
     }

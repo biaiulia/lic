@@ -1,6 +1,7 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  Input
 } from '@angular/core';
 import {
   City
@@ -25,8 +26,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./city-detail.component.css']
 })
 export class CityDetailComponent implements OnInit {
+  
+  @Input() posts: Post[];
   city: City;
-  posts: Post[];
   detailMode: false;
   clickEventSubscription: Subscription;
 

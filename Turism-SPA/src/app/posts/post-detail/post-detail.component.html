@@ -1,10 +1,24 @@
+<div class="jumbotron">
+<div class="col-12 text-center">
+   <h3 class="heading">Experiență</h3>
+   <hr><br>
+</div>
 
+
+
+<!-- 
    <h1> Detalii postare: </h1>
     <p>{{post?.postText}}</p>
-    <button class="btn btn-primary" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
-    <span>{{likesNr}}</span>
-    <h1>Aici vin pozele postarii</h1>
+    <h1>User care a postat:</h1>
+    <p>Numele userului: {{post?.user.userName}}</p>
+    <img [src]="post?.user.url"> -->
+    
+    
+    <h1>Aici vin pozele postarii din componenta</h1>
    <app-photo-view [photos]="post?.photos"></app-photo-view>
-
-   <app-replies [replies]="post?.replies">
+   <button class="btn btn-primary" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
+   <span>{{likesNr}}</span>
+   <h1>Aici vin reply-urile postarii din componenta</h1>
+   <app-replies *ngIf="post" [replies]="post.replies">
    </app-replies>
+   </div>

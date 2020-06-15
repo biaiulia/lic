@@ -7,11 +7,13 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using turism.Data;
 using turism.DataTransferObjects;
 using turism.Helpers;
+using turism.Models;
 
 namespace turism.Controllers
 {
@@ -24,12 +26,14 @@ namespace turism.Controllers
         private readonly IMapper mapper;
         private readonly IOptions<CloudinarySettings> cloudinaryConfig;
         private Cloudinary cloudinary;
+        private readonly UserManager<User> userManager;
 
-        public UsersController(ITurismRep rep, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig) // ????
+        public UsersController(ITurismRep rep, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig, UserManager<User> userManager) 
         {
             this.cloudinaryConfig = cloudinaryConfig;
             this.rep = rep;
             this.mapper = mapper;
+            this.userManager = userManager;
 
              Account acc = new Account(
                     cloudinaryConfig.Value.CloudName,
@@ -48,12 +52,21 @@ namespace turism.Controllers
             var userReturn = mapper.Map<IEnumerable<UserForList>>(users); // de ce si enumerable
             return Ok(users);
         }
+
+        
         [HttpGet("{id}", Name="GetUser")] // ????????? luam id-ul 
         public async Task<IActionResult> GetUser(int id){
             var user = await rep.GetUser(id);
             var userReturn = mapper.Map<UserForList>(user);
             return Ok(userReturn);
         }
+         [HttpGet("username/{userName}")] // ????????? luam id-ul 
+        public async Task<IActionResult> GetUserByName(string userName){
+            var user = await userManager.FindByNameAsync(userName);
+            
+            return Ok(user);
+        }
+    
     
    [HttpPut("{id}")]
    public async Task<IActionResult> UpdateUser(int id, UserForUpdate userForUpdate)

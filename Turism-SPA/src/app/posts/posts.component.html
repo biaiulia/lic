@@ -1,5 +1,129 @@
-<p>
+<!-- <img [src]="post?.user.url" [routerLink]="['user', post.user.id]">
   <div [routerLink]="['./', post.id]">
-    {{post.postText}}
+    
+    <p>{{post.postText}}</p>
   </div>
+ -->
 
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="post-preview">
+        <div class="row">
+          <div class="md-4">
+        <div class="float-left photo">
+        <a href="#DEPUSAICIPROFILUTILIZATOR">
+          <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
+          <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
+        </a>
+        </div>
+
+        <div class="md-8">
+  
+        <a href="post.html">
+          <h2 class="post-title">
+            Titlu Postare
+          </h2>
+          <h3 class="post-subtitle">
+            {{post.postText}}
+          </h3>
+        </a>
+        <p class="post-meta">Posted by
+          <a href="#">{{post.user.userName}}</a>
+          on {{post.dateAdded | date : "dd/mm/yyyy"}}</p>
+      </div>
+      </div>
+      </div> -->
+   
+      
+
+      <button type="button" class="btn btn-outline-primary mr-3" (click)="pressButton('toate')">Toate</button>
+      <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('natura')">Natura</button>
+      <button type="button" class="btn btn-outline-success" (click)="pressButton('oras')">Oras</button>
+
+
+<div *ngFor="let post of posts" class="row" >
+  <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
+    <div class="row">
+      <div class="col-md-4">
+        <a [routerLink]="['/user/', post.user.userName]">
+        <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
+              <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
+              </a>
+      </div>
+
+      <div class="col-md-8">
+        <a [routerLink]="['./', post.id]">
+          <h2>{{post?.postText}}</h2>
+        </a>
+        <p class="post-meta">Posted by
+          <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
+          on {{post.dateAdded | date : "dd/mm/yyyy"}}</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+
+
+
+
+<!-- <div class="container">
+  <div class="well">
+      <div class="media">
+      	<a class="pull-left" href="#">
+    		<img class="media-object" src="http://placekitten.com/150/150">
+  		</a>
+  		<div class="media-body">
+    		<h4 class="media-heading">Receta 1</h4>
+          <p class="text-right">By Francisco</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+Aliquam in felis sit amet augue.</p>
+          <ul class="list-inline list-unstyled">
+  			<li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+            <li>|</li>
+            <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+            <li>|</li>
+            <li>
+               <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+            </li>
+            <li>|</li>
+            <li>
+              <span><i class="fa fa-facebook-square"></i></span>
+              <span><i class="fa fa-twitter-square"></i></span>
+              <span><i class="fa fa-google-plus-square"></i></span>
+            </li>
+			</ul>
+       </div>
+    </div>
+  </div> -->
+
+
+
+<!-- <section class="details-card">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card-content">
+                    <div class="card-img">
+                        <img src="https://placeimg.com/380/230/nature" alt="">
+                        <span><h4>heading</h4></span>
+                    </div>
+                    <div class="card-desc">
+                        <h3>Heading</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, voluptatum! Dolor quo, perspiciatis
+                            voluptas totam</p>
+                            <a href="#" class="btn-card">Read</a>   
+                    </div>
+                </div>
+            </div> -->

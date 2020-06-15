@@ -1,10 +1,69 @@
+<div class="comment-wrapper mr-3">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h1>Sectiunea de comentarii</h1>
+    </div>
+    <div class="panel-body">
 
-<p *ngFor="let reply of replies; let replyIndex = index;">
-  {{reply.comment}}
-  <button class="btn btn-primary" *ngIf="loggedIn() && yourPost(reply.userId)" (click)="deleteReply(reply.id, replyIndex)"><i class="fa fa-trash"></i></button>
-</p>
+      <div class="clearfix"></div>
+      <hr>
 
-<form *ngIf="loggedIn()" #replyForm="ngForm"  class="form-inline" (ngSubmit)="AddReply()">
-  <input class="form-control mr-sm-2" type="text" name="reply" placeholder="comentariu" required [(ngModel)]="model.comment"> <!--a-ng ca sa primim sugestie de la ngmodel-->
-  <button [disabled]="!replyForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Adăuga Comentariu</button>
-  </form>
+      <form *ngIf="loggedIn() && !replies.length" #replyForm="ngForm" class="form-inline" (ngSubmit)="AddReply()"> 
+        <textarea class="form-control mr-sm-2 ml-4" rows="3" name="reply" placeholder="Adaugati un comentariu"
+          required [(ngModel)]="model.comment"></textarea>
+        <br><br>
+        <button [disabled]="!replyForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Adăuga
+          Comentariu</button>
+      </form>
+      <div *ngFor="let reply of replies; let replyIndex = index;">
+        <form *ngIf="loggedIn() && replyIndex === 0" #replyForm="ngForm" class="form-inline" (ngSubmit)="AddReply()"> 
+          <textarea class="form-control mr-sm-2 ml-4" rows="3" name="reply" placeholder="Adaugati un comentariu"
+            required [(ngModel)]="model.comment"></textarea>
+          <br><br>
+          <button [disabled]="!replyForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Adăuga
+            Comentariu</button>
+        </form>
+        <hr>
+        <ul class="media-list mt-5">
+
+          <li class="media">
+            <a href="#DEPUSAICIPROFILUTILIZATOR" class="pull-left">
+              <img [src]="reply?.user?.url" [alt]="reply?.user?.userName" class="rounded-circle" *ngIf="reply?.user?.url">
+              <i class="fas fa-user fa-4x mr-2" *ngIf="!reply.user?.url"></i>
+            </a>
+            <div class="media-body">
+              <strong class="text-success">{{reply?.user?.userName}}</strong>
+              <span class="text-muted float-right">
+                <button class="btn btn-primary float-right" *ngIf="loggedIn() && yourPost(reply.userId)"
+                  (click)="deleteReply(reply.id, replyIndex)"><i class="fa fa-trash"></i></button>
+                <small class="text-muted">{{reply?.dateAdded | date : 'dd/MM/yyyy'}}</small>
+              </span>
+
+              <p>
+                {{reply?.comment}}
+              </p>
+            </div>
+
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <p *ngFor="let reply of replies; let replyIndex = index;">
+            {{reply.comment}}
+            <button class="btn btn-primary" *ngIf="loggedIn() && yourPost(reply.userId)"
+              (click)="deleteReply(reply.id, replyIndex)"><i class="fa fa-trash"></i></button>
+          </p>
+
+          <form *ngIf="loggedIn()" #replyForm="ngForm" class="form-inline" (ngSubmit)="AddReply()">
+            <input class="form-control mr-sm-2" type="text" name="reply" placeholder="comentariu" required
+              [(ngModel)]="model.comment">
+            a-ng ca sa primim sugestie de la ngmodel
+            <button [disabled]="!replyForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Adăuga
+              Comentariu</button>
+          </form>-->

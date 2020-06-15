@@ -1,0 +1,26 @@
+body {
+  margin-top: 20px !important;
+}
+
+.comment-wrapper .panel-body {
+  max-height: 650px !important;
+  overflow: auto !important;
+}
+
+ .comment-wrapper .media-list .media img {
+  height:100px;
+    width: 100px;
+    border: 2px solid #e5e7e8;
+    margin-left: 15px;
+} 
+.media-body{
+    margin-left: 30px;
+}
+
+.comment-wrapper .media-list .media {
+  border-bottom: 1px dashed #efefef !important;
+  margin-bottom: 25px !important;
+}
+.rounded-circle{
+    
+}

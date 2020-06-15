@@ -31,6 +31,12 @@ namespace turism.Data
             var cities = await context.City.ToListAsync();
             return cities;
         }
+         public async Task<IEnumerable<City>> SearchCity(string search)
+        {
+            var cities = await context.City.Where(c=>c.Name.ToLower().Contains(search.ToLower())).ToListAsync();
+            
+            return cities;
+        }
 
         public async Task<City> GetCity(int id)
         {
@@ -40,7 +46,7 @@ namespace turism.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await context.Users.FirstOrDefaultAsync(u=>u.Id==id); // ceeee? el avea si .Include(p=>Photos)
+            var user = await context.Users.FirstOrDefaultAsync(u=>u.Id==id); 
             return user;
         }
 
@@ -56,32 +62,15 @@ namespace turism.Data
 
             return posts;
         }
+        public async Task<User> AddUserPoints(int userId, int points){
+            var user = await context.Users.FirstOrDefaultAsync(u=>u.Id==userId);
+            user.Points += points;
 
-        // private async Task<IEnumerable<User>> GetPostLikes(int postId,bool likers)
-        // {
-        //     //var likes = await context.Likes.Where(p=>p.PostId==postId).ToListAsync();
-        //     // var likesNr = Post.PostLikes.Sum(p=>p.PostId.Count);
+            return user;
+        
+        }
 
-        //     var post = await context.Post.Include(p=>p.PostLikes).FirstOrDefaultAsync(p=>p.Id == postId);
-        //     if(likers)
-        //     {
-        //      var users = await context.Users.Where(u=>u.Id == post.UserId).ToListAsync();
-        //         return users;
-        //     }
-        //     else 
-           // return BadRequest("Postarea nu are like uri"); aici tre schimbat
-
-        // public async Task<IEnumerable<int>> GetPostLikesNr(int postId,bool likers)
-        // {
-        //     var posts = await context.Post.Include(p=> p.PostLikes).FirstOrDefaultAsync(p=>p.Id==postId);
-
-        //     if(likers)
-        //     {
-        //         return posts.PostLikes.Select(p=> p.PostId == postId);
-        //     }
-            
-        // }
-
+     
         public async Task<IEnumerable<int>> GetPostLikersId(int postId){ // metoda care returneaza id urile persoanelor care au dat like la posturi
             var posts = await context.Post.Include(p=>p.PostLikes).FirstOrDefaultAsync(p=>p.Id==postId); // nu cred ca mi trebe???
             var likes = posts.PostLikes.Select(l=>l.UserId);

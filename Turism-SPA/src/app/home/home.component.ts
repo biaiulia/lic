@@ -1,16 +1,14 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  Input
 } from '@angular/core';
-import {
-  HttpClient
-} from '@angular/common/http';
 import {
   AuthService
 } from '../services/auth.service';
-import {
-  Subscription
-} from 'rxjs';
+import { CityService } from '../services/city.service';
+import { City } from '../.model/city';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +16,11 @@ import {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  searchedCities: City[];
   registerMode = false;
 
-  constructor(private http: HttpClient,
-    private authService: AuthService) {}
+  search: string;
+  constructor(private authService: AuthService, private cityService: CityService, private router: Router) {}
 
   ngOnInit() {
     this.authService.registerMode.subscribe((registerMode) => {
@@ -38,4 +37,12 @@ export class HomeComponent implements OnInit {
   getUrl() {
     return 'D:\lic\turism\Turism-SPA\src\assets\img\backgr.jpg';
   }
+
+  // searchCities(search: string){
+  //   debugger;
+  //   this.cityService.searchCities(search).subscribe((cities) => {
+  //     this.searchedCities = cities;
+  //     this.router.navigate([`search/${search}`, {state: {searchedCities: this.searchedCities}}]);
+  //   });
+  // }
 }

@@ -31,12 +31,12 @@ import { PostsResolver} from './.resolver/posts.resolver'; // astea nu merg nuj 
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
 import { UnsavedChanges} from './.guard/unsaved-changes.guard';
-import { PostAddComponent } from './posts/post-add/post-add.component';
 import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
 import { RepliesComponent } from './replies/replies.component';
 import { AdminComponent } from './admin/admin.component';
 import { ContactComponent } from './contact/contact.component';
+import { SearchedCityComponent } from './searchedCity/searchedCity.component';
 
 
 
@@ -56,12 +56,12 @@ export function tokenGetter(){
       PostsComponent,
       PostDetailComponent,
       ProfileEditComponent,
-      PostAddComponent,
       PhotoAddComponent,
       PhotoViewComponent,
       RepliesComponent,
       AdminComponent,
-      ContactComponent
+      ContactComponent,
+      SearchedCityComponent
    ],
    imports: [
       BrowserModule,

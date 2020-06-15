@@ -6,6 +6,8 @@ import { User } from './user';
 export interface Post {
     id: number;
     postText: string;
+    type?: string;
+    getThere?: string;
     dateAdded: Date;
     photos?: Photo[];
     cityId: number;

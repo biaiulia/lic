@@ -13,11 +13,7 @@ import {
 import {
   environment
 } from 'src/environments/environment';
-import {
-  map
-} from 'rxjs/operators';
 
-import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Injectable({
@@ -26,7 +22,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class CityService {
 
   baseUrl = environment.apiUrl;
-  
+
 
   //cities: City[];
   constructor(private http: HttpClient) {}
@@ -35,17 +31,25 @@ export class CityService {
     return this.http.get < City[] > (this.baseUrl + 'cities');
     //.pipe(map(this.mapCities)); // map de aici e diferit de .map la array
   }
+
   getCity(name): Observable < City > {
     return this.http.get < City > (this.baseUrl + name);
   }
-  addCity(city: City): Observable<City>{
-    debugger;
+
+  searchCities(search: string): Observable < City[] > {
+    return this.http.get < City[] > (this.baseUrl + 'cities/' + search);
+  }
+
+  addCity(city: City): Observable < City > {
     const formData: FormData = new FormData();
     formData.append('File', city.imageSend);
     formData.append('Name', city.name);
     formData.append('Description', city.description);
-    return this.http.post<City>(this.baseUrl + 'admin/addCity', formData);
-    
+    return this.http.post < City > (this.baseUrl + 'admin/addCity', formData);
+
+  }
+  deleteCity(cityId: number){
+    return this.http.delete(`${this.baseUrl}admin/deleteCity/${cityId}`);
   }
 
 

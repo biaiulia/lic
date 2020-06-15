@@ -27,12 +27,15 @@ getUsers(): Observable<User[]>{
 getUser(id): Observable<User[]>{ // de ce facem asa
   return this.http.get<User[]>(this.baseUrl + 'users/' + id);
 }
+getUserByName(userName: string): Observable<User[]>{ // de ce facem asa
+return this.http.get<User[]>(this.baseUrl + 'users/username/' + userName);
+}
+
 
 updateUser(id: number, user: User){
   return this.http.put<User[]>(this.baseUrl + 'users/' + id, user);
 }
 updatePhoto(id: number, file: File){
-  debugger;
   const formData: FormData = new FormData();
   formData.append('File', file);
   return this.http.put<User[]>(this.baseUrl + 'users/photo/' + id, formData);

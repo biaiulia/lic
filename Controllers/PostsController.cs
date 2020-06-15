@@ -7,12 +7,11 @@ using turism.Data;
 using turism.Models;
 using System;
 using System.Security.Claims;
-using turism.DataTransferObjects;
 using AutoMapper;
 
 namespace turism.Controllers
 {
-    
+
     [ApiController]
     public class PostsController: ControllerBase
     {
@@ -45,13 +44,14 @@ namespace turism.Controllers
             return Ok(posts);
         }
 
+
         
     
         [Route("api/posts/{id}", Name="GetPost")]
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
-             var post = await context.Post.Include(p=>p.Photos).Include(p=>p.User).Include(l=>l.PostLikes).Include(r=>r.Replies).FirstOrDefaultAsync(x=>x.Id==id);
+             var post = await context.Post.Include(p=>p.Photos).Include(p=>p.User).Include(l=>l.PostLikes).Include(r=>r.Replies).ThenInclude(r=>r.User).FirstOrDefaultAsync(x=>x.Id==id);
             // var posts = await context.Post.Include(v => v.City).Where(m=>m.Id==cityId).FirstOrDefaultAsync(x=>x.Id=id);
             // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
          
@@ -78,11 +78,11 @@ namespace turism.Controllers
         }
 
 
-        [Route("api/{userId}/{cityId}/posts")] // merge cu debugger, daca-l scot mai da internal error
+        [Route("api/{userId}/{cityId}/posts")] 
         [HttpPost]
          public async Task<IActionResult> AddPost(int userId, int cityId, Post post)
         {
-            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) 
                     return Unauthorized();
             if(post.PostText!=null){
             var postCreate = new Post{
@@ -92,8 +92,9 @@ namespace turism.Controllers
                 DateAdded = DateTime.Now
             };
             await context.Post.AddAsync(postCreate);
-
+            await rep.AddUserPoints(userId, 10);
             await context.SaveChangesAsync(); // de facut 
+            
 
             return Ok(postCreate);
             }
@@ -146,6 +147,7 @@ namespace turism.Controllers
             if(likeCreate!=null)
             {
             context.Like.Add(likeCreate);
+            await rep.AddUserPoints(userId, 3);
             context.SaveChanges();
             return Ok();
             }

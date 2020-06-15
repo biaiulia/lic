@@ -7,10 +7,7 @@ import {
   Post
 } from '../../.model/post';
 import {
-  NgxGalleryOptions,
-  NgxGalleryImage
-} from '@kolkov/ngx-gallery';
-import {
+  
   PostService
 } from '../../services/post.service';
 import {
@@ -37,13 +34,12 @@ export class PostDetailComponent implements OnInit {
   @Input() photos: Photo[];
   likesNr: number;
   post: Post;
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
 
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute,
               private authService: AuthService) {}
 
   ngOnInit() {
+    debugger;
 
     this.loadPost();
     // this.route.data.subscribe(data=>{
@@ -59,6 +55,7 @@ export class PostDetailComponent implements OnInit {
 
     this.postService.getPost(+this.route.snapshot.params['id']).subscribe((post: Post) => {
       this.post = post;
+      console.log(this.post);
       this.getLikes(post.id);
     });
   }

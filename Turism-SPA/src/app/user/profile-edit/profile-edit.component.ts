@@ -66,7 +66,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
     updatePhoto() {
-      debugger;
       if (!this.image){
         this.alertify.error('Trebuie sa selectati o poza!');
         return;

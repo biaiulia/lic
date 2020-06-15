@@ -28,7 +28,7 @@ namespace turism.Controllers
         }
         [Route("api/{userId}/reply/{postId}")]
         [HttpPost]
-        public IActionResult AddReply(int postId, int userId, Reply reply)
+        public async Task<IActionResult> AddReply(int postId, int userId, Reply reply)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
                 return Unauthorized();
@@ -41,7 +41,9 @@ namespace turism.Controllers
                     PostId = postId
 
                 };
-                context.Reply.Add(replyCreate);
+                 context.Reply.Add(replyCreate);
+                
+                 await rep.AddUserPoints(userId, 5);
                 context.SaveChanges();
                 return StatusCode(201); // aici nu am pus await???????
             }

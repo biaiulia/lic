@@ -24,6 +24,8 @@ import {ProfileEditResolver} from './.resolver/profile-edit.resolver';
 import {UnsavedChanges} from './.guard/unsaved-changes.guard';
 import {PhotoAddComponent} from './posts/photo-add/photo-add.component';
 import { AdminComponent } from './admin/admin.component';
+import { SearchedCityComponent } from './searchedCity/searchedCity.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 export const appRoutes: Routes = [{
   path: 'home',
@@ -41,6 +43,14 @@ export const appRoutes: Routes = [{
   {
     path: 'user/edit',
     component: ProfileEditComponent, resolve: {user: ProfileEditResolver}, canDeactivate: [UnsavedChanges]
+  },
+  {
+    path: 'user/:name',
+    component: UserDetailComponent
+  },
+  {
+    path: 'search/:name',
+    component: SearchedCityComponent
   },
   {
     path: ':name',

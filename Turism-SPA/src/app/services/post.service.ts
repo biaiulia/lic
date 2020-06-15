@@ -35,7 +35,6 @@ export class PostService {
     return this.http.get < Post[] > (`${this.baseUrl}cities/${cityId}/posts`);
   }
   getPost(id): Observable < Post > {
-    debugger;
     // this.getPostLikes(id);
     return this.http.get < Post > (`${this.baseUrl}posts/${id}`);
   }

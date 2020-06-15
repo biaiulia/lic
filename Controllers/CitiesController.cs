@@ -14,10 +14,12 @@ namespace turism.Controllers
     public class CitiesController: ControllerBase
     {
         private readonly DataContext context;
+        private readonly ITurismRep rep;
 
-        public CitiesController(DataContext context)
+        public CitiesController(DataContext context, ITurismRep rep)
         {
             this.context=context;
+            this.rep=rep;
             
         }
         [Route("api/cities")]
@@ -47,6 +49,15 @@ namespace turism.Controllers
 
             return Ok(city);
         }
+
+        // [Route("api/cities/{search}")]
+        // [HttpGet]
+        // public async Task<IActionResult> SearchCityName(string search)
+        // {
+        //     var cities = await rep.SearchCity(search);
+
+        //     return Ok(cities);
+        // }
         
     }
 }
