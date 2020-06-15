@@ -13,6 +13,7 @@ export class SearchedCityComponent implements OnInit {
   constructor(private cityService: CityService, private route: ActivatedRoute) { }
 
   ngOnInit(){
+    debugger;
     this.searchCities();
   }
 
@@ -23,6 +24,4 @@ export class SearchedCityComponent implements OnInit {
   });
 }
 }
-
-    
 

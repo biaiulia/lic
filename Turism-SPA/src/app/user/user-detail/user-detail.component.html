@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img [src]="user.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
+        <img [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Locatie:</strong>
@@ -29,3 +29,7 @@
       </div>
     </div>
   </div>
+
+  <!-- <div *ngIf="user" class="no-city">
+    <h1>Nu exista niciun oras cu acest nume, ne pare rau.</h1>
+    </div> -->

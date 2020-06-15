@@ -34,6 +34,7 @@ export class ProfileEditComponent implements OnInit {
   }) editForm: NgForm // e decorator pt a avea acces la form attributes
   user: User;
   image: File;
+  model: User;
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService, private userService: UserService,
               private authService: AuthService) {} // avem nevoie si de authService ca sa putem lua tokenul
@@ -57,9 +58,12 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateProfile() {
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe(next => {
+    debugger;
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe((user: User) => {
+      debugger;
       this.alertify.success('Profilul s-a updatat cu succes');
       this.editForm.reset(this.user);
+      this.user = user;
     }, error => {
       this.alertify.error(error);
     });
@@ -73,7 +77,7 @@ export class ProfileEditComponent implements OnInit {
       this.userService.updatePhoto(this.authService.decodedToken.nameid, this.image).subscribe((user: User) => {
         this.alertify.success('Poza profilului s-a updatat cu succes');
         this.user.url = user.url;
-      }, error => {
+      }, () => {
         this.alertify.error('Nu s-a reusit updatarea pozei');
       });
 

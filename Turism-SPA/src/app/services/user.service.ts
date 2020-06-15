@@ -33,7 +33,7 @@ return this.http.get<User>(this.baseUrl + 'users/username/' + userName);
 
 
 updateUser(id: number, user: User){
-  return this.http.put<User[]>(this.baseUrl + 'users/' + id, user);
+  return this.http.put<User>(this.baseUrl + 'users/' + id, user);
 }
 updatePhoto(id: number, file: File){
   const formData: FormData = new FormData();

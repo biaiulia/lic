@@ -50,14 +50,14 @@ namespace turism.Controllers
             return Ok(city);
         }
 
-        // [Route("api/cities/{search}")]
-        // [HttpGet]
-        // public async Task<IActionResult> SearchCityName(string search)
-        // {
-        //     var cities = await rep.SearchCity(search);
+         [Route("api/cities/{search}")]
+         [HttpGet]
+         public async Task<IActionResult> SearchCityName(string search)
+         {
+             var cities = await rep.SearchCity(search);
 
-        //     return Ok(cities);
-        // }
+             return Ok(cities);
+         }
         
     }
 }

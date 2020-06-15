@@ -8,7 +8,7 @@
     <h1><strong>
         Adauga oras:
       </strong></h1>
-    <form #editCity="ngForm" (ngSubmit)="addCity()">
+    <form #addCit="ngForm" (ngSubmit)="addCity()">
       <label for="country">Nume</label>
       <input class="form-control" type="text" name="nume" [(ngModel)]="city.name">
       <label for="lastName">Descriere</label>
@@ -64,7 +64,7 @@
 <div class="col-sm-10">
   
   <div class="col-sm-4" *ngIf="editMode===true">
-    <form (ngSubmit)="updateCity(citiesIndex)">
+    <form #editCity="ngForm" (ngSubmit)="updateCity(citiesIndex)">
       <h1>Modificare detalii oras {{cities[citiesIndex].name}}</h1>
       <label for="name">Nume oras</label>
       <input type="text" class="form-control" required name="name" [(ngModel)]="city.name"
@@ -73,7 +73,7 @@
       <textarea type="textarea" class="form-control" required name="description" [(ngModel)]="city.description"
         [ngModelOptions]="{standalone: true}"></textarea> <br>
   
-  <button type="submit" class="btn btn-outline-success mr-3" [disabled]="!city.name">Modifica
+  <button type="submit" class="btn btn-outline-success mr-3" [disabled]="editCity.dirty">Modifica
     orasul</button>
     <button type="button" class="btn btn-outline-secondary" (click)="editMode=false">Cancel</button>
   </form>

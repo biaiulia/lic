@@ -10,6 +10,7 @@ import { AlertifyService } from './services/alertify.service';
 import { FileUploadModule } from 'ng2-file-upload';
 
 
+
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';

@@ -82,7 +82,7 @@ namespace turism.Controllers
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
 
 
-        return Ok();
+        return Ok(userFromRep);
 
     }
 
