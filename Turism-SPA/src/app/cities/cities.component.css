@@ -9,6 +9,7 @@
     transition-duration: 400ms;
     transition-timing-function: ease-out;
     max-height: 180px;
+    border-radius: 25px;
 }
 .card h4{
     color: black;
@@ -19,4 +20,7 @@
 }
 .card{
     border:none;
+}
+.container{
+    width: 90%;
 }

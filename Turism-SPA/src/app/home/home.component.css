@@ -8,7 +8,7 @@
 }
 
 .page-container {
-  height: 90vh;
+  height: 92vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("D:\lic\turism\Turism-SPA\src\assets\img\backgr.jpg");
   background-size: cover;
   background-position: center;
@@ -26,6 +26,9 @@
   width: 170px;
   height: 50px;
   float: left;
+}
+.city-container{
+  width:90%;
 }
 
 .login-btn {
@@ -75,7 +78,7 @@
 }
 
 .fixed-background {
-  height: 80vh;
+  height: 92vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("D:\lic\turism\Turism-SPA\src\assets\img\podustricat.jpg");
   background-size: cover;
   background-position: center;
@@ -104,10 +107,45 @@
 
 }
 .jumbotron{
-  height: 50vh;
+  height: 70vh;
   padding: 0 0 3.5rem;
 }
+/* .narrow{
+  width:70%;
+} */
 
+h3.heading{
+  font-size: 1.9rem;
+  font-weight:700;
+  text-transform: uppercase;
+}
+.heading-underline {
+  width: 3rem;
+  height: .2rem;
+  background-color: #3187b8;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+/* .feature svg.svg-inline--fa{
+  color: #38ACEC;
+} */
+.fas {
+  color: #15317E;
+  -webkit-text-stroke:1px black;
+}
+.feature h3 {
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
+.fa-plane{
+  color: #E8A317;
+  stroke: black;
+  -webkit-text-stroke:1px black;
+}
+.fa-heart{
+  color: #8C001A;
+  -webkit-text-stroke:1px black;;
+}
 
 /*
 .features {

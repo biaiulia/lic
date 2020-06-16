@@ -24,12 +24,15 @@ import {
 export class PostsComponent implements OnInit {
   // @Input() post: Post;
   @Input() posts: Post[];
+  cityName: string;
   buttonState = 'toate';
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute) {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cityName = this.route.snapshot.params['name'];
+  }
 
   pressButton(filter: string){
     this.buttonState = filter;

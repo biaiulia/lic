@@ -1,0 +1,23 @@
+.contact{
+    background-color: #40474e;
+    color: white;
+    padding: 2rem 0 2rem;
+    margin-top: 1 rem;
+}
+.fab{
+    color: white;
+    font-size: 1.6rem;
+    margin: 1.2rem .5rem 0 0;
+    
+}
+.fab:hover{
+    color: grey !important;
+}
+hr.socket{
+    width: 100%;
+    border-top: .2rem solid #2C3539;
+    margin-top: 3rem;
+}
+.desc{
+    
+}

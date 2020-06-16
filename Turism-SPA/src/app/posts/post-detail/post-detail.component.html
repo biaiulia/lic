@@ -19,6 +19,8 @@
    <button class="btn btn-primary" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
    <span>{{likesNr}}</span>
    <h1>Aici vin reply-urile postarii din componenta</h1>
+   <div class="col-md-10">>
    <app-replies *ngIf="post" [replies]="post.replies">
    </app-replies>
+   </div>
    </div>

@@ -20,17 +20,11 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvidor } from './services/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CitiesComponent } from './cities/cities.component';
-import { MessagesComponent } from './messages/messages.component';
 import { appRoutes } from './routes';
-import { SanitizeUrlPipe } from './pipes/sanitizeUrl/sanitizeUrl.pipe';
 import { CityDetailComponent } from './cities/city-detail/city-detail.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
-import { PostDetailResolver } from './.resolver/post-detail.resolver';
-import { CityDetailResolver} from './.resolver/city-detail.resolver';
-import { PostsResolver} from './.resolver/posts.resolver'; // astea nu merg nuj dc
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
-import { ProfileEditResolver } from './.resolver/profile-edit.resolver';
 import { UnsavedChanges} from './.guard/unsaved-changes.guard';
 import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
@@ -51,8 +45,6 @@ export function tokenGetter(){
       HomeComponent,
       RegisterComponent,
       CitiesComponent,
-      MessagesComponent,
-      SanitizeUrlPipe,
       CityDetailComponent,
       PostsComponent,
       PostDetailComponent,
@@ -86,9 +78,6 @@ export function tokenGetter(){
       ErrorInterceptorProvidor,
       AlertifyService,
       //PostDetailResolver,
-      CityDetailResolver,
-      PostsResolver,
-      ProfileEditResolver,
       UnsavedChanges
    ],
    bootstrap: [

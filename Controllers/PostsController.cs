@@ -78,6 +78,7 @@ namespace turism.Controllers
         }
 
 
+
         [Route("api/{userId}/{cityId}/posts")] 
         [HttpPost]
          public async Task<IActionResult> AddPost(int userId, int cityId, Post post)
@@ -193,6 +194,16 @@ namespace turism.Controllers
             return false;
 
          }
+
+        //  [HttpGet("mostLikedPosts")]
+        //  public async Task<IActionResult> GetMostLikedPosts(){
+        //      var mostLiked = await context.Post.Select(p=> new {
+        //          Id = p.Id,
+        //          PostText = p.PostText,
+        //          Type = p.Type,
+
+        //      })
+        //  }
          
     }
 }

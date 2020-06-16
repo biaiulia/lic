@@ -1,15 +1,22 @@
-.nav {
+.navbar {
     margin-bottom: 0!important;
+    opacity: 0.9!important;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+
 }
 .dropdown-toggle, .dropdown-item {
     cursor: pointer;
 }
 
 :host {
-    height: 57px;
+    height: 55px;
     display: block;
 }
 
 .navbar-brand img {
     height: 2rem;
 }
+.form-control{
+    max-width: 100px;
+}
+

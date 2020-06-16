@@ -5,9 +5,6 @@ import {
   HomeComponent
 } from './home/home.component';
 import {
-  MessagesComponent
-} from './messages/messages.component';
-import {
   CitiesComponent
 } from './cities/cities.component';
 import {
@@ -16,11 +13,7 @@ import {
 import {
   PostDetailComponent
 } from './posts/post-detail/post-detail.component';
-import {
-  PostDetailResolver
-} from './.resolver/post-detail.resolver';
 import {ProfileEditComponent} from './user/profile-edit/profile-edit.component';
-import {ProfileEditResolver} from './.resolver/profile-edit.resolver';
 import {UnsavedChanges} from './.guard/unsaved-changes.guard';
 import {PhotoAddComponent} from './posts/photo-add/photo-add.component';
 import { AdminComponent } from './admin/admin.component';
@@ -42,7 +35,7 @@ export const appRoutes: Routes = [{
   },
   {
     path: 'user/edit/:name',
-    component: ProfileEditComponent, resolve: {user: ProfileEditResolver}, canDeactivate: [UnsavedChanges]
+    component: ProfileEditComponent, canDeactivate: [UnsavedChanges]
   },
   {
     path: 'user/:name',
@@ -62,7 +55,7 @@ export const appRoutes: Routes = [{
   },
   {
     path: ':name/:id',
-    component: PostDetailComponent // , resolve: {post: PostDetailResolver} ???? nu merge
+    component: PostDetailComponent
   },
   
   {

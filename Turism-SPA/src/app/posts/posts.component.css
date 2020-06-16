@@ -1,4 +1,14 @@
-.rounded-circle{
-    height:100px;
-    width: 100px;
+.rounded-circle {
+  height: 100px;
+  width: 100px;
 }
+
+.text {
+  color: #151B54 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+

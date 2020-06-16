@@ -3,7 +3,7 @@
     <div *ngFor="let city of searchedCities" class="col-lg-4 col-md-5 col-sm-6">
 
       <div class="card mb-4 h-30" [routerLink]="['/', city.name.toLowerCase()]">
-        <img class="card-img-top" [src]="city.url | sanitizeUrl : 'url'" [alt]="city.name">
+        <img class="card-img-top" [src]="city.url" [alt]="city.name">
         <div class="card-img-overlay">
           <a [routerLink]="['/', city.name.toLowerCase()]">
             <h4 class="align-text-bottom">{{city.name}}</h4>
