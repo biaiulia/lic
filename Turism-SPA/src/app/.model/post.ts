@@ -2,6 +2,7 @@ import { Photo } from './photo';
 import { Reply } from './reply';
 import { Like } from './like';
 import { User } from './user';
+import { City } from './city';
 
 export interface Post {
     id: number;
@@ -14,5 +15,6 @@ export interface Post {
     postLikes?: Like[];
     replies?: Reply[];
     user: User;
+    city: City;
 
 }

@@ -32,6 +32,7 @@ import { RepliesComponent } from './replies/replies.component';
 import { AdminComponent } from './admin/admin.component';
 import { ContactComponent } from './contact/contact.component';
 import { SearchedCityComponent } from './searchedCity/searchedCity.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 
 
@@ -54,7 +55,8 @@ export function tokenGetter(){
       RepliesComponent,
       AdminComponent,
       ContactComponent,
-      SearchedCityComponent
+      SearchedCityComponent,
+      UserDetailComponent
    ],
    imports: [
       BrowserModule,

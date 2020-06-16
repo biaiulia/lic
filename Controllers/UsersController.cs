@@ -60,6 +60,7 @@ namespace turism.Controllers
             var userReturn = mapper.Map<UserForList>(user);
             return Ok(userReturn);
         }
+        [AllowAnonymous]
          [HttpGet("username/{userName}")] // ????????? luam id-ul 
         public async Task<IActionResult> GetUserByName(string userName){
             var user = await userManager.FindByNameAsync(userName);

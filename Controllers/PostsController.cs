@@ -37,7 +37,7 @@ namespace turism.Controllers
         public async Task<IActionResult> GetPosts(int cityId)
         {
         //    var posts = await context.Post.Include(p => p.City).FirstOrDefaultAsync(m=>m.CityId==cityId);
-            var posts = await context.Post.Include(p => p.City).Include(p => p.User).Where(m=>m.CityId==cityId).ToListAsync();
+            var posts = await context.Post.Include(p => p.User).Where(m=>m.CityId==cityId).ToListAsync();
 
          //var posts = await context.Post.ToListAsync();
         
@@ -51,7 +51,7 @@ namespace turism.Controllers
         [HttpGet("{id}")]
 
         public async Task<IActionResult> GetPost(int id){
-             var post = await context.Post.Include(p=>p.Photos).Include(p=>p.User).Include(l=>l.PostLikes).Include(r=>r.Replies).ThenInclude(r=>r.User).FirstOrDefaultAsync(x=>x.Id==id);
+             var post = await context.Post.Include(p=>p.City).Include(p=>p.Photos).Include(p=>p.User).Include(l=>l.PostLikes).Include(r=>r.Replies).ThenInclude(r=>r.User).FirstOrDefaultAsync(x=>x.Id==id);
             // var posts = await context.Post.Include(v => v.City).Where(m=>m.Id==cityId).FirstOrDefaultAsync(x=>x.Id=id);
             // var posts = await context.Post.Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
          
