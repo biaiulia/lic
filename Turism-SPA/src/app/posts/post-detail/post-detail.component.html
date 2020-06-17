@@ -31,7 +31,7 @@
     <img [src]="post?.user.url"> -->
 
 
-  <app-photo-view [photos]="post?.photos" *ngIf="photos"></app-photo-view>
+  <app-photo-view [photos]="post?.photos"></app-photo-view>
   <button class="btn btn-link ml-5" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
   <i *ngIf="!loggedIn()" class="fa fa-heart"></i>
   <span>{{likesNr}}</span>

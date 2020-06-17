@@ -26,7 +26,7 @@ export const appRoutes: Routes = [{
 },
 {
   path: 'admin',
-  component: AdminComponent, data: {roles:['Admin']} // ceee??
+  component: AdminComponent,
 
 },
   {

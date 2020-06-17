@@ -77,7 +77,7 @@ namespace turism.Controllers
             
         
         }
-        [HttpPost("ChangePassword")]
+        [HttpPut("ChangePassword")]
         public async Task<IActionResult> ChangePassword(UserForPasswordChange userForPasswordChange)
         {
             var user = await userManager.FindByNameAsync(userForPasswordChange.Username);
@@ -86,10 +86,11 @@ namespace turism.Controllers
                 return Unauthorized();
             var check = await signInManager.CheckPasswordSignInAsync(user, userForPasswordChange.Password, false);
 
-            if(check.Succeeded && userForPasswordChange.newPassword!=null && userForPasswordChange.newPassword.Length>6 ){
-                var token = await userManager.GeneratePasswordResetTokenAsync(user);
-                var result = await userManager.ResetPasswordAsync(user, token, userForPasswordChange.newPassword);
-                return Ok();
+            if(check.Succeeded && userForPasswordChange.newPassword!=null && userForPasswordChange.newPassword.Length>5 ){
+               user.PasswordHash = userManager.PasswordHasher.HashPassword(user, userForPasswordChange.newPassword);
+                var result = userManager.UpdateAsync(user);
+                if(result.IsCompleted)
+                    return Ok();
             }
             return BadRequest();
         }

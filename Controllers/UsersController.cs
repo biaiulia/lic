@@ -131,21 +131,21 @@ namespace turism.Controllers
                              return Ok(userFromRep);
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
    }
-   [HttpPost("{userId}/changePassword")]
-   public async Task<IActionResult> ChangePassword(int userId, string newPass)
-   {
-        if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
-            return Unauthorized();
+//    [HttpPost("{userId}/changePassword")]
+//    public async Task<IActionResult> ChangePassword(int userId, string newPass)
+//    {
+//         if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+//             return Unauthorized();
 
-       if( newPass == null || newPass.Length<6){
-           return BadRequest("Parola trebuie sa fie mai lunga de 6 caractere");
-       }
-       var user = await rep.GetUser(userId);
-       var token = await userManager.GeneratePasswordResetTokenAsync(user); // sa nu folosim direct passwordhasher
-       var result = await userManager.ResetPasswordAsync(user, token, newPass);
-       return Ok();
+//        if( newPass == null || newPass.Length<6){
+//            return BadRequest("Parola trebuie sa fie mai lunga de 6 caractere");
+//        }
+//        var user = await rep.GetUser(userId);
+//        var token = await userManager.GeneratePasswordResetTokenAsync(user); // sa nu folosim direct passwordhasher
+//        var result = await userManager.ResetPasswordAsync(user, token, newPass);
+//        return Ok();
 
-   }
+//    }
    
 }
 }

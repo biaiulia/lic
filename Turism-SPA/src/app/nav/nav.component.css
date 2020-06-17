@@ -8,10 +8,10 @@
     cursor: pointer;
 }
 
-:host {
+/* :host {
     height: 55px;
     display: block;
-}
+} */
 
 .navbar-brand img {
     height: 2rem;

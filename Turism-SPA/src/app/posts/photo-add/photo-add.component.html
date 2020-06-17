@@ -1,29 +1,31 @@
 <!--<form [formGroup]="postAddGroup" (submit)="addPost()">-->
 
-
-<div class="col-md-4 add">
-  <br><br>
-  <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
-  <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
-  <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Pont local</button>
-  <h1>Adauga o postare</h1>
-  <form (ngSubmit)="addPost()">
-    <label for="title">Titlul experienței</label>
-    <input type="text" class="form-control" required name="title" [(ngModel)]="model.title" [ngModelOptions]="{standalone: true}"> <br>
-    <label for="postText">Povesteste mai multe despre experienta ta</label>
-    <textarea class="form-control" required name="postText" [(ngModel)]="model.postText"
-      [ngModelOptions]="{standalone: true}"> </textarea><br>
-    <div *ngIf="this.buttonState==='natura'" class="nature">
-      <label for="getThere">Cum poti ajunge acolo?</label>
-      <textarea class="form-control" required name="getThere" [(ngModel)]="model.getThere"
+<div class="container mb-5">
+  <div class="col-md-4 add mb-5">
+    <br><br>
+    <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
+    <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
+    <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Pont local</button>
+    <h1>Adauga o postare</h1>
+    <form (ngSubmit)="addPost()">
+      <label for="title">Titlul experienței</label>
+      <input type="text" class="form-control" required name="title" [(ngModel)]="model.title"
+        [ngModelOptions]="{standalone: true}"> <br>
+      <label for="postText">Povesteste mai multe despre experienta ta</label>
+      <textarea class="form-control" required name="postText" [(ngModel)]="model.postText"
         [ngModelOptions]="{standalone: true}"> </textarea><br>
-    </div>
-    <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)"><br>
+      <div *ngIf="this.buttonState==='natura'" class="nature">
+        <label for="getThere">Cum poti ajunge acolo?</label>
+        <textarea class="form-control" required name="getThere" [(ngModel)]="model.getThere"
+          [ngModelOptions]="{standalone: true}"> </textarea><br>
+      </div>
+      <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)"><br>
 
-    <button type="submit" class="btn btn-outline-success mr-3" [disabled]="!model.postText">adauga postare</button>
-  </form>
+      <button type="submit" class="btn btn-outline-success mr-3" [disabled]="!model.postText">adauga postare</button>
+    </form>
+  </div>
+
 </div>
-
 
 <!-- <div class="row">
 
@@ -130,4 +132,3 @@
       </div>
   </div>
 </div>-->
-

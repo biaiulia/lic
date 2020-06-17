@@ -26,6 +26,7 @@ import { PostsComponent } from './posts/posts.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { ProfileEditComponent } from './user/profile-edit/profile-edit.component';
 import { UnsavedChanges} from './.guard/unsaved-changes.guard';
+import { AuthGuard} from './.guard/auth-guard';
 import { PhotoAddComponent } from './posts/photo-add/photo-add.component';
 import { PhotoViewComponent } from './posts/photo-view/photo-view.component';
 import { RepliesComponent } from './replies/replies.component';
@@ -79,8 +80,8 @@ export function tokenGetter(){
       AuthService,
       ErrorInterceptorProvidor,
       AlertifyService,
-      //PostDetailResolver,
-      UnsavedChanges
+      UnsavedChanges,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent
