@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-mb-4">
   <div class="row">
     <h1>
       Profilul utilizatorului {{user?.userName}}
@@ -9,6 +9,16 @@
       <div class="card">
         <img [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
+          <div>
+            <strong>Nume:</strong>
+            <p>{{user?.lastName}}</p>
+          </div>
+          <div>
+            <div>
+              <strong>Prenume:</strong>
+              <p>{{user?.firstName}}</p>
+            </div>
+            <div>
           <div>
             <strong>Locatie:</strong>
             <p>{{user?.country}}, {{user?.city}}</p>

@@ -10,7 +10,7 @@
     <!--  <li class="nav-item">
         <a class="nav-link" href="#">Locuri</a>
       </li> -->
-      <li class="nav-item" *ngIf="loggedIn()">
+      <li class="nav-item" *ngIf="loggedIn() && isAdmin('Admin')">
         <a class="nav-link" [routerLink]="['/admin']">Admin</a>
       </li>
 

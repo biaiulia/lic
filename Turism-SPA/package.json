@@ -21,7 +21,7 @@
     "@angular/router": "~9.1.1",
     "@auth0/angular-jwt": "^4.0.0",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@kolkov/ngx-gallery": "^1.2.0",
+    "@kolkov/ngx-gallery": "^1.2.3",
     "alertifyjs": "^1.13.1",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",

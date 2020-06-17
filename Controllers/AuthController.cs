@@ -77,6 +77,22 @@ namespace turism.Controllers
             
         
         }
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(UserForPasswordChange userForPasswordChange)
+        {
+            var user = await userManager.FindByNameAsync(userForPasswordChange.Username);
+
+            if(user==null)
+                return Unauthorized();
+            var check = await signInManager.CheckPasswordSignInAsync(user, userForPasswordChange.Password, false);
+
+            if(check.Succeeded && userForPasswordChange.newPassword!=null && userForPasswordChange.newPassword.Length>6 ){
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await userManager.ResetPasswordAsync(user, token, userForPasswordChange.newPassword);
+                return Ok();
+            }
+            return BadRequest();
+        }
 
         private async Task<String> GenerateJwtToken(User user)
         {

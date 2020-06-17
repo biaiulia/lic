@@ -41,4 +41,13 @@ export class NavComponent implements OnInit {
     this.authService.registerMode.next(true);
   }
 
+  isAdmin(role: string): boolean{
+    debugger;
+    if(this.authService.decodedToken.role === role){
+      return true;
+    }
+    return false;
+
+    }
+
 }

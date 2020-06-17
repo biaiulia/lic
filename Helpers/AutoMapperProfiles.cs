@@ -18,6 +18,8 @@ namespace turism.Helpers
          CreateMap<PostForCreation,Post>();
          CreateMap<PhotoForCreation, Photo>();
          CreateMap<Photo, PhotoForReturn>();
+        //  CreateMap<UserForUpdate, UserForList>().ForMember(dest => dest.Age, opt => 
+        //     opt.MapFrom(src=>src.BirthDate.CalculateAge()));
 
 
         }

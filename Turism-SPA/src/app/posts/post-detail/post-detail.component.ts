@@ -1,7 +1,8 @@
 import {
   Component,
   OnInit,
-  Input
+  Input,
+  OnChanges
 } from '@angular/core';
 import {
   Post
@@ -22,16 +23,18 @@ import {
 import {
   AuthService
 } from 'src/app/services/auth.service';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.css']
 })
-export class PostDetailComponent implements OnInit {
-
-  // @ViewChild(PhotoAddComponent) photo: Photo[]; // ?????
+export class PostDetailComponent implements OnInit, OnChanges {
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
   @Input() photos: Photo[];
+  photosExist = true;
   likesNr: number;
   post: Post;
 
@@ -42,11 +45,37 @@ export class PostDetailComponent implements OnInit {
     debugger;
 
     this.loadPost();
-    // this.route.data.subscribe(data=>{
-    //   this.post = data['post'];
-
-    // });
+    this.galleryOptions = [{
+      width: '500px',
+      height: '500px',
+      imagePercent: 100,
+      thumbnailsColumns: 4,
+      imageAnimation: NgxGalleryAnimation.Slide,
+      preview: true
+    }];
   }
+
+  ngOnChanges(): void {
+    if (!this.photos) {
+      this.photosExist = false;
+      return;
+    }
+    this.galleryImages = this.getImages();
+  }
+  getImages(){
+    const imageUrls = [];
+    this.photosExist = true;
+    for (const photo of this.photos) {
+      imageUrls.push({
+        small: photo.url,
+        medium: photo.url,
+        big: photo.url
+      });
+    }
+    return imageUrls;
+  }
+
+
   loggedIn(){
     return this.authService.loggedIn();
   }

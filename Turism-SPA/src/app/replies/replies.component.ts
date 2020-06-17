@@ -44,6 +44,7 @@ export class RepliesComponent implements OnInit {
   AddReply() {
     debugger;
     this.replyService.addReply(this.route.snapshot.params['id'], this.authService.decodedToken.nameid, this.model).subscribe(next => {
+      debugger;
       this.alertify.success('Ati adaugat reply-ul');
       this.replies.push({
         ...this.model

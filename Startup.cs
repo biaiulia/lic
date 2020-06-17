@@ -62,6 +62,7 @@ namespace turism
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // luam setarile din fisier
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             
+            
             //.AddJsonOptions(
             //     options => options.SerializerSettings.ReferenceLoopHandling =            
             //     Newtonsoft.Json.ReferenceLoopHandling.Ignore;

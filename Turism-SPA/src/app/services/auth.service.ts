@@ -63,8 +63,9 @@ export class AuthService {
         isAllowed = true;
         return isAllowed;
       }
-      
     });
     return isAllowed;
   }
+  
+
 }

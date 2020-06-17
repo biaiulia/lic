@@ -47,9 +47,10 @@ export class ProfileEditComponent implements OnInit {
   }
 
   ngOnInit() { // de revazut????
-    this.route.data.subscribe(data => {
-      this.user = data['user'];
-    });
+    this.getUser();
+     this.route.data.subscribe(data => {
+       this.user = data['user'];
+     });
     console.log(this.user);
   }
 
@@ -59,7 +60,7 @@ export class ProfileEditComponent implements OnInit {
 
   updateProfile() {
     debugger;
-    this.userService.updateUser(this.authService.decodedToken.nameid, this.user).subscribe((user: User) => {
+    this.userService.updateUser(this.authService.decodedToken.nameid, this.model).subscribe((user: User) => {
       debugger;
       this.alertify.success('Profilul s-a updatat cu succes');
       this.editForm.reset(this.user);
@@ -80,10 +81,13 @@ export class ProfileEditComponent implements OnInit {
       }, () => {
         this.alertify.error('Nu s-a reusit updatarea pozei');
       });
-
-
-  
-
 }
+
+  getUser(){
+    this.userService.getUser(this.authService.decodedToken.nameid).subscribe((user: User) => {
+      this.user = user;
+      this.model = user;
+    });
+  }
 }
 

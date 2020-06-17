@@ -60,7 +60,7 @@ namespace turism.Controllers
                          equals role.Id
                          select role.Name).ToList()
             }).ToListAsync();
-            return Ok(users);
+        return Ok(users);
         }
 
         [HttpPost("rolesEdit/{userName}")]

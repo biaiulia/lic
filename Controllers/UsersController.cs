@@ -24,12 +24,14 @@ namespace turism.Controllers
     {
         private readonly ITurismRep rep;
         private readonly IMapper mapper;
+        private readonly DataContext context;
         private readonly IOptions<CloudinarySettings> cloudinaryConfig;
         private Cloudinary cloudinary;
         private readonly UserManager<User> userManager;
 
-        public UsersController(ITurismRep rep, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig, UserManager<User> userManager) 
+        public UsersController(ITurismRep rep, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig, UserManager<User> userManager, DataContext context) 
         {
+            this.context= context;
             this.cloudinaryConfig = cloudinaryConfig;
             this.rep = rep;
             this.mapper = mapper;
@@ -64,8 +66,9 @@ namespace turism.Controllers
          [HttpGet("username/{userName}")] // ????????? luam id-ul 
         public async Task<IActionResult> GetUserByName(string userName){
             var user = await userManager.FindByNameAsync(userName);
+            var userReturn = mapper.Map<UserForList>(user);
             
-            return Ok(user);
+            return Ok(userReturn);
         }
     
     
@@ -76,14 +79,14 @@ namespace turism.Controllers
             return Unauthorized();
 
         var userFromRep = await rep.GetUser(id);
+        
 
          mapper.Map(userForUpdate, userFromRep); // mapam cele 2si le scrie din primu in al doilea
+           context.Users.Update(userFromRep);
+           context.SaveChanges();
 
-        if(await rep.SaveAll())
-            return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
-
-
-        return Ok(userFromRep);
+          var userForList = mapper.Map<UserForList>(userFromRep);
+        return Ok(userForList);
 
     }
 
@@ -113,14 +116,26 @@ namespace turism.Controllers
                             userFromRep.Url = uploadResult.Uri.ToString();
                             userFromRep.PublicId = uploadResult.PublicId;
                         }
+                        var userForList = mapper.Map<UserForList>(userFromRep);
                         if(await rep.SaveAll())
                              return Ok(userFromRep);
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
+   }
+   [HttpPost("{userId}/changePassword")]
+   public async Task<IActionResult> ChangePassword(int userId, string newPass)
+   {
+        if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+            return Unauthorized();
 
-
-       
-
+       if( newPass == null || newPass.Length<6){
+           return BadRequest("Parola trebuie sa fie mai lunga de 6 caractere");
+       }
+       var user = await rep.GetUser(userId);
+       var token = await userManager.GeneratePasswordResetTokenAsync(user); // sa nu folosim direct passwordhasher
+       var result = await userManager.ResetPasswordAsync(user, token, newPass);
+       return Ok();
 
    }
+   
 }
 }

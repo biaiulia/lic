@@ -24,8 +24,8 @@ getUsers(): Observable<User[]>{
   return this.http.get<User[]>(this.baseUrl + 'users');
 }
 
-getUser(id): Observable<User[]>{ // de ce facem asa
-  return this.http.get<User[]>(this.baseUrl + 'users/' + id);
+getUser(id): Observable<User>{ // de ce facem asa
+  return this.http.get<User>(this.baseUrl + 'users/' + id);
 }
 getUserByName(userName: string): Observable<User>{ // de ce facem asa
 return this.http.get<User>(this.baseUrl + 'users/username/' + userName);

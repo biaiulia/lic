@@ -34,7 +34,7 @@ export const appRoutes: Routes = [{
     component: CitiesComponent
   },
   {
-    path: 'user/edit/:name',
+    path: 'user/edit',
     component: ProfileEditComponent, canDeactivate: [UnsavedChanges]
   },
   {

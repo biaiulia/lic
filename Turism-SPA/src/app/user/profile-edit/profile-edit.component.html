@@ -11,31 +11,31 @@
     
     <div class="col-sm-4">
       <div class="card">
-        <img [src]="user.url" [alt]="user.firstName" class="card-img-top img-thumbnail">
+        <img [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
           <div>
             <strong>Prenume:</strong>
-            <p>{{user.firstName}}</p>
+            <p>{{user?.firstName}}</p>
           </div>
           <div>
             <strong>Nume:</strong>
-            <p>{{user.lastName}}</p>
+            <p>{{user?.lastName}}</p>
           </div>
           <div>
             <strong>Locatie:</strong>
-            <p>{{user.country}}, {{user.city}}</p>
+            <p>{{user?.country}}, {{user?.city}}</p>
           </div>
           <div>
             <strong>Varsta:</strong>
-            <p>{{user.age}}</p>
+            <p>{{user?.age}}</p>
           </div>
           <div>
             <strong>Joined:</strong>
-            <p>{{user.joined | date: 'dd/mm/yyyy'}}</p>
+            <p>{{user?.joined | date: 'dd/MM/yyyy'}}</p>
           </div>
           <div>
             <strong>Puncte:</strong>
-            <p>{{user.points}}</p>
+            <p>{{user?.points}}</p>
           </div>
         </div>
       </div>
@@ -64,13 +64,15 @@
 
           <br class="form-inline">
             <label for="firstName">Prenume</label>
-              <input class="form-control" type="text" name="firstname" [(ngModel)]="user.firstName">
+              <input class="form-control" type="text" name="firstname" [(ngModel)]="model.firstName">
               <label for="lastName">Nume</label>
-              <input class="form-control" type="text" name="lastmame" [(ngModel)]="user.lastName">
+              <input class="form-control" type="text" name="lastmame" [(ngModel)]="model.lastName">
               <label for="country">Tara</label>
-              <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
+              <input class="form-control" type="text" name="country" [(ngModel)]="model.country">
               <label for="city">Oras</label>
-              <input class="form-control" type="text" name="city" [(ngModel)]="user.city"><br>
+              <input class="form-control" type="text" name="city" [(ngModel)]="model.city"><br>
+              <label for="birthDate">Data nasterii</label>
+              <input class="form-control" type="date" name="birthDate" [(ngModel)]="model.birthDate"><br>
               <button [disabled]="!editForm.dirty" class="btn btn-success btn-block">Salveaza Modificari</button>
             </form>
             </div>

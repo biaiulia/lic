@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Http;
 
 namespace turism.DataTransferObjects
@@ -9,6 +10,7 @@ namespace turism.DataTransferObjects
         public string Country{get;set;}
         public string City{get;set;}
          public string Url {get;set;}
+         public DateTime BirthDate{get;set;}
         public IFormFile File {get;set;}
         public string PublicId { get; set; }
         
