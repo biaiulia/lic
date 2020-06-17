@@ -23,6 +23,9 @@ constructor(private http: HttpClient) { }
 getUsers(): Observable<User[]>{
   return this.http.get<User[]>(this.baseUrl + 'users');
 }
+getUsersByPoints(): Observable<User[]>{
+  return this.http.get<User[]>(this.baseUrl + 'users/userByPoints')
+}
 
 getUser(id): Observable<User>{ // de ce facem asa
   return this.http.get<User>(this.baseUrl + 'users/' + id);
@@ -30,6 +33,7 @@ getUser(id): Observable<User>{ // de ce facem asa
 getUserByName(userName: string): Observable<User>{ // de ce facem asa
 return this.http.get<User>(this.baseUrl + 'users/username/' + userName);
 }
+
 
 
 updateUser(id: number, user: User){

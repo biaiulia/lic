@@ -45,6 +45,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
     debugger;
 
     this.loadPost();
+    if (this.photos) {
     this.galleryOptions = [{
       width: '500px',
       height: '500px',
@@ -54,8 +55,10 @@ export class PostDetailComponent implements OnInit, OnChanges {
       preview: true
     }];
   }
+  }
 
   ngOnChanges(): void {
+    debugger;
     if (!this.photos) {
       this.photosExist = false;
       return;

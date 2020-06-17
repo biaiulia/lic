@@ -19,6 +19,7 @@ import {
 import {
   NgForm
 } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -46,7 +47,8 @@ export class AdminComponent implements OnInit {
   cityModeIndex: number;
   citiesIndex: number;
 
-  constructor(private alertify: AlertifyService, private postService: PostService, private cityService: CityService) {}
+  constructor(private alertify: AlertifyService, private postService: PostService, 
+    private cityService: CityService, private authService: AuthService) {}
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editCity.dirty) {
@@ -64,6 +66,13 @@ export class AdminComponent implements OnInit {
     debugger;
     this.image = file;
   }
+  isAdmin(){
+    if(this.authService.isAdmin('Admin')){
+      return true;
+    return false;
+    }
+  }
+
   selectCity(cityId: number, citiesIndex: number){
     this.editMode = true;
     this.cityId = cityId;

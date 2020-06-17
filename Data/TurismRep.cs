@@ -55,7 +55,8 @@ namespace turism.Data
             var users = await context.Users.ToListAsync();
             return users;
         }
-
+    
+  
            public async Task<IEnumerable<Post>> GetPosts(int cityId)
         {
              var posts = await context.Post.Include(p => p.PostLikes).Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
@@ -136,5 +137,7 @@ namespace turism.Data
         {
             return context.Users.FirstOrDefaultAsync(u=>u.Id==userId);
         }
+
+       
     }
 }

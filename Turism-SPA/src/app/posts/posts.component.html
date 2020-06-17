@@ -1,44 +1,3 @@
-<!-- <img [src]="post?.user.url" [routerLink]="['user', post.user.id]">
-  <div [routerLink]="['./', post.id]">
-    
-    <p>{{post.postText}}</p>
-  </div>
- -->
-
-
-
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <div class="post-preview">
-        <div class="row">
-          <div class="md-4">
-        <div class="float-left photo">
-        <a href="#DEPUSAICIPROFILUTILIZATOR">
-          <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
-          <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
-        </a>
-        </div>
-
-        <div class="md-8">
-  
-        <a href="post.html">
-          <h2 class="post-title">
-            Titlu Postare
-          </h2>
-          <h3 class="post-subtitle">
-            {{post.postText}}
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">{{post.user.userName}}</a>
-          on {{post.dateAdded | date : "dd/mm/yyyy"}}</p>
-      </div>
-      </div>
-      </div> -->
-
-
-
 <div class="container">
   <h1>Vezi obiectivele turistice din orasul {{cityName | titlecase}}!</h1><br>
 
@@ -46,40 +5,78 @@
   <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
   <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
   <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Sfaturile localnicilor</button>
-  <div *ngFor="let post of posts" class="row">
-    <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-6">
-      <hr>
-      <div class="row">
-        <div class="col-md-4">
-          <a [routerLink]="['/user/', post.user.userName]">
-            <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
-            <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
-          </a>
-        </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div *ngFor="let post of posts" class="row">
+        <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
+          <hr>
+          <div class="row">
+            <div class="col-md-4">
+              <a [routerLink]="['/user/', post.user.userName]">
+                <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
+                <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
+              </a>
+            </div>
 
-        <div class="col-md-8">
-          <a [routerLink]="['./', post.id]">
-            <h2 class="text">{{post?.postText}}</h2>
-          </a>
-          <p class="post-meta">Postat de
-            <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
-            in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
+            <div class="col-md-8">
+              <a [routerLink]="['./', post.id]">
+                <h2 class="text">{{post?.title}}</h2>
+              </a>
+              <p class="post-meta">Postat de
+                <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
+                in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
 
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <hr>
-<div class="row">
-  <div class="col-md-6"><h1>Utilizatori</h1></div>
-  </div>
-</div>
+    <hr>
+    <div class="col-md-3">
+      <div class="col-md-10">
+        <h3>Cei mai activi utilizatori</h3>
+        <div *ngFor="let user of users" class="row">
+
+
+          <!-- <h3>Cei mai activi utilizatori de pe platforma</h3>
+        <div *ngFor="let user of users" class="row">
+          <div class="col-md-10">
+            <div class="col-md-5">{{user.userName}}</div>
+            <div class="col-md-2">{{user.url}}</div> -->
+          <ul class="media-list mt-5">
+
+            <li class="media">
+              <a [routerLink]="['/user/',user.userName]" class="pull-left">
+                <img [src]="user?.url" [alt]="user?.userName" class="rounded-circle" *ngIf="user?.url">
+                <i class="fas fa-user fa-4x mr-2" *ngIf="!user?.url"></i>
+              </a>
+              <div class="media-body">
+                <a [routerLink]="['/user/',user.userName]"><strong class="text-info">{{user?.userName}}</strong></a>
+                <div>
+                <span class="text-muted float-right">
+                  <small class="text-muted">{{user?.joined | date : 'dd/MM/yyyy'}}</small>
+                </span>
+                </div>
+
+                <p>
+                  Puncte: {{user?.points}}
+                </p>
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- </div>
+  </div> -->
 
 
 
 
 
-<!-- <div class="container">
+    <!-- <div class="container">
   <div class="well">
       <div class="media">
       	<a class="pull-left" href="#">
@@ -117,7 +114,7 @@ Aliquam in felis sit amet augue.</p>
 
 
 
-<!-- <section class="details-card">
+    <!-- <section class="details-card">
     <div class="container">
         <div class="row">
             <div class="col-md-4">

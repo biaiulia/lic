@@ -55,17 +55,26 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token); // daca e expirat arata false si daca nu e arata true
   }
 
-  roleCheck(allowRole): boolean {
-    let isAllowed = false;
-    const userRoles = this.decodedToken.role as Array < string > ; // ceee??? asa luam rolurile
-    allowRole.array.forEach(element => {
-      if (userRoles.includes(element)) {
-        isAllowed = true;
-        return isAllowed;
-      }
-    });
-    return isAllowed;
-  }
+  isAdmin(role: string): boolean{
+
+    if(this.decodedToken.role === role){
+      return true;
+    }
+    return false;
+
+    }
+
+  // roleCheck(allowRole): boolean {
+  //   let isAllowed = false;
+  //   const userRoles = this.decodedToken.role as Array < string > ; // ceee??? asa luam rolurile
+  //   allowRole.array.forEach(element => {
+  //     if (userRoles.includes(element)) {
+  //       isAllowed = true;
+  //       return isAllowed;
+  //     }
+  //   });
+  //   return isAllowed;
+  // }
   
 
 }

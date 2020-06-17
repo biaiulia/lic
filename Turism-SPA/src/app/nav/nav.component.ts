@@ -42,7 +42,7 @@ export class NavComponent implements OnInit {
   }
 
   isAdmin(role: string): boolean{
-    debugger;
+
     if(this.authService.decodedToken.role === role){
       return true;
     }

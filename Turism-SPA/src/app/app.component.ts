@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
       this.authService.decodedToken = this.jwtHelper.decodeToken(token);
     }
   }
-
+  onActivate(event) {
+    window.scroll(0,0);
+  }
 
 }

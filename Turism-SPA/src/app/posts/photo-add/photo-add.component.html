@@ -8,13 +8,15 @@
   <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Pont local</button>
   <h1>Adauga o postare</h1>
   <form (ngSubmit)="addPost()">
+    <label for="title">Titlul experienței</label>
+    <input type="text" class="form-control" required name="title" [(ngModel)]="model.title" [ngModelOptions]="{standalone: true}"> <br>
     <label for="postText">Povesteste mai multe despre experienta ta</label>
-    <input type="textbox" class="form-control" required name="postText" [(ngModel)]="model.postText"
-      [ngModelOptions]="{standalone: true}"> <br>
+    <textarea class="form-control" required name="postText" [(ngModel)]="model.postText"
+      [ngModelOptions]="{standalone: true}"> </textarea><br>
     <div *ngIf="this.buttonState==='natura'" class="nature">
       <label for="getThere">Cum poti ajunge acolo?</label>
-      <input type="textbox" class="form-control" required name="getThere" [(ngModel)]="model.getThere"
-        [ngModelOptions]="{standalone: true}"> <br>
+      <textarea class="form-control" required name="getThere" [(ngModel)]="model.getThere"
+        [ngModelOptions]="{standalone: true}"> </textarea><br>
     </div>
     <input type="file" multiple class="form-control" (change)="onSelectFile($event.target.files)"><br>
 
@@ -127,5 +129,5 @@
           </div>
       </div>
   </div>
-</div>
--->
+</div>-->
+

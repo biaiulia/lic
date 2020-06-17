@@ -44,11 +44,16 @@
 
 <section class="fixed-background d-flex">
   <div class="center">
-    <div class="col-12 narrow text-center">
+    <div *ngIf="!loggedIn()" class="col-12 narrow text-center">
       <h1>Nu ești deja un membru?</h1>
       <p class="lead">Alătură-te comunității noastre pentru a afla mai multe despre comorile Transilvaniei!</p>
       <button type="button" class="btn btn-outline-info">Înregistrează-te</button>
 
+    </div>
+
+    <div *ngIf="loggedIn()" class="col-12 narrow text-center">
+      <h1>Împărtășește-ți experiențele aici!</h1>
+      <p class="lead">Fii alături de ceilalți membrii ai comunității noastre!</p>
     </div>
   </div>
 

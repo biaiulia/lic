@@ -37,6 +37,11 @@ export class HomeComponent implements OnInit {
   getUrl() {
     return 'D:\lic\turism\Turism-SPA\src\assets\img\backgr.jpg';
   }
+  loggedIn(){
+    if(this.authService.loggedIn()){
+      return true;}
+    return false;
+  }
 
   // searchCities(search: string){
   //   debugger;

@@ -12,3 +12,10 @@
   -webkit-box-orient: vertical;
 }
 
+.fas {
+  height:100px;
+  width:100px;
+  display:inline-block;
+  text-align: center;
+  vertical-align: bottom;
+}

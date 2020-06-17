@@ -91,7 +91,8 @@ namespace turism.Controllers
                 CityId = cityId,
                 PostText = post.PostText,
                 DateAdded = DateTime.Now,
-                Type= post.Type
+                Type= post.Type,
+                Title= post.Title
             };
             if(post.GetThere!=null){
                 postCreate.GetThere=post.GetThere;
