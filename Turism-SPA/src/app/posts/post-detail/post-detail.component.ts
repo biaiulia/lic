@@ -31,6 +31,7 @@ import {
 import {
   City
 } from 'src/app/.model/city';
+import { CityService } from 'src/app/services/city.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -47,10 +48,11 @@ export class PostDetailComponent implements OnInit, OnChanges {
   post: Post;
 
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute,
-    private authService: AuthService) {}
+    private authService: AuthService, private cityService: CityService) {}
 
   ngOnInit() {
     debugger;
+    this.getCity();
 
     this.loadPost();
     if (this.photos != null) {
@@ -65,6 +67,12 @@ export class PostDetailComponent implements OnInit, OnChanges {
       }];
     }
   }
+  getCity(){
+    this.cityService.getCity(this.route.snapshot.params['name']).subscribe((city: City)=>{
+      this.city=city;
+    })
+  }
+
 
   ngOnChanges(): void {
     debugger;

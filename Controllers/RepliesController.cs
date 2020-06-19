@@ -41,11 +41,11 @@ namespace turism.Controllers
                     PostId = postId
 
                 };
-                 context.Reply.Add(replyCreate);
+                await context.Reply.AddAsync(replyCreate);
                 
                  await rep.AddUserPoints(userId, 5);
-                context.SaveChanges();
-                return StatusCode(201); // aici nu am pus await???????
+                await context.SaveChangesAsync();
+                return Ok(replyCreate); // aici nu am pus await???????
             }
             return BadRequest("Nu ati introdus niciun text");
         }
