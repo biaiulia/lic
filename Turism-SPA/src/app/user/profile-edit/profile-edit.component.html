@@ -91,13 +91,60 @@
             <tab heading="Parola">
               <div class="card">
                 <div class="col-sm-8 mt-4 mb-5">
-                <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()">
+                <!-- <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()">
                   <label for="password">Introduceți parola veche</label>
                   <input class="form-control" type="password" name="password" [(ngModel)]="model.firstName">
                       <label for="newPassword">Parola nouă</label>
                       <input class="form-control" type="password" name="newPassword" [(ngModel)]="model.lastName">
                       <label for="country">Confirmă parola</label>
                       <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="model.country">
+                </form>    angular template form-->
+                <!-- <form [formGroup]="createRegisterForm" (submit)="changePassword()">
+                  
+                  <input type="password" 
+
+                </form> -->
+                <form [formGroup]="passwordChangeForm" (submit)="changePassword()">
+
+                  <div class="form-group">
+                    <input type="password"
+                    [ngClass]="{'is-invalid': passwordChangeForm.get('password').errors && passwordChangeForm.get('password').touched}"
+                    class="form-control" formControlName="password" placeholder="password">
+                    <div class="invalid-feedback">please choose a new password</div>
+                  </div>
+              
+                  <div class="form-group">
+                    <input type="password"
+                    [ngClass]="{'is-invalid': passwordChangeForm.get('newPassword').errors && passwordChangeForm.get('newPassword').touched}"
+                    class="form-control" formControlName="newPassword" placeholder="newPassword">
+                    <div class="invalid-feedback">please choose a password longer than 6 char</div>
+                  </div>
+              
+                  <div class="form-group">
+                    <input
+                      [ngClass]="{'is-invalid': passwordChangeForm.get('confirmPassword').errors
+                        && passwordChangeForm.get('confirmPassword').touched
+                        || passwordChangeForm.get('confirmPassword').touched
+                        && passwordChangeForm.hasError('mismatch')}"
+                      type="password"
+                      class="form-control"
+                      formControlName="confirmPassword"
+                      placeholder="Confirm Password">
+                      <div class="invalid-feedback"
+                      *ngIf="passwordChangeForm.get('confirmPassword').hasError('required')
+                        && passwordChangeForm.get('confirmPassword').touched">
+                        Confirm Password is required
+                    </div>
+                    <div class="invalid-feedback"
+                    *ngIf="passwordChangeForm.hasError('mismatch')
+                      && passwordChangeForm.get('confirmPassword').touched">
+                      Passwords must match
+                  </div>
+                  </div>
+              
+                  <div class="form-group text-center">
+                    <button class="btn btn-outline-primary mr-3" type="submit">Change Password</button>
+                  </div>
                 </form>
               </div>
               </div>

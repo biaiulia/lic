@@ -64,7 +64,7 @@ export class AuthService {
 
     }
     changePassword(model:any){
-      return this.http.put(this.baseUrl + 'auth/ChangePassword', model);
+      return this.http.put(this.baseUrl + 'ChangePassword', model);
     }
 
     roleCheck(allowRole): boolean {

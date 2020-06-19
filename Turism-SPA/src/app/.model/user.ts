@@ -14,4 +14,5 @@ export interface User {
     url?: string;
     publicId?: string;
     posts?: Post[];
+    username?: string;
 }

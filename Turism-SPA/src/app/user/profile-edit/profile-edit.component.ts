@@ -76,7 +76,7 @@ export class ProfileEditComponent implements OnInit {
     });
   }
   passwordMatch(p: FormGroup) {
-    debugger;
+
 
     return p.get('newPassword').value === p.get('confirmPassword').value ? null : {
       mismatch: true
@@ -85,12 +85,13 @@ export class ProfileEditComponent implements OnInit {
   changePassword() {
     debugger;
     this.pchange = Object.assign({}, this.passwordChangeForm.value); // asignam userului ce e in form
+    this.pchange.userName = this.user.username;
     this.authService.changePassword(this.pchange).subscribe(() => {
         this.alertify.success('ati schimbat parola');
 
       },
       error => {
-        this.alertify.error(error);
+        this.alertify.error('Nu s-a reusit schimbarea parolei');
       });
 
     
