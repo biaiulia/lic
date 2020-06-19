@@ -35,6 +35,7 @@ export class RepliesComponent implements OnInit {
   @Input() replies: Reply[];
   model: any = {};
   users: User[];
+  newReply: Reply;
 
   constructor(private replyService: ReplyService, private alertify: AlertifyService,
               private route: ActivatedRoute, private authService: AuthService, private userService: UserService,
@@ -45,7 +46,8 @@ export class RepliesComponent implements OnInit {
 
   AddReply() {
     debugger;
-    this.replyService.addReply(this.route.snapshot.params['id'], this.authService.decodedToken.nameid, this.model).subscribe(next => {
+    this.replyService.addReply(this.route.snapshot.params['id'], this.authService.decodedToken.nameid, this.model)
+    .subscribe((reply: Reply) => {
       debugger;
       this.alertify.success('Ati adaugat reply-ul');
       this.replies.push({

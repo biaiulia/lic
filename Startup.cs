@@ -48,12 +48,15 @@ namespace turism
                 o.Password.RequiredLength = 4;
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequireUppercase = false;
+                o.SignIn.RequireConfirmedEmail = true;
+                o.User.RequireUniqueEmail = true;
             });
             build = new IdentityBuilder(build.UserType, typeof(Role), build.Services);
             build.AddEntityFrameworkStores<DataContext>();
             build.AddRoleValidator<RoleValidator<Role>>();
             build.AddRoleManager<RoleManager<Role>>();
             build.AddSignInManager<SignInManager<User>>();
+            build.AddDefaultTokenProviders(); // email si reset password
 
 
             services.AddAutoMapper(typeof(TurismRep).Assembly);
@@ -61,7 +64,8 @@ namespace turism
             services.AddControllers().AddNewtonsoftJson();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings")); // luam setarile din fisier
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
+            services.AddOptions();
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             
             //.AddJsonOptions(
             //     options => options.SerializerSettings.ReferenceLoopHandling =            
@@ -69,6 +73,8 @@ namespace turism
     
             services.AddCors(); //adauga serviciul cors ca sa il facem available ca middleware prin injection
             services.AddScoped<ITurismRep, TurismRep>(); // de ce aducem repository urile????
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.Configure<EmailSettings>(Configuration);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options => { options.TokenValidationParameters = new TokenValidationParameters{
                     ValidateIssuerSigningKey = true,

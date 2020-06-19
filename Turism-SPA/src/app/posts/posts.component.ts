@@ -19,6 +19,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../.model/user';
 import { AuthService } from '../services/auth.service';
 import { AdminService } from '../services/admin.service';
+import { City } from '../.model/city';
 
 @Component({
   selector: 'app-posts',
@@ -27,7 +28,8 @@ import { AdminService } from '../services/admin.service';
 })
 export class PostsComponent implements OnInit {
   // @Input() post: Post;
-  @Input() posts: Post[];
+  @Input() posts: Post[]; // sa fac un request sau sa pun conditie sa aiba approved=1
+  @Input() city: City;
   users: User[];
   cityName: string;
   buttonState = 'toate';
@@ -36,10 +38,16 @@ export class PostsComponent implements OnInit {
     private adminService: AdminService) {
 
   }
+  approvedPosts(){
+    debugger;
+    this.posts = this.city.posts.filter(p => p.approved === 1);
+  }
 
   ngOnInit() {
     this.cityName = this.route.snapshot.params['name'];
     this.getUsers();
+    this.approvedPosts();
+    console.log(this.posts);
   }
 
   pressButton(filter: string){

@@ -21,13 +21,16 @@ body {
   border-bottom: 1px dashed #efefef !important;
   margin-bottom: 25px !important;
 }
-.rounded-circle{
-    
-}
+
 .fas {
   height:100px;
   width:100px;
   display:inline-block;
   text-align: center;
   vertical-align: bottom;
+}
+
+.btn-primary{
+  background-color:  #1f618d!important;
+  border-color:  #1f618d !important;
 }
