@@ -24,6 +24,7 @@ namespace turism.Data
           //  Task<Post> PostExists(int userId, int postId);
            Task<IEnumerable<City>> GetCities();
            Task<IEnumerable<City>> SearchCity(string search);
+           Task<City> GetCityByName(string name);
 
            Task<IEnumerable<Reply>> GetReplies(int postId);
 

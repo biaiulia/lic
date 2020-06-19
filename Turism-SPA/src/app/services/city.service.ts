@@ -33,7 +33,7 @@ export class CityService {
   }
 
   getCity(name): Observable < City > {
-    return this.http.get < City > (this.baseUrl + name);
+    return this.http.get < City > (this.baseUrl + 'city/' + name);
   }
 
   searchCities(search: string): Observable < City[] > {

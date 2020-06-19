@@ -30,8 +30,8 @@ namespace turism.Models {
 
         public string PublicId { get; set; }
 
-        [JsonIgnore]
-        [IgnoreDataMember]
+        //[JsonIgnore]
+        //[IgnoreDataMember]
         public ICollection < Post > Posts {
             get;
             set;

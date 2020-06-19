@@ -12,18 +12,18 @@
           <hr>
           <div class="row">
             <div class="col-md-4">
-              <a [routerLink]="['/user/', post.user.userName]">
-                <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post.user.url">
-                <i class="fas fa-user fa-4x mr-2" *ngIf="!post.user.url"></i>
+              <a [routerLink]="['/user/', post?.user?.userName]">
+                <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post?.user?.url">
+                <i class="fas fa-user fa-4x mr-2" *ngIf="!post?.user?.url"></i>
               </a>
             </div>
 
             <div class="col-md-8">
-              <a [routerLink]="['./', post.id]">
+              <a [routerLink]="['./', post?.id]">
                 <h2 class="text">{{post?.title}}</h2>
               </a>
               <p class="post-meta">Postat de
-                <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
+                <a [routerLink]="['/user/', post?.user?.userName]">{{post.user.userName}}</a>
                 in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
                 <span class="text-muted float-right">
                   <button class="btn btn-primary float-right" *ngIf="(loggedIn() && yourPost(post.userId) || isAdmin())"
@@ -55,7 +55,7 @@
                 <i class="fas fa-user fa-4x mr-2" *ngIf="!user?.url"></i>
               </a>
               <div class="media-body">
-                <a [routerLink]="['/user/',user.userName]"><strong class="text-info">{{user?.userName}}</strong></a>
+                <a [routerLink]="['/user/',user?.userName]"><strong class="text-info">{{user?.userName}}</strong></a>
                 <div>
                 <span class="text-muted float-right">
                   <small class="text-muted">{{user?.joined | date : 'dd/MM/yyyy'}}</small>

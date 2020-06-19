@@ -56,7 +56,7 @@
         <tabset>
           <tab heading="Modificare detalii oras">
             <div class="card">
-              <div class="col-sm-6 mt-5 mb-5">
+              <div class="col-sm-11 mt-5 mb-5">
                 <form #editCity="ngForm" (ngSubmit)="updateCity(citiesIndex)">
                   <h3>Modificare detalii oras {{cities[citiesIndex].name}}</h3>
                   <label for="name">Nume oras</label>
@@ -68,7 +68,7 @@
 
                   <button type="submit" class="btn btn-outline-success mr-3" [disabled]="editCity.dirty">Modifica
                     orasul</button><br>
-                  <button type="button" class="btn btn-outline-secondary" (click)="editMode=false">Cancel</button>
+                  <button type="button" class="btn btn-outline-secondary mt-2" (click)="editMode=false">Cancel</button>
                 </form>
               </div>
             </div>
@@ -79,7 +79,7 @@
                 <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
                   <label for="photo">Poza orasului</label>
                   <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])"><br><br>
-                  <button type="submit" class="btn btn-success btn-block">Schimba poza</button>
+                  <button type="submit" class="btn btn-outline-success btn-block">Schimba poza</button>
                 </form>
               </div>
             </div>
@@ -89,12 +89,13 @@
         <div class="col-sm-12">
           <h1>Aprobare postari</h1><br>
         
-          <button type="button" class="btn btn-outline-primary mr-3" (click)="pressButton('toate')">Toate</button>
-          <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
-          <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
-          <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Sfaturile localnicilor</button>
+          
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9 mb-4">
+              <button type="button" class="btn btn-outline-primary mr-3" (click)="pressButton('toate')">Toate</button>
+              <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
+              <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
+              <button type="button" class="btn btn-outline-info mt-2" (click)="pressButton('local')">Sfaturile localnicilor</button>
               <div *ngFor="let post of posts; let postIndex = index" class="row">
                 <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
                   <hr>
@@ -106,7 +107,7 @@
                       </a>
                     </div>
         
-                    <div class="col-md-8">
+                    <div class="col-md-8 mb-5">
                       <a [routerLink]="['./', post.id]">
                         <h2 class="text">{{post?.title}}</h2>
                       </a>
@@ -114,7 +115,7 @@
                         <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
                         in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
                       <span class="text-muted float-right">
-                        <button class="btn btn-primary float-right"
+                        <button class="btn btn-primary float-right ml-2"
                           (click)="deletePost(post.id, postIndex)"><i class="fa fa-trash"></i></button>
                       </span>
                       <span class="text-muted float-right">
@@ -145,7 +146,7 @@
             <input class="form-control" type="text" name="descriere" [(ngModel)]="city.description">
             <label for="photo">Poza orasului</label>
             <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])"> <br>
-            <button [disabled]="!city.name || !city.description" class="btn btn-outline-success mr-4">Adauga
+            <button [disabled]="!city.name || !city.description" class="btn btn-outline-success mr-1 mb-2">Adauga
               oras</button>
             <button type="button" class="btn btn-outline-secondary" (click)="addMode=false">Cancel</button>
           </form>

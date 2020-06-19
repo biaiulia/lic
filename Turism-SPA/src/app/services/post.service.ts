@@ -32,6 +32,7 @@ export class PostService {
   constructor(private http: HttpClient, authService: AuthService) {}
 
   getPosts(cityId): Observable < Post[] > {
+    debugger;
     return this.http.get < Post[] > (`${this.baseUrl}cities/${cityId}/posts`);
   }
   getPost(id): Observable < Post > {

@@ -8,7 +8,7 @@ import {
   Post
 } from '../../.model/post';
 import {
-  
+
   PostService
 } from '../../services/post.service';
 import {
@@ -23,7 +23,14 @@ import {
 import {
   AuthService
 } from 'src/app/services/auth.service';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import {
+  NgxGalleryOptions,
+  NgxGalleryImage,
+  NgxGalleryAnimation
+} from '@kolkov/ngx-gallery';
+import {
+  City
+} from 'src/app/.model/city';
 
 @Component({
   selector: 'app-post-detail',
@@ -34,27 +41,29 @@ export class PostDetailComponent implements OnInit, OnChanges {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   @Input() photos: Photo[];
+  @Input() city: City;
   photosExist = true;
   likesNr: number;
   post: Post;
 
   constructor(private postService: PostService, private alertify: AlertifyService, private route: ActivatedRoute,
-              private authService: AuthService) {}
+    private authService: AuthService) {}
 
   ngOnInit() {
     debugger;
 
     this.loadPost();
-    if (this.photos) {
-    this.galleryOptions = [{
-      width: '500px',
-      height: '500px',
-      imagePercent: 100,
-      thumbnailsColumns: 4,
-      imageAnimation: NgxGalleryAnimation.Slide,
-      preview: true
-    }];
-  }
+    if (this.photos != null) {
+      debugger;
+      this.galleryOptions = [{
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: true
+      }];
+    }
   }
 
   ngOnChanges(): void {
@@ -65,7 +74,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
     }
     this.galleryImages = this.getImages();
   }
-  getImages(){
+  getImages() {
     const imageUrls = [];
     this.photosExist = true;
     for (const photo of this.photos) {
@@ -79,7 +88,7 @@ export class PostDetailComponent implements OnInit, OnChanges {
   }
 
 
-  loggedIn(){
+  loggedIn() {
     return this.authService.loggedIn();
   }
 

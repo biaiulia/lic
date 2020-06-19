@@ -40,7 +40,12 @@ namespace turism.Data
 
         public async Task<City> GetCity(int id)
         {
-            var city = await context.City.FirstOrDefaultAsync(c=>c.Id==id);
+            var city = await context.City.Include(c=>c.Posts).FirstOrDefaultAsync(c=>c.Id==id);
+            return city;
+        }
+        public async Task<City> GetCityByName(string name)
+        {
+            var city = await context.City.Include(c=>c.Posts).ThenInclude(p=>p.User).FirstOrDefaultAsync( x => x.Name.ToLower() == name.ToLower());
             return city;
         }
 
@@ -65,7 +70,7 @@ namespace turism.Data
         }
          public async Task<IEnumerable<Post>> GetUnapprovedPosts(int id)
         {
-            var posts=  await context.Post.Include(p=>p.User).Where(p =>(p.CityId==id && p.Approved==0)).ToListAsync();
+            var posts=  await context.Post.Include(p=>p.User).Where(p =>p.CityId==id && p.Approved==0).ToListAsync();
             return posts;
         }
         public async Task<User> AddUserPoints(int userId, int points){
@@ -141,6 +146,6 @@ namespace turism.Data
             return context.Users.FirstOrDefaultAsync(u=>u.Id==userId);
         }
 
-       
+      
     }
 }

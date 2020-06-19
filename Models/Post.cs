@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace turism.Models
@@ -22,6 +23,7 @@ namespace turism.Models
 
         public int UserId { get; set; }
 
+        [IgnoreDataMember]
         public City City {get; set;}
 
         public int CityId {get; set;}
