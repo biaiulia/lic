@@ -112,18 +112,19 @@ namespace turism.Controllers
             // return CreatedAtRoute("GetPhoto", new {userId=userId, id=post.Id, cityId=post.CityId}, post);
 
         }
-        [Route("api/{userId}/deletePost/{postId}")] // merge cu debugger, daca-l scot mai da internal error
+        [Route("api/deletePost/{postId}")] // merge cu debugger, daca-l scot mai da internal error
         [HttpDelete]
-         public async Task<IActionResult> DeletePost(int userId, int postId)
+         public async Task<IActionResult> DeletePost(int postId)
         {
-            var post = await rep.PostExists(userId, postId);
+            var post = await rep.GetPost(postId);
             if(post==null)
                 return BadRequest("Postarea nu exista, nu poate fi stearsa");
 
-            if (userId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
+            if (post.UserId!= int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) // aici verificam daca tokenul e ca path ul
                     return Unauthorized();
-        
             context.Post.Remove(post);
+            await rep.RemoveUserPoints(post.UserId, 10);
+            await context.SaveChangesAsync();
             return Ok();
                 
 
@@ -153,9 +154,9 @@ namespace turism.Controllers
             };
             if(likeCreate!=null)
             {
-            context.Like.Add(likeCreate);
+            await context.Like.AddAsync(likeCreate);
             await rep.AddUserPoints(userId, 3);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return Ok();
             }
             return BadRequest("Nu s-a putut adauga like-ul");
@@ -180,7 +181,8 @@ namespace turism.Controllers
                 return BadRequest("Nu exista like la aceasta postare");
             
             context.Like.Remove(like);
-            context.SaveChanges();
+            await rep.RemoveUserPoints(userId, 3);
+            await context.SaveChangesAsync();
             return Ok();
 
          }

@@ -20,16 +20,17 @@ namespace turism.Data
 
            Task<PostLike> GetLike(int postId, int userId);
 
-           Task<Post> PostExists(int userId, int postId);
+          //  Task<Post> PostExists(int userId, int postId);
            Task<IEnumerable<City>> GetCities();
            Task<IEnumerable<City>> SearchCity(string search);
 
            Task<IEnumerable<Reply>> GetReplies(int postId);
 
            Task<IEnumerable<int>> GetPostLikersId(int postId);
-           Task<Reply> GetReply(int userId, int id);
-            Task<Post> PostExists(int postId);
-            Task<User> UserExists(int userId);
+           Task<Reply> GetReply(int id);
+            // Task<Post> PostExists(int postId);
+            // Task<User> UserExists(int userId);
             Task<User> AddUserPoints(int userId, int points);
+            Task<User> RemoveUserPoints(int userId, int points);
     }
 }

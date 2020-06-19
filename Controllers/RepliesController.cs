@@ -49,18 +49,21 @@ namespace turism.Controllers
             }
             return BadRequest("Nu ati introdus niciun text");
         }
-        [Route("api/{userId}/deleteReply/{id}")]
+        [Route("api/deleteReply/{id}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteReply(int userId, int id){
+        public async Task<IActionResult> DeleteReply(int id){
             
-            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-            var reply = await rep.GetReply(userId, id);
+            
+            var reply = await rep.GetReply(id);
+            
             if(reply==null)
                 return BadRequest("Acest comentariu nu este al utilizatorului acesta");
+                if(reply.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
             
             context.Reply.Remove(reply);
-            context.SaveChanges();
+            await rep.RemoveUserPoints(reply.UserId, 5);
+            await context.SaveChangesAsync();
             return Ok();
 
         }

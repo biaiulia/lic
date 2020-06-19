@@ -11,6 +11,7 @@ export interface Post {
     type?: string;
     getThere?: string;
     dateAdded: Date;
+    userId: number;
     photos?: Photo[];
     cityId: number;
     postLikes?: Like[];

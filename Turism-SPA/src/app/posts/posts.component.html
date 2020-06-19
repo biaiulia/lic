@@ -7,7 +7,7 @@
   <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Sfaturile localnicilor</button>
   <div class="row">
     <div class="col-md-9">
-      <div *ngFor="let post of posts" class="row">
+      <div *ngFor="let post of posts; let postIndex = index" class="row">
         <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
           <hr>
           <div class="row">
@@ -25,6 +25,10 @@
               <p class="post-meta">Postat de
                 <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
                 in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
+                <span class="text-muted float-right">
+                  <button class="btn btn-primary float-right" *ngIf="(loggedIn() && yourPost(post.userId) || isAdmin())"
+                    (click)="removePost(post.id, postIndex)"><i class="fa fa-trash"></i></button>
+                </span>
 
             </div>
           </div>

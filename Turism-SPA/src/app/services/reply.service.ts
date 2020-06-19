@@ -27,8 +27,8 @@ constructor(private http: HttpClient, authService: AuthService) {}
   //     )
   //   );
   }
-  deleteReply(userId, id){
-    return this.http.delete(`${this.baseUrl}${userId}/deleteReply/${id}`);
+  deleteReply(id: number){
+    return this.http.delete(`${this.baseUrl}deleteReply/${id}`);
   }
 
 

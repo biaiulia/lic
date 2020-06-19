@@ -70,6 +70,12 @@ namespace turism.Data
             return user;
         
         }
+        public async Task<User> RemoveUserPoints(int userId, int points){
+            var user = await context.Users.FirstOrDefaultAsync(u=>u.Id==userId);
+            user.Points -= points;
+
+            return user;
+        }
 
      
         public async Task<IEnumerable<int>> GetPostLikersId(int postId){ // metoda care returneaza id urile persoanelor care au dat like la posturi
@@ -111,14 +117,6 @@ namespace turism.Data
 
         }
 
-        public Task<Post> PostExists(int userId, int postId)
-        {
-            var post = context.Post.FirstOrDefaultAsync(p=>(p.Id==postId && p.UserId==userId));
-            if(post!=null)
-                return post;
-            return null;
-                 
-        }
         public Task<Post> PostExists(int postId)
         {
             var post = context.Post.FirstOrDefaultAsync(p=>p.Id==postId);
@@ -128,9 +126,9 @@ namespace turism.Data
                  
         }
 
-        public Task<Reply> GetReply(int userId, int id)
+        public Task<Reply> GetReply(int id)
         {
-            return context.Reply.FirstOrDefaultAsync(r=>(r.UserId==userId && r.Id==id));
+            return context.Reply.FirstOrDefaultAsync(r=> r.Id==id);
         }
 
         public Task<User> UserExists(int userId)

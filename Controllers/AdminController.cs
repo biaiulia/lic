@@ -92,7 +92,7 @@ namespace turism.Controllers
 
 
         [HttpPost("addCity")]
-        public IActionResult AddCity([FromForm] CityForCreation cityForCreation)
+        public async Task<IActionResult> AddCity([FromForm] CityForCreation cityForCreation)
         { 
 
             // 
@@ -120,8 +120,8 @@ namespace turism.Controllers
                     PublicId = uploadResult.PublicId
 
                 };
-                context.City.Add(cityCreate);
-                context.SaveChanges();
+                await context.City.AddAsync(cityCreate);
+                await context.SaveChangesAsync();
                  return Ok("Ati introdus un oras");
 
             }
@@ -131,12 +131,13 @@ namespace turism.Controllers
         [HttpDelete("deletePost/{postId}")]
          public async Task<IActionResult> DeletePost(int postId)
         {
-            var post = await rep.PostExists(postId);
+            var post = await rep.GetPost(postId);
             if(post==null)
                 return BadRequest("Postarea nu exista, nu poate fi stearsa");
         
             context.Post.Remove(post);
-            context.SaveChanges();
+            await rep.RemoveUserPoints(post.UserId, 10);
+            await context.SaveChangesAsync();
             return Ok();
         }
 
@@ -148,7 +149,7 @@ namespace turism.Controllers
                 return BadRequest("Utilizatorul nu exista, nu poate fi sters");
         
             context.Users.Remove(user);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return Ok();
         }
 
@@ -160,18 +161,19 @@ namespace turism.Controllers
                 return BadRequest("Orasul nu exista, nu poate fi sters");
         
             context.City.Remove(city);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return Ok();
         }
 
-        [HttpDelete("{userId}/deleteReply/{id}")]
-        public async Task<IActionResult> DeleteReply(int userId, int id){
-            var reply = await rep.GetReply(userId, id);
+        [HttpDelete("deleteReply/{id}")]
+        public async Task<IActionResult> DeleteReply(int id){
+            var reply = await rep.GetReply(id);
             if(reply==null)
-                return BadRequest("Acest comentariu nu este al utilizatorului acesta");
+                return BadRequest("Acest comentariu nu exista");
             
             context.Reply.Remove(reply);
-            context.SaveChanges();
+            await rep.RemoveUserPoints(reply.UserId, 5);
+            await context.SaveChangesAsync();
             return Ok();
 
         }
@@ -185,7 +187,7 @@ namespace turism.Controllers
         if(city.Description!=null)
          cityFromRep.Description=city.Description;
         context.City.Update(cityFromRep);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         return Ok(cityFromRep);
 
     }

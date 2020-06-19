@@ -74,15 +74,17 @@ export class PostService {
   sendDislike(userId: number, postId: number) {
     return this.http.delete(this.baseUrl + userId + '/like/' + postId);
   }
-  isLiked(userId: number, postId) {
+  isLiked(userId: number, postId: number) {
     return this.http.get(this.baseUrl + userId + '/likes/' + postId);
   }
    //hermes chiar trebe sa fac inca un request pt poze daca el deja le primeste asa aici?
+  
+   deletePost(id: number){
+    return this.http.delete(`${this.baseUrl}deletePost/${id}`);
   }
 
 
-
-
+}
 
 
 // sendClickEvent(){

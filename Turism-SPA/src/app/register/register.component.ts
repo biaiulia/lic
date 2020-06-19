@@ -20,7 +20,7 @@ import {
 import {
   User
 } from '../.model/user';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup; // pt form control
 
   constructor(private authService: AuthService, private alertify: AlertifyService,
-    private formBuilder: FormBuilder, private router: Router) {} // injectam authservice ca sa putem folosi metoda facuta de acolo
+    private formBuilder: FormBuilder, private location: Location) {} // injectam authservice ca sa putem folosi metoda facuta de acolo
 
   ngOnInit() {
     this.createRegisterForm();
@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.user = Object.assign({}, this.registerForm.value); // asignam userului ce e in form
       this.authService.register(this.user).subscribe(() => {
-          this.router.navigate(['/home']);
+          this.location.back();
           this.alertify.success('v-ati înregistrat');
           
         },
@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
 
   cancel() {
     this.cancelRegister.emit(false);
-    console.log('cancelled');
+    this.location.back();
   }
 
 }
