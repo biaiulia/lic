@@ -12,6 +12,7 @@ namespace turism.Models
         public string Title {get; set;}
         public string PostText {get; set;} 
         public string GetThere { get; set; }
+        public int Approved { get; set; }
 
         public DateTime DateAdded {get; set;}
         // [JsonIgnore]

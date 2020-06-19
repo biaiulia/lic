@@ -37,11 +37,12 @@
                 <button type="button" class="btn btn-outline-secondary"
                   (click)="selectCity(city.id, citiesIndex)">Edit</button> |
                 <!-- <a [routerLink]="['/edit/', city.name.toLowerCase()]">Edit</a>  -->
-                 <button type="button" class="btn btn-outline-info" [routerLink]="['/city/', city.name]">Details 
-                  
+                <button type="button" class="btn btn-outline-info" [routerLink]="['/city/', city.name]">Details
+
                 </button> |
                 <button type="button" class="btn btn-outline-danger"
                   (click)="deleteCity(city.id, citiesIndex)">Delete</button>
+                <!-- <button type="button" class="btn btn-outline-dark">Dark</button> -->
               </td>
             </tr>
 
@@ -51,8 +52,8 @@
 
       </div>
 
-      <div class="col-sm-12">
-        <tabset *ngIf="editMode===true">
+      <div class="col-sm-12" *ngIf="editMode===true">
+        <tabset>
           <tab heading="Modificare detalii oras">
             <div class="card">
               <div class="col-sm-6 mt-5 mb-5">
@@ -84,6 +85,53 @@
             </div>
           </tab>
         </tabset>
+
+        <div class="col-sm-12">
+          <h1>Aprobare postari</h1><br>
+        
+          <button type="button" class="btn btn-outline-primary mr-3" (click)="pressButton('toate')">Toate</button>
+          <button type="button" class="btn btn-outline-success mr-3" (click)="pressButton('natura')">Natura</button>
+          <button type="button" class="btn btn-outline-secondary mr-3" (click)="pressButton('oras')">Oras</button>
+          <button type="button" class="btn btn-outline-info" (click)="pressButton('local')">Sfaturile localnicilor</button>
+          <div class="row">
+            <div class="col-md-9">
+              <div *ngFor="let post of posts; let postIndex = index" class="row">
+                <div *ngIf="post?.type===buttonState || buttonState=== 'toate'" class="col-md-10">
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <a [routerLink]="['/user/', post?.user?.userName]">
+                        <img [src]="post?.user?.url" [alt]="post?.user?.userName" class="rounded-circle" *ngIf="post?.user?.url">
+                        <i class="fas fa-user fa-4x mr-2" *ngIf="!post?.user?.url"></i>
+                      </a>
+                    </div>
+        
+                    <div class="col-md-8">
+                      <a [routerLink]="['./', post.id]">
+                        <h2 class="text">{{post?.title}}</h2>
+                      </a>
+                      <p class="post-meta">Postat de
+                        <a [routerLink]="['/user/', post.user.userName]">{{post.user.userName}}</a>
+                        in data de {{post.dateAdded | date : "dd/MM/yyyy"}}</p>
+                      <span class="text-muted float-right">
+                        <button class="btn btn-primary float-right"
+                          (click)="deletePost(post.id, postIndex)"><i class="fa fa-trash"></i></button>
+                      </span>
+                      <span class="text-muted float-right">
+                        <button class="btn btn-primary float-right"
+                          (click)="approvePost(post.id, postIndex)"><i class="fa fa-check"></i></button>
+                      </span>
+        
+        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
       </div>
       <div class="add-city" *ngIf="addMode===true">
         <div class="container">
@@ -123,7 +171,7 @@
               </td>
               <td>
                 <button type="button" class="btn btn-outline-info" [routerLink]="['/user/', user?.userName]">Details
-                 </button> |
+                </button> |
                 <button type="button" class="btn btn-outline-danger"
                   (click)="deleteUser(user.userName, userIndex)">Delete</button>
               </td>
@@ -135,3 +183,5 @@
     </div>
   </div>
 </div>
+
+

@@ -217,12 +217,30 @@ namespace turism.Controllers
                         if(await rep.SaveAll())
                              return Ok(cityFromRep);
             return NoContent(); // daca nu returnam asta inseamna ca ceva a mers prost
-
-
-
    }
 
+    [HttpPut("approvePost/{id}")]
+  public async Task<IActionResult> ApprovePost(int id){
+        var post = await rep.GetPost(id);
+         if(post==null){
+            return BadRequest("Postarea nu exista");
+         }
+        post.Approved = 1;
+         context.Post.Update(post);
+        await context.SaveChangesAsync();
+         return Ok();
+        
+   }
+   
+   [HttpGet("getUnapprovedPosts/{cityId}")]
+public async Task<IActionResult> GetUnapprovedPosts(int cityId){
+    var posts = await rep.GetUnapprovedPosts(cityId);
+    if(posts==null)
+        return BadRequest("Nu exista postari");
+    return Ok(posts);
 
     }
-
 }
+}
+
+

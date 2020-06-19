@@ -78,10 +78,13 @@ export class PhotoAddComponent implements OnInit {
 
 
 
-  addPost(): void { // nu vrea sa insereze textu, dc?
+  addPost(): void { 
     this.model.type = this.buttonState;
     debugger;
     this.model.getThere = this.model.getThere;
+    if(this.authService.decodedToken.role === 'Admin'){
+      this.model.Approved = 1;
+    }
     this.postService.addPost(this.model, this.city.id, this.authService.decodedToken.nameid).subscribe(next => {
         this.alertify.success('postarea a fost adaugata');
         this.location.back();

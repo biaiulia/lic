@@ -57,7 +57,7 @@ export class AuthService {
 
   isAdmin(role: string): boolean{
 
-    if(this.decodedToken.role === role){
+    if(this.loggedIn() && this.decodedToken.role === role){
       return true;
     }
     return false;

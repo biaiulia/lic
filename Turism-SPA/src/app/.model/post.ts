@@ -7,6 +7,7 @@ import { City } from './city';
 export interface Post {
     id: number;
     postText: string;
+    approved: number;
     title: string;
     type?: string;
     getThere?: string;

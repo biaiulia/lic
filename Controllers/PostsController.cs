@@ -37,7 +37,8 @@ namespace turism.Controllers
         public async Task<IActionResult> GetPosts(int cityId)
         {
         //    var posts = await context.Post.Include(p => p.City).FirstOrDefaultAsync(m=>m.CityId==cityId);
-            var posts = await context.Post.Include(p => p.User).Where(m=>m.CityId==cityId).ToListAsync();
+             var posts = await rep.GetPosts(cityId);
+             //await context.Post.Include(p => p.User).Where(m=>m.CityId==cityId).ToListAsync();
 
          //var posts = await context.Post.ToListAsync();
         

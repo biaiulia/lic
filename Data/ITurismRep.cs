@@ -16,6 +16,7 @@ namespace turism.Data
            Task<City> GetCity(int id);
 
            Task<Post> GetPost(int id);
+           Task<IEnumerable<Post>> GetPosts(int cityId);
            Task<Photo> GetPhoto(int id);
 
            Task<PostLike> GetLike(int postId, int userId);
@@ -32,5 +33,6 @@ namespace turism.Data
             // Task<User> UserExists(int userId);
             Task<User> AddUserPoints(int userId, int points);
             Task<User> RemoveUserPoints(int userId, int points);
+            Task<IEnumerable<Post>> GetUnapprovedPosts(int cityId);
     }
 }

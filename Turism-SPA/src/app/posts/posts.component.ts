@@ -44,7 +44,6 @@ export class PostsComponent implements OnInit {
 
   pressButton(filter: string){
     this.buttonState = filter;
-
   }
   getUsers(){
     this.userService.getUsersByPoints().subscribe((users: User[])=>{

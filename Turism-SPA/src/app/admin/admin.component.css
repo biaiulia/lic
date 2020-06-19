@@ -6,3 +6,25 @@
     margin-top:100px!important;
     margin-bottom:30px;
 }
+
+.rounded-circle {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .text {
+    color: #151B54 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .fas {
+    height:50px;
+    width:50px;
+    display:inline-block;
+    text-align: center;
+    vertical-align: bottom;
+  }

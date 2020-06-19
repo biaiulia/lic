@@ -49,7 +49,7 @@ namespace turism.Controllers
                     cloudinary = new Cloudinary(acc);
                  
         }
-
+        [AllowAnonymous]
         [HttpGet] // cand cineva da in link /users o sa returnam list de utilizatori
         public async Task<IActionResult> GetUsers(){
             var users = await rep.GetUsers();
@@ -93,7 +93,7 @@ namespace turism.Controllers
 
          mapper.Map(userForUpdate, userFromRep); // mapam cele 2si le scrie din primu in al doilea
            context.Users.Update(userFromRep);
-           context.SaveChanges();
+           await context.SaveChangesAsync();
 
           var userForList = mapper.Map<UserForList>(userFromRep);
         return Ok(userForList);

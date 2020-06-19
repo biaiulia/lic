@@ -59,8 +59,13 @@ namespace turism.Data
   
            public async Task<IEnumerable<Post>> GetPosts(int cityId)
         {
-             var posts = await context.Post.Include(p => p.PostLikes).Include(p => p.City).Where(m=>m.CityId==cityId).ToListAsync();
+             var posts = await context.Post.Include(p => p.PostLikes).Include(p => p.City).Where(m=>m.CityId==cityId && m.Approved == 1).ToListAsync();
 
+            return posts;
+        }
+         public async Task<IEnumerable<Post>> GetUnapprovedPosts(int id)
+        {
+            var posts=  await context.Post.Include(p=>p.User).Where(p =>(p.CityId==id && p.Approved==0)).ToListAsync();
             return posts;
         }
         public async Task<User> AddUserPoints(int userId, int points){
