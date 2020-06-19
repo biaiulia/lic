@@ -1,8 +1,8 @@
-<div *ngIf="searchedCities" class="container mt-5 mb-3">
+<div class="container mt-5 mb-3">
   <div class="row">
     <div *ngFor="let city of searchedCities" class="col-lg-4 col-md-5 col-sm-6">
 
-      <div class="card mb-4 h-30" [routerLink]="['/', city.name.toLowerCase()]">
+      <div class="card mb-4 h-30" [routerLink]="['/city/', city.name.toLowerCase()]">
         <img class="card-img-top" [src]="city.url" [alt]="city.name">
         <div class="card-img-overlay">
           <a [routerLink]="['/', city.name.toLowerCase()]">
@@ -14,6 +14,6 @@
   </div>
 </div>
 
-<div *ngIf="!searchedCities" class="no-city">
-  <h1>Nu exista niciun oras cu acest nume, ne pare rau.</h1>
+<div *ngIf="!foundCity" class="no-city">
+  <h1>Nu exista niciun oras cu acest nume, mai incearca o data.</h1>
   </div>

@@ -59,6 +59,7 @@ export class CityDetailComponent implements OnInit {
   loadCity() {
     const cityName = this.route.snapshot.params['name'];
     this.cityService.getCity(cityName).subscribe((city: City) => { // ce plm face asta??????
+      debugger;
       this.city = city;
       this.postsService.getPosts(this.city.id).subscribe((posts: Post[]) => {
         this.posts = posts instanceof Array ? posts : [posts]; // ceeeee?

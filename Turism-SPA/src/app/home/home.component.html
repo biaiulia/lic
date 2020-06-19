@@ -2,14 +2,14 @@
   <div class="home-inner">
     <div class="center">
       <div *ngIf="!registerMode" style="text-align: center">
-        <h1>Gaseste orasul</h1>
+        <h1>Căutați următoarea destinație</h1>
 
         <form>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Cauta un oras" name="searc" [(ngModel)]="search"
+            <input type="text" class="form-control" placeholder="Introduceți numele orașului dorit" name="searc" [(ngModel)]="search"
               [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" [routerLink]="['/search/',search]">Caută</button>
+              <button class="btn btn-outline-secondary" type="submit" [routerLink]="['/search/',search]">Caută</button>
             </div>
           </div>
         </form>
@@ -29,7 +29,7 @@
   </div>
 </section>
 
-<section class="city-container d-flex ml-4">
+<section class="city-container d-flex">
   <app-cities></app-cities>
 
 </section>
@@ -47,7 +47,7 @@
     <div *ngIf="!loggedIn()" class="col-12 narrow text-center">
       <h1>Nu ești deja un membru?</h1>
       <p class="lead">Alătură-te comunității noastre pentru a afla mai multe despre comorile Transilvaniei!</p>
-      <button type="button" class="btn btn-outline-info">Înregistrează-te</button>
+      <button [routerLink]="['/register']" type="button" class="btn btn-outline-info">Înregistrează-te</button>
 
     </div>
 

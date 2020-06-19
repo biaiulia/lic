@@ -13,7 +13,7 @@
         [ngModelOptions]="{standalone: true}"> <br>
       <label for="postText">Povesteste mai multe despre experienta ta</label>
       <textarea class="form-control" required name="postText" [(ngModel)]="model.postText"
-        [ngModelOptions]="{standalone: true}"> </textarea><br>
+        [ngModelOptions]="{standalone: true}" minlength="50"> </textarea><br>
       <div *ngIf="this.buttonState==='natura'" class="nature">
         <label for="getThere">Cum poti ajunge acolo?</label>
         <textarea class="form-control" required name="getThere" [(ngModel)]="model.getThere"

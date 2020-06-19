@@ -63,18 +63,21 @@ export class AuthService {
     return false;
 
     }
+    changePassword(model:any){
+      return this.http.put(this.baseUrl + 'auth/ChangePassword', model);
+    }
 
-   roleCheck(allowRole): boolean {
-     let isAllowed = false;
-     const userRoles = this.decodedToken.role as Array < string > ; // ceee??? asa luam rolurile
-     allowRole.array.forEach(element => {
-       if (userRoles.includes(element)) {
-         isAllowed = true;
-         return isAllowed;
-       }
-     });
-     return isAllowed;
-   }
+    roleCheck(allowRole): boolean {
+      let isAllowed = false;
+      const userRoles = this.decodedToken.role as Array < string > ; // ceee??? asa luam rolurile
+      allowRole.array.forEach(element => {
+        if (userRoles.includes(element)) {
+          isAllowed = true;
+          return isAllowed;
+        }
+      });
+      return isAllowed;
+    }
   
 
 }

@@ -95,6 +95,8 @@ h5 {
 .btn {
   color: #8C001A;
   font-size: 50px;
+  margin-top: 50px;
+  margin-bottom:50px;
 }
 
 .btn:hover {
@@ -106,4 +108,14 @@ h5 {
 
 .jumbotron{
   margin-bottom: 0!important;
+
 }
+.replies{
+  width: 70%;
+  margin:auto;
+}
+
+.description{
+    width: 70%;
+    margin:auto;
+  }

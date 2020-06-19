@@ -19,10 +19,15 @@ import {PhotoAddComponent} from './posts/photo-add/photo-add.component';
 import { AdminComponent } from './admin/admin.component';
 import { SearchedCityComponent } from './searchedCity/searchedCity.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { RegisterComponent } from './register/register.component';
 
 export const appRoutes: Routes = [{
   path: 'home',
   component: HomeComponent
+},
+{
+  path: 'register',
+  component: RegisterComponent
 },
 {
   path: 'admin',
@@ -46,15 +51,15 @@ export const appRoutes: Routes = [{
     component: SearchedCityComponent
   },
   {
-    path: ':name',
+    path: 'city/:name',
     component: CityDetailComponent
   },{
-        path: ':name/addPost', // dc nu merge???
+        path: 'city/:name/addPost', // dc nu merge???
         component: PhotoAddComponent
     
   },
   {
-    path: ':name/:id',
+    path: 'city/:name/:id',
     component: PostDetailComponent
   },
   

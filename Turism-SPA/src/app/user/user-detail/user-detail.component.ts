@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailComponent implements OnInit {
   user: User;
+  userExists: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
@@ -21,6 +22,13 @@ export class UserDetailComponent implements OnInit {
    loadUser() : void {
     this.userService.getUserByName(this.route.snapshot.params['name']).subscribe((user: User) => {
       this.user = user;
+      debugger;
+      if(user){
+          this.userExists = true;
+      }
+      else{
+        this.userExists = false;
+      }
       console.log(this.user);
     });
   }

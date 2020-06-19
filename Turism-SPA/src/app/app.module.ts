@@ -8,7 +8,7 @@ import { NgxGalleryModule} from '@kolkov/ngx-gallery';
 //import { NgxGalleryModule } from 'ngx-gallery';
 import { AlertifyService } from './services/alertify.service';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 import { AppComponent } from './app.component';
@@ -63,6 +63,7 @@ export function tokenGetter(){
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      TabsModule.forRoot(),
       ReactiveFormsModule,
       BsDropdownModule.forRoot(),
       BrowserAnimationsModule,

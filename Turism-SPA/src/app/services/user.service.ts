@@ -45,6 +45,10 @@ updatePhoto(id: number, file: File){
   return this.http.put<User>(this.baseUrl + 'users/photo/' + id, formData);
 }
 
+deleteUser(userName: string){
+  return this.http.delete<User>(this.baseUrl+ 'admin/deleteUser/'+ userName);
+}
+
 
 
 }

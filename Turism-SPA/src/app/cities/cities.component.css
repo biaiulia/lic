@@ -24,3 +24,9 @@
 .container{
     width: 90%;
 }
+
+:host{
+    padding: 100px;
+    margin:auto;
+    width:100%;
+}

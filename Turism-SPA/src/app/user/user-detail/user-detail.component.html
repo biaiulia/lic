@@ -1,11 +1,11 @@
-<div class="container mt-mb-4">
+<div *ngIf="userExists" class="container mt-mb-5">
   <div class="row">
-    <h1>
-      Profilul utilizatorului {{user?.userName}}
+    <h1 class="mt-5">
+      Profilul utilizatorului {{user.userName}}
     </h1>
   </div>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 mt-5">
       <div class="card">
         <img [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
         <div class="card-body">
@@ -40,6 +40,7 @@
     </div>
   </div>
 
-  <!-- <div *ngIf="user" class="no-city">
-    <h1>Nu exista niciun oras cu acest nume, ne pare rau.</h1>
-    </div> -->
+
+    <div *ngIf="!userExists" class="no-user">
+      <h1>Nu exista niciun utilizator cu acest nume, mai incearca o data.</h1>
+      </div>

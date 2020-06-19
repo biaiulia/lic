@@ -14,12 +14,12 @@
 
 
 <div class="jumbotron">
-  <div class="col-12 text-center">
-    <h3 class="heading">Experiență utilizatorului {{post?.user?.userName}}</h3>
+  <div class class="col-12 text-center">
+    <h3 class="heading description">Experiență utilizatorului {{post?.user?.userName}}</h3>
     <hr><br>
     <h3>{{post?.title}}</h3>
     <h5>{{post?.postText}}</h5>
-  </div>
+
 
 
 
@@ -32,11 +32,15 @@
 
 
   <app-photo-view [photos]="post?.photos"></app-photo-view>
-  <button class="btn btn-link ml-5" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
+
+  <button class="btn btn-link" *ngIf="loggedIn()" (click)="likePost(post.id)"><i class="fa fa-heart"></i></button>
+
   <i *ngIf="!loggedIn()" class="fa fa-heart"></i>
   <span>{{likesNr}}</span>
-  <div class="col-md-10">
+  
+  <div class="replies">
     <app-replies *ngIf="post" [replies]="post.replies">
     </app-replies>
   </div>
+</div>
 </div>

@@ -8,10 +8,10 @@
   <div class="row">
     <div *ngFor="let city of cities" class="col-lg-4 col-md-5 col-sm-6">
 
-      <div class="card mb-4 h-30" [routerLink]="['/', city.name.toLowerCase()]">
+      <div class="card mb-4 h-30" [routerLink]="['/city/', city.name.toLowerCase()]">
         <img class="card-img-top" [src]="city.url" [alt]="city.name">
         <div class="card-img-overlay">
-         <a [routerLink]="['/', city.name.toLowerCase()]"><h4 class="align-text-bottom">{{city.name}}</h4></a>
+         <a [routerLink]="['/city/', city.name.toLowerCase()]"><h4 class="align-text-bottom">{{city.name}}</h4></a>
         </div>
       </div>
 

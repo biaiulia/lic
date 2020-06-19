@@ -8,8 +8,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './searchedCity.component.html',
   styleUrls: ['./searchedCity.component.css']
 })
+
 export class SearchedCityComponent implements OnInit {
   searchedCities: City[];
+  foundCity: boolean;
   constructor(private cityService: CityService, private route: ActivatedRoute) { }
 
   ngOnInit(){
@@ -18,10 +20,16 @@ export class SearchedCityComponent implements OnInit {
   }
 
   searchCities(){
+
     this.cityService.searchCities(this.route.snapshot.params['name']).subscribe((cities) => {
+      debugger;
       this.searchedCities = cities;
-      console.log(this.searchedCities);
-  });
+      if(this.searchedCities.length===0){
+        this.foundCity = false;
+
+        return false;}
+      return true;
+      });
 }
 }
 

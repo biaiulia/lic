@@ -20,6 +20,8 @@ import {
   NgForm
 } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { User } from '../.model/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -36,6 +38,7 @@ export class AdminComponent implements OnInit {
     description: null,
   };
   cities: City[];
+  users: User[];
   image: File;
   cityId: number;
   model: City = {
@@ -48,7 +51,7 @@ export class AdminComponent implements OnInit {
   citiesIndex: number;
 
   constructor(private alertify: AlertifyService, private postService: PostService, 
-    private cityService: CityService, private authService: AuthService) {}
+    private cityService: CityService, private authService: AuthService, private usersService: UserService) {}
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
     if (this.editCity.dirty) {
@@ -58,6 +61,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.getCities();
+    this.getUsers();
     this.editMode = false;
     this.addMode = false;
     this.cityModeIndex = 0;
@@ -82,6 +86,7 @@ export class AdminComponent implements OnInit {
     this.editMode = false;
 
   }
+ 
   // addCityMode(){
   //   this.cityModeIndex++;
   //   debugger;
@@ -151,6 +156,12 @@ export class AdminComponent implements OnInit {
       this.cities = cities;
     });
   }
+  getUsers(){
+    this.usersService.getUsers().subscribe((users: User[]) => {
+      debugger;
+      this.users = users;
+    });
+  }
 
   deleteCity(cityId: number, citiesIndex: number) {
     debugger;
@@ -161,6 +172,16 @@ export class AdminComponent implements OnInit {
       this.alertify.error('Nu s-a reusit stergerea');
     });
 
+    }
+    deleteUser(userName: string, userIndex: number){
+      debugger;
+      this.usersService.deleteUser(userName).subscribe(()=>{
+        debugger;
+        this.alertify.success('Ati sters utilizatorul');
+        this.cities.splice(userIndex,1);
+      }, error => {
+        this.alertify.error('Nu s-a reusit stergerea');
+      });
     }
 
     

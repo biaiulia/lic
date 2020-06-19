@@ -1,86 +1,238 @@
-<div class="container mt-4">
-  <div class="row">
-    <h1>
-      Profilul tau
-    </h1>
-    
+<div class="profile-edit">
+  <div class="container mt-5 mb-5">
+    <div class="row">
 
-  
-  <div class="row">
-    
-    <div class="col-sm-4">
-      <div class="card">
-        <img [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
-        <div class="card-body">
-          <div>
-            <strong>Prenume:</strong>
-            <p>{{user?.firstName}}</p>
-          </div>
-          <div>
-            <strong>Nume:</strong>
-            <p>{{user?.lastName}}</p>
-          </div>
-          <div>
-            <strong>Locatie:</strong>
-            <p>{{user?.country}}, {{user?.city}}</p>
-          </div>
-          <div>
-            <strong>Varsta:</strong>
-            <p>{{user?.age}}</p>
-          </div>
-          <div>
-            <strong>Joined:</strong>
-            <p>{{user?.joined | date: 'dd/MM/yyyy'}}</p>
-          </div>
-          <div>
-            <strong>Puncte:</strong>
-            <p>{{user?.points}}</p>
-          </div>
-        </div>
-      </div>
-    </div> 
-  
-       
-      <div class="col-sm-8">
+
+
+
+      <div class="col-md-4">
+        <h1 class="text-center">
+          Profilul tău
+        </h1><br>
         <div class="card">
-          <div class="col-sm-8">
-            <div *ngIf="editForm.dirty" class="alert alert-info">
-              <p><strong>Info: </strong>Ati facut o schimbare. Orice schimbare nesalvata va fi pierduta!</p>
+          <img *ngIf="user.url" [src]="user?.url" [alt]="user?.firstName" class="card-img-top img-thumbnail">
+          <i class="fas fa-user fa-4x mr-2" *ngIf="!user.url"></i>
+          <div class="card-body">
+            <div *ngIf="user.firstName">
+              <strong>Prenume:</strong>
+              <p>{{user?.firstName}}</p>
             </div>
-          <!--tabset class="member-tabset">-->
-          <div class="edit-profile">
-            <h1><strong>
-              Edit profile:
-            </strong></h1>
-            <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
-              <label for="photo">Poza de profil</label>
-              <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])">
-              <button class="btn btn-success btn-block">Salveaza Modificari</button>
-            </form>
-
-
-            <form #editForm="ngForm" (ngSubmit)="updateProfile()">
-
-          <br class="form-inline">
-            <label for="firstName">Prenume</label>
-              <input class="form-control" type="text" name="firstname" [(ngModel)]="model.firstName">
-              <label for="lastName">Nume</label>
-              <input class="form-control" type="text" name="lastmame" [(ngModel)]="model.lastName">
-              <label for="country">Tara</label>
-              <input class="form-control" type="text" name="country" [(ngModel)]="model.country">
-              <label for="city">Oras</label>
-              <input class="form-control" type="text" name="city" [(ngModel)]="model.city"><br>
-              <label for="birthDate">Data nasterii</label>
-              <input class="form-control" type="date" name="birthDate" [(ngModel)]="model.birthDate"><br>
-              <button [disabled]="!editForm.dirty" class="btn btn-success btn-block">Salveaza Modificari</button>
-            </form>
+            <div *ngIf="user.lastName">
+              <strong>Nume:</strong>
+              <p>{{user?.lastName}}</p>
             </div>
-          </div>
-          
+            <div *ngIf="user.country">
+              <strong>Locatie:</strong>
+              <p>{{user?.country}}, {{user?.city}}</p>
+            </div>
+            <div *ngIf="birthDateExists">
+              <strong>Varsta:</strong>
+              <p>{{user?.age}}</p>
+            </div>
+            <div>
+              <strong>Data inscrierii:</strong>
+              <p>{{user?.joined | date: 'dd/MM/yyyy'}}</p>
+            </div>
+            <div>
+              <strong>Puncte:</strong>
+              <p>{{user?.points}}</p>
+            </div>
           </div>
         </div>
       </div>
-     
-     
+
+      <div class="col-md-6">
+        <h1 class="text-center">
+          Modifica datele tale
+        </h1><br>
+        <div class="tab-panel">
+          <tabset>
+            <tab heading="Informații">
+              <div class="card">
+                <div class="container">
+                  <div class="col-sm-8">
+                    <div *ngIf="editForm.dirty" class="alert alert-info mt-2">
+                      <p><strong>Info: </strong>Ati facut o schimbare. Orice schimbare nesalvata va fi pierduta!</p>
+                    </div>
+                    <form #editForm="ngForm" (ngSubmit)="updateProfile()">
+
+                      <br class="form-inline">
+                      <label for="firstName">Prenume</label>
+                      <input class="form-control" type="text" name="firstname" [(ngModel)]="model.firstName">
+                      <label for="lastName">Nume</label>
+                      <input class="form-control" type="text" name="lastmame" [(ngModel)]="model.lastName">
+                      <label for="country">Tara</label>
+                      <input class="form-control" type="text" name="country" [(ngModel)]="model.country">
+                      <label for="city">Oras</label>
+                      <input class="form-control" type="text" name="city" [(ngModel)]="model.city">
+                      <label for="birthDate">Data nasterii</label>
+                      <input class="form-control" type="date" name="birthDate" [(ngModel)]="model.birthDate"><br>
+                      <button [disabled]="!editForm.dirty" class="btn btn-success btn-block mb-5">Salvează
+                        Modificările</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </tab>
+
+            <tab heading="Poza de profil">
+              
+              <div class="card">
+                <div class="col-sm-8 mt-4 mb-5">
+                <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
+                  <label for="photo">Alege o fotografie nouă</label>
+                  <input type="file" class="form-control mt-2 mb-3" (change)="onSelectFile($event.target.files[0])"><br>
+                  <button class="btn btn-success btn-block">Schimba poza de profil</button>
+                </form>
+              </div>
+              </div>
+
+            </tab>
+            <tab heading="Parola">
+              <div class="card">
+                <div class="col-sm-8 mt-4 mb-5">
+                <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()">
+                  <label for="password">Introduceți parola veche</label>
+                  <input class="form-control" type="password" name="password" [(ngModel)]="model.firstName">
+                      <label for="newPassword">Parola nouă</label>
+                      <input class="form-control" type="password" name="newPassword" [(ngModel)]="model.lastName">
+                      <label for="country">Confirmă parola</label>
+                      <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="model.country">
+                </form>
+              </div>
+              </div>
+
+            </tab>
+            <!-- <tab heading="Parola">
+              <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()">
+
+                <br class="form-inline">
+                <label for="firstName">Parola veche</label>
+                <input class="form-control" type="password" name="password" [(ngModel)]="pchange.password" minlength="6">
+                <label for="lastName">Parola noua</label>
+                <input class="form-control" type="password" name="newPassword" [(ngModel)]="pchange.newPassword">
+                <label for="lastName">Repetare parola noua</label>
+                <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="pchange.confirmPassword">
+                <button [disabled]="changePasswordForm.form.invalid" class="btn btn-success btn-block">Salveaza Modificari</button>
+              </form>
+            </tab> -->
+          </tabset>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-6">
+          <div class="card">
+            <div class="container">
+              <div class="col-sm-8">
+                <div *ngIf="editForm.dirty" class="alert alert-info">
+                  <p><strong>Info: </strong>Ati facut o schimbare. Orice schimbare nesalvata va fi pierduta!</p>
+                </div>
+                
+                <div class="edit-profile">
+                  <h1>
+                      Modifică sau adaugă informații:
+                    </h1>
+                  <form #editPhoto="ngForm" (ngSubmit)="updatePhoto()">
+                    <label for="photo">Poza de profil</label>
+                    <input type="file" class="form-control" (change)="onSelectFile($event.target.files[0])">
+                    <button class="btn btn-success btn-block">Schimba poza de profil</button>
+                  </form>
+
+
+                  <form #editForm="ngForm" (ngSubmit)="updateProfile()">
+
+                    <br class="form-inline">
+                    <label for="firstName">Prenume</label>
+                    <input class="form-control" type="text" name="firstname" [(ngModel)]="model.firstName">
+                    <label for="lastName">Nume</label>
+                    <input class="form-control" type="text" name="lastmame" [(ngModel)]="model.lastName">
+                    <label for="country">Tara</label>
+                    <input class="form-control" type="text" name="country" [(ngModel)]="model.country">
+                    <label for="city">Oras</label>
+                    <input class="form-control" type="text" name="city" [(ngModel)]="model.city"><br>
+                    <label for="birthDate">Data nasterii</label>
+                    <input class="form-control" type="date" name="birthDate" [(ngModel)]="model.birthDate"><br>
+                    <button [disabled]="!editForm.dirty" class="btn btn-success btn-block">Salvează Modificări</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+ 
+           <div class="password mt-5 mb-5">
+            <div class="col-md-4">
+              <h3>Modifica parola</h3>
+
+              <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()">
+
+                <br class="form-inline">
+                <label for="firstName">Parola veche</label>
+                <input class="form-control" type="password" name="password" [(ngModel)]="pchange.password" minlength="6">
+                <label for="lastName">Parola noua</label>
+                <input class="form-control" type="password" name="newPassword" [(ngModel)]="pchange.newPassword">
+                <label for="lastName">Repetare parola noua</label>
+                <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="pchange.confirmPassword">
+                <button [disabled]="changePasswordForm.form.invalid" class="btn btn-success btn-block">Salveaza Modificari</button>
+              </form>
+            </div>
+          </div>
+        </div>   -->
+
+
+    <!-- <div class="col-sm-6">
+
+
+        <form [formGroup]="passwordChangeForm" (submit)="changePassword()">
+          <h2 class="text-center text-primary">Schimba parola</h2>
+          <hr>
+      
+          <div class="form-group">
+            <input type="password"
+            [ngClass]="{'is-invalid': passwordChangeForm.get('password').errors && passwordChangeForm.get('password').touched}"
+            class="form-control" formControlName="password" placeholder="Parola veche">
+            <div class="invalid-feedback">Nu ati introdus parola veche</div>
+          </div>
+      
+          <div class="form-group">
+            <input type="password"
+            [ngClass]="{'is-invalid': passwordChangeForm.get('passwordChangeForm').errors && passwordChangeForm.get('newPassword').touched}"
+            class="form-control" formControlName="newPassword" placeholder="Parola noua">
+            <div class="invalid-feedback">Alegeti o parola mai lunga de 6 caractere</div>
+          </div>
+      
+          <div class="form-group">
+            <input
+              [ngClass]="{'is-invalid': passwordChangeForm.get('confirmPassword').errors
+                && passwordChangeForm.get('confirmPassword').touched
+                || passwordChangeForm.get('confirmPassword').touched
+                && passwordChangeForm.hasError('mismatch')}"
+              type="password"
+              class="form-control"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password">
+              <div class="invalid-feedback"
+              *ngIf="passwordChangeForm.get('confirmPassword').hasError('required')
+                && passwordChangeForm.get('confirmPassword').touched">
+                Confirm Password is required
+            </div>
+            <div class="invalid-feedback"
+            *ngIf="passwordChangeForm.hasError('mismatch')
+              && passwordChangeForm.get('confirmPassword').touched">
+              Passwords must match
+          </div>
+          </div>
+      
+          <div class="form-group text-center">
+            <button class="btn btn-outline-primary mr-3" type="submit">Schimba parola</button>
+           
+          </div>
+      </form>
+</div>  -->
+
+
+
   </div>
-  </div>
+
+</div>

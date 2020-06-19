@@ -27,9 +27,9 @@
   height: 50px;
   float: left;
 }
-.city-container{
-  width:90%;
-}
+ .city-container{
+  width:100%;
+} 
 
 .login-btn {
   width: 100px;

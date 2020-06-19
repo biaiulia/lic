@@ -27,13 +27,13 @@
         <ul class="media-list mt-5">
 
           <li class="media">
-            <a [routerLink]="['users/', reply?.user?.userName]" class="pull-left">
+            <a [routerLink]="['/user/', reply?.user?.userName]" class="pull-left">
               <img [src]="reply?.user?.url" [alt]="reply?.user?.userName" class="rounded-circle"
                 *ngIf="reply?.user?.url">
               <i class="fas fa-user fa-4x mr-2" *ngIf="!reply.user?.url"></i>
             </a>
             <div class="media-body">
-              <a [routerLink]="['users/', reply?.user?.userName]"><strong
+              <a [routerLink]="['/user/', reply?.user?.userName]"><strong
                   class="text-info">{{reply?.user?.userName}}</strong></a>
               <span class="text-muted float-right">
                 <button class="btn btn-primary float-right" *ngIf="loggedIn() && yourPost(reply.userId)"

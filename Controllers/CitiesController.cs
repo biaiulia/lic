@@ -45,7 +45,7 @@ namespace turism.Controllers
 
         public async Task<IActionResult> GetCityByName(string name){
 
-            var city = await context.City.Include(c=>c.Posts).FirstOrDefaultAsync( x => x.Name.ToLower() == name);
+            var city = await context.City.Include(c=>c.Posts).FirstOrDefaultAsync( x => x.Name.ToLower() == name.ToLower());
 
             return Ok(city);
         }
